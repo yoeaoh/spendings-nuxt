@@ -35,10 +35,6 @@ const checkName = () => {
     return true;
 };
 
-const categoriesFormSumInputClasses = computed(() => ({
-    'categories-form-item--has-error': !unref(isNameValid),
-}));
-
 const addCategory = () => {
     if (!checkName()) return;
 
@@ -55,8 +51,7 @@ const addCategory = () => {
 .categories-form {
     padding: 1rem;
     border-radius: 0.5rem;
-    background-color: #1c6338;
-    margin-bottom: 1rem;
+    background-color: #635e1c;
 
     &__title {
         font-family: 'Raleway';

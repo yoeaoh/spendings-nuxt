@@ -21,21 +21,5 @@ defineProps<{
     color: white;
     border-radius: 0.5rem;
     gap: 0.25rem;
-
-    &__category {
-        font-size: 1.25rem;
-    }
-
-    &__sum {
-        font-size: 3rem;
-    }
-
-    &__description {
-    }
-
-    &__date {
-        display: flex;
-        justify-content: flex-end;
-    }
 }
 </style>

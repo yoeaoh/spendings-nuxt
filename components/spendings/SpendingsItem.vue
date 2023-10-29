@@ -19,10 +19,10 @@
 </template>
 
 <script lang="ts" setup>
-import { ISpendingItem } from '~/interfaces/spending.interface';
+import { ISpending } from '~/interfaces/spending.interface';
 
 const props = defineProps<{
-    spending: ISpendingItem;
+    spending: ISpending;
 }>();
 </script>
 

@@ -1,7 +1,7 @@
-export interface ISpendingItem {
+export interface ISpending {
     id: string;
     sum: number;
-    date: Date;
+    date: string;
     category: string;
     description: string;
 }

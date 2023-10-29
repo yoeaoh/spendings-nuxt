@@ -9,7 +9,6 @@
                 <input
                     v-model="sum"
                     type="number"
-                    :class="spendingsFormSumInputClasses"
                     class="spendings-form-item__input"
                     placeholder="Сумма траты"
                 />
@@ -82,10 +81,6 @@ const checkSum = () => {
     return true;
 };
 
-const spendingsFormSumInputClasses = computed(() => ({
-    'spendings-spendings-form-item__input--has-error': !unref(isSumValid),
-}));
-
 const addSpending = () => {
     if (!checkSum()) return;
 
@@ -150,9 +145,5 @@ const addSpending = () => {
         background-color: rgba(255, 255, 255, 0.75);
         outline: 0;
     }
-}
-
-.spendings-spendings-form-item__input--has-error {
-    background-color: red;
 }
 </style>
