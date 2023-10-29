@@ -1,88 +1,158 @@
 <template>
-    <form @submit.prevent="addSpending" class="spendings__form spendings-form">
+    <form @submit.prevent="addSpending" class="spendings-form">
         <h3 class="spendings-form__title">Добавить трату:</h3>
 
-        <div class="spendings-form__item spendings-form-item">
-            <h4 class="spendings-form-item__title">Сумма:</h4>
+        <div class="spendings-form__fields">
+            <div class="spendings-form__item spendings-form-item">
+                <span class="spendings-form-item__title">Сумма</span>
 
-            <input
-                v-model="sum"
-                type="number"
-                class="spendings-form-item__input"
-            />
+                <input
+                    v-model="sum"
+                    type="number"
+                    :class="spendingsFormSumInputClasses"
+                    class="spendings-form-item__input"
+                    placeholder="Сумма траты"
+                />
+            </div>
+
+            <div class="spendings-form__item spendings-form-item">
+                <span class="spendings-form-item__title">Дата</span>
+
+                <input
+                    v-model="date"
+                    type="date"
+                    class="spendings-form-item__input"
+                />
+            </div>
+
+            <div class="spendings-form__item spendings-form-item">
+                <span class="spendings-form-item__title">Категория</span>
+
+                <select v-model="category" class="spendings-form-item__input">
+                    <option selected disabled>Выберите категорию:</option>
+                    <option
+                        v-for="category in categories"
+                        :key="category.id"
+                        :value="category.name"
+                    >
+                        {{ category.name }}
+                    </option>
+                </select>
+            </div>
+
+            <div class="spendings-form__item spendings-form-item">
+                <span class="spendings-form-item__title">Описание</span>
+
+                <input
+                    v-model="description"
+                    type="text"
+                    class="spendings-form-item__input"
+                    placeholder="Дополнительная информация"
+                />
+            </div>
         </div>
 
-        <div class="spendings-form__item spendings-form-item">
-            <h4 class="spendings-form-item__title">Дата:</h4>
-
-            <input
-                v-model="date"
-                type="date"
-                class="spendings-form-item__input"
-            />
-        </div>
-
-        <div class="spendings-form__item spendings-form-item">
-            <h4 class="spendings-form-item__title">Категория:</h4>
-
-            <input
-                v-model="category"
-                type="text"
-                class="spendings-form-item__input"
-            />
-        </div>
-
-        <div class="spendings-form__item spendings-form-item">
-            <h4 class="spendings-form-item__title">Описание:</h4>
-
-            <input
-                v-model="description"
-                type="text"
-                class="spendings-form-item__input"
-            />
-        </div>
-
-        <button>Добавить</button>
+        <button class="spendings-form__button" type="submit">Добавить</button>
     </form>
 </template>
 
 <script lang="ts" setup>
-const sum = ref(0);
-const date = ref(Date.now().toString());
-const category = ref('');
-const description = ref('');
-
+import { formatDate } from '~/helpers/date.helper';
+import { ICategory } from '~/interfaces/category.interface';
 const emit = defineEmits(['addSpending']);
 
+const props = defineProps<{
+    categories: ICategory[];
+}>();
+
+const sum: Ref<number> = ref(0);
+const date: Ref<string> = ref(formatDate());
+const category: Ref<string> = ref('');
+const description: Ref<string> = ref('');
+
+const isSumValid: Ref<Boolean> = ref(true);
+
+const checkSum = () => {
+    if (unref(sum) <= 0) {
+        isSumValid.value = false;
+        return false;
+    }
+
+    isSumValid.value = true;
+    return true;
+};
+
+const spendingsFormSumInputClasses = computed(() => ({
+    'spendings-spendings-form-item__input--has-error': !unref(isSumValid),
+}));
+
 const addSpending = () => {
+    if (!checkSum()) return;
+
     emit('addSpending', {
+        id: new Date().toString(),
         sum: unref(sum),
         date: unref(date),
         category: unref(category),
         description: unref(description),
     });
+
+    sum.value = 0;
+    description.value = '';
 };
 </script>
 
 <style lang="scss" scoped>
 .spendings-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 16px;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: #2d1c63;
+
+    &__title {
+        font-family: 'Raleway';
+        color: white;
+        font-size: 24px;
+        font-weight: 500;
+        margin-bottom: 1rem;
+    }
+
+    &__fields {
+        display: grid;
+        grid-template-columns: max-content auto;
+        row-gap: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    &__button {
+        padding: 0.5rem 1rem;
+        border: 1px solid black;
+        border-radius: 3px;
+        width: 100%;
+    }
 }
 
 .spendings-form-item {
-    display: flex;
+    display: contents;
 
     &__title {
-        width: 120px;
-        background-color: black;
+        background-color: rgba(0, 0, 0, 0.5);
         color: white;
+        padding: 0.5rem 0.5rem;
+        border-top-left-radius: 3px;
+        border-bottom-left-radius: 3px;
     }
 
     &__input {
-        width: 100%;
+        padding: 0 0.5rem;
+        border: 0;
+        border-top-right-radius: 3px;
+        border-bottom-right-radius: 3px;
+        background-color: rgba(255, 255, 255, 0.75);
+        outline: 0;
     }
+}
+
+.spendings-spendings-form-item__input--has-error {
+    background-color: red;
 }
 </style>

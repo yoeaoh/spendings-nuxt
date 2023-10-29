@@ -12,6 +12,7 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.22.15",
     "@nuxt/devtools": "latest",
+    "@nuxtjs/google-fonts": "^3.0.2",
     "eslint": "^8.52.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-loader": "^4.0.2",

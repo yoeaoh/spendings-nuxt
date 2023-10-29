@@ -1,52 +1,95 @@
 <template>
     <div class="container">
         <div class="spendings">
-            <SpendingsForm @addSpending="addSpending" />
+            <SpendingsForm
+                @addSpending="addSpending"
+                :categories="categories"
+            />
 
-            <div v-for="(item, index) in spendings" :key="index">
-                {{ item.sum }}
+            <div class="spendings__list">
+                <SpendingsItem
+                    v-for="spending in spendings"
+                    :key="spending.id"
+                    :spending="spending"
+                />
             </div>
         </div>
 
-        <div class="sum">sum</div>
+        <div class="divider"></div>
+
+        <div class="categories">
+            <CategoriesForm @addCategory="addCategory" />
+
+            <div class="categories__list">
+                <CategoriesItem
+                    v-for="category in categories"
+                    :key="category.id"
+                    :category="category"
+                />
+            </div>
+        </div>
     </div>
 </template>
 
 <script lang="ts" setup>
-import SpendingsForm from './components/spendings/SpendingsForm.vue';
+import SpendingsForm from '~/components/spendings/SpendingsForm.vue';
+import SpendingsItem from '~/components/spendings/SpendingsItem.vue';
+import CategoriesForm from '~/components/categories/CategoriesForm.vue';
+import CategoriesItem from '~/components/categories/CategoriesItem.vue';
 
-interface ISpending {
-    sum: number;
-    date: Date;
-    category: string;
-    description: string;
-}
+import { ISpendingItem } from '~/interfaces/spending.interface';
+import { ICategory } from '~/interfaces/category.interface';
 
-const spendings: any = reactive([]);
+const spendings: ISpendingItem[] = reactive([]);
+const categories: ICategory[] = reactive([]);
 
-const addSpending = (spending: any) => {
+const addSpending = (spending: ISpendingItem) => {
     spendings.push(spending);
-    console.log(unref(spendings));
+};
+
+const addCategory = (category: ICategory) => {
+    categories.push(category);
 };
 </script>
 
 <style lang="scss" scoped>
 .container {
-    background-color: red;
     width: 800px;
     margin: 0 auto;
     min-height: 100vh;
     display: flex;
-    gap: 16px;
+}
+
+.divider {
+    flex: none;
+    width: 2px;
+    background-color: rgba(255, 255, 255, 0.05);
+    margin-top: 1rem;
+    margin-bottom: 1rem;
 }
 
 .spendings {
-    background-color: yellow;
+    padding: 1rem;
     flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
 }
 
-.total {
-    background-color: blue;
+.categories {
     flex-basis: 50%;
+    padding: 1rem;
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
 }
 </style>
