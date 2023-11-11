@@ -4,6 +4,17 @@
 
         <div class="incomes-form__fields">
             <div class="incomes-form__item incomes-form-item">
+                <span class="incomes-form-item__title">Название</span>
+
+                <input
+                    v-model="name"
+                    type="text"
+                    class="incomes-form-item__input"
+                    placeholder="Название"
+                />
+            </div>
+
+            <div class="incomes-form__item incomes-form-item">
                 <span class="incomes-form-item__title">Сумма</span>
 
                 <input
@@ -33,18 +44,19 @@
 import { formatDate } from '~/helpers/date.helper';
 const emit = defineEmits(['addIncome']);
 
+const name: Ref<string> = ref('');
 const sum: Ref<number> = ref(0);
 const date: Ref<string> = ref(formatDate());
 
 const addIncome = () => {
     emit('addIncome', {
-        id: new Date().toString(),
-        sum: unref(sum),
-        date: unref(date),
+        id: Date.now().toString(),
+        sum: sum.value,
+        date: date.value,
     });
 
+    name.value = '';
     sum.value = 0;
-    date.value = '';
 };
 </script>
 

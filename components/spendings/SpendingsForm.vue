@@ -9,6 +9,7 @@
                 <input
                     v-model="sum"
                     type="number"
+                    step=".01"
                     class="spendings-form-item__input"
                     placeholder="Сумма траты"
                 />
@@ -72,7 +73,7 @@ const description: Ref<string> = ref('');
 const isSumValid: Ref<Boolean> = ref(true);
 
 const checkSum = () => {
-    if (unref(sum) <= 0) {
+    if (sum.value <= 0) {
         isSumValid.value = false;
         return false;
     }
@@ -85,11 +86,11 @@ const addSpending = () => {
     if (!checkSum()) return;
 
     emit('addSpending', {
-        id: new Date().toString(),
-        sum: unref(sum),
-        date: unref(date),
-        category: unref(category),
-        description: unref(description),
+        id: Date.now().toString(),
+        sum: sum.value,
+        date: date.value,
+        category: category.value,
+        description: description.value,
     });
 
     sum.value = 0;

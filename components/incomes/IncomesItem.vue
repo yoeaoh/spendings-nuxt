@@ -1,7 +1,11 @@
 <template>
     <div class="incomes-item">
         <div class="incomes-item__sum">
-            {{ income.sum }}
+            {{ income.sum }}<span class="incomes-item__currency">руб</span>
+        </div>
+
+        <div class="incomes-item__name">
+            {{ income.name }}
         </div>
 
         <div class="incomes-item__date">
@@ -11,10 +15,10 @@
 </template>
 
 <script lang="ts" setup>
-import { ISpendingItem } from '~/interfaces/spending.interface';
+import { IIncome } from '~/interfaces/income.interface';
 
 defineProps<{
-    income: IIncomeItem;
+    income: IIncome;
 }>();
 </script>
 
@@ -30,6 +34,14 @@ defineProps<{
 
     &__sum {
         font-size: 3rem;
+    }
+
+    &__currency {
+        font-size: 1rem;
+    }
+
+    &__name {
+        font-size: 1.5rem;
     }
 
     &__date {

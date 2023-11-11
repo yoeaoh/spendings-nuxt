@@ -26,7 +26,7 @@ const name: Ref<string> = ref('');
 const isNameValid: Ref<Boolean> = ref(true);
 
 const checkName = () => {
-    if (unref(name).length <= 1) {
+    if (name.value.length <= 1) {
         isNameValid.value = false;
         return false;
     }
@@ -39,8 +39,8 @@ const addCategory = () => {
     if (!checkName()) return;
 
     emit('addCategory', {
-        id: new Date().toString(),
-        name: unref(name),
+        id: Date.now().toString(),
+        name: name.value,
     });
 
     name.value = '';

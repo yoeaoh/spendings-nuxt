@@ -5,7 +5,7 @@
         </div>
 
         <div class="spendings-item__sum">
-            {{ spending.sum }}
+            {{ spending.sum }}<span class="spendings-item__currency">руб</span>
         </div>
 
         <div v-if="spending.description" class="spendings-item__description">
@@ -44,7 +44,8 @@ const props = defineProps<{
         font-size: 3rem;
     }
 
-    &__description {
+    &__currency {
+        font-size: 1rem;
     }
 
     &__date {

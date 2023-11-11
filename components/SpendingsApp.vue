@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="spendings">
-            <SpendingsForm
+            <SpendingsFormV2
                 @addSpending="addSpending"
                 :categories="categories"
             />
@@ -12,15 +12,15 @@
                     :key="spending.id"
                     :spending="spending"
                 />
-
-                {{ spendings }}
             </div>
+
+            <div class="spendings__total">Всего: {{ totalSpendings }}</div>
         </div>
 
         <div class="divider"></div>
 
         <div class="categories">
-            <CategoriesForm @addCategory="addCategory" />
+            <CategoriesFormV2 @addCategory="addCategory" />
 
             <div class="categories__list">
                 <CategoriesItem
@@ -28,35 +28,28 @@
                     :key="category.id"
                     :category="category"
                 />
-
-                {{ categories }}
             </div>
         </div>
 
         <div class="divider"></div>
 
         <div class="incomes">
-            <IncomesForm @addIncome="addIncome" />
+            <IncomesFormV2 @addIncome="addIncome" />
 
-            <div class="categories__list">
+            <div class="incomes__list">
                 <IncomesItem
                     v-for="income in incomes"
                     :key="income.id"
                     :income="income"
                 />
-
-                {{ incomes }}
             </div>
+
+            <div class="incomes__total">Всего: {{ totalIncome }}</div>
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
-import SpendingsForm from '~/components/spendings/SpendingsForm.vue';
-import SpendingsItem from '~/components/spendings/SpendingsItem.vue';
-import CategoriesForm from '~/components/categories/CategoriesForm.vue';
-import CategoriesItem from '~/components/categories/CategoriesItem.vue';
-
 import { ISpending } from '~/interfaces/spending.interface';
 import { ICategory } from '~/interfaces/category.interface';
 import { IIncome } from '~/interfaces/income.interface';
@@ -76,6 +69,14 @@ const addCategory = (category: ICategory) => {
 const addIncome = (income: IIncome) => {
     incomes.push(income);
 };
+
+const totalIncome = computed(() =>
+    incomes.reduce((sum, currentIncome) => currentIncome.sum + sum, 0),
+);
+
+const totalSpendings = computed(() =>
+    spendings.reduce((sum, currentSpending) => currentSpending.sum + sum, 0),
+);
 </script>
 
 <style lang="scss" scoped>
@@ -96,15 +97,45 @@ const addIncome = (income: IIncome) => {
 
 .spendings {
     display: flex;
+    position: relative;
     flex-direction: column;
     gap: 1rem;
-
+    max-height: 100vh;
     padding: 1rem;
 
+    overflow-y: auto;
+
     &__list {
+        flex-grow: 1;
+
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
+    }
+
+    &__total {
+        background-color: #2d1c63;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        font-size: 1.5rem;
+        position: sticky;
+        bottom: 0;
+        left: 1rem;
+        right: 1rem;
+        box-shadow: 0 2rem 0 #0f0a20;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #2d1c63;
+        border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar {
+        width: 5px;
     }
 }
 
@@ -112,27 +143,72 @@ const addIncome = (income: IIncome) => {
     display: flex;
     flex-direction: column;
     gap: 1rem;
-
+    max-height: 100vh;
     padding: 1rem;
+
+    overflow-y: auto;
 
     &__list {
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
     }
+
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #635e1c;
+        border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar {
+        width: 5px;
+    }
 }
 
 .incomes {
     display: flex;
+    position: relative;
     flex-direction: column;
     gap: 1rem;
-
+    max-height: 100vh;
     padding: 1rem;
 
+    overflow-y: auto;
+
     &__list {
+        flex-grow: 1;
+
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
+    }
+
+    &__total {
+        background-color: #28631c;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        font-size: 1.25rem;
+        position: sticky;
+        bottom: 0;
+        left: 1rem;
+        right: 1rem;
+        box-shadow: 0 2rem 0 #0f0a20;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #28631c;
+        border-radius: 3px;
+    }
+
+    &::-webkit-scrollbar {
+        width: 5px;
     }
 }
 </style>
