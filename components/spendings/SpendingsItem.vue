@@ -21,7 +21,7 @@
 <script lang="ts" setup>
 import { ISpending } from '~/interfaces/spending.interface';
 
-const props = defineProps<{
+defineProps<{
     spending: ISpending;
 }>();
 </script>

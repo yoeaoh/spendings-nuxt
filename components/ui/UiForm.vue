@@ -1,5 +1,5 @@
 <template>
-    <form @submit.prevent="submitAction" class="ui-form">
+    <form @submit.prevent="action" class="ui-form">
         <h3 class="ui-form__title">{{ title }}</h3>
 
         <div class="ui-form__fields">
@@ -11,12 +11,10 @@
 </template>
 
 <script lang="ts" setup>
-const props = defineProps<{
+defineProps<{
     action: () => void;
     title: string;
 }>();
-
-const submitAction = props.action;
 </script>
 
 <style lang="scss" scoped>
