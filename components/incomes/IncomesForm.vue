@@ -6,20 +6,48 @@ const name: Ref<string> = ref('');
 const sum: Ref<number | null> = ref(null);
 const date: Ref<string> = ref(formatDate());
 
-const isSumValid: Ref<Boolean> = ref(true);
+const errors: { name: string; sum: string; date: string } = reactive({
+    name: '',
+    sum: '',
+    date: '',
+});
 
-const checkSum = () => {
-    if (sum.value === null || sum.value <= 0) {
-        isSumValid.value = false;
+const checkName = () => {
+    if (name.value.length <= 1) {
+        errors.name = 'Слишком короткое имя';
         return false;
     }
 
-    isSumValid.value = true;
+    errors.name = '';
+    return true;
+};
+
+const checkSum = () => {
+    if (sum.value === null || sum.value <= 0) {
+        errors.sum = 'Введите сумму';
+        return false;
+    }
+
+    errors.sum = '';
+    return true;
+};
+
+const checkDate = () => {
+    if (!date.value) {
+        errors.date = 'Введите Дату';
+        return false;
+    }
+
+    errors.date = '';
     return true;
 };
 
 const addIncome = () => {
-    if (!checkSum()) return;
+    const isNameValid = checkName();
+    const isSumValid = checkSum();
+    const isDateValid = checkDate();
+
+    if (!isNameValid || !isSumValid || !isDateValid) return;
 
     emit('addIncome', {
         id: Date.now().toString(),
@@ -34,15 +62,15 @@ const addIncome = () => {
 
 <template>
     <UiForm :action="addIncome" title="Добавить приход:">
-        <UiFormItem title="Название">
+        <UiFormItem title="Название" :error="errors.name">
             <input v-model="name" type="text" placeholder="Название" />
         </UiFormItem>
 
-        <UiFormItem title="Сумма">
+        <UiFormItem title="Сумма" :error="errors.sum">
             <input v-model="sum" type="number" placeholder="Сумма прихода" />
         </UiFormItem>
 
-        <UiFormItem title="Дата">
+        <UiFormItem title="Дата" :error="errors.date">
             <input v-model="date" type="date" />
         </UiFormItem>
     </UiForm>

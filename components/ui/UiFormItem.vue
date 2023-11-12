@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 defineProps<{
     title: string;
+    error?: string;
 }>();
 </script>
 
@@ -12,6 +13,10 @@ defineProps<{
 
         <div class="ui-form-item__input">
             <slot></slot>
+        </div>
+
+        <div v-if="error" class="ui-form-item__error">
+            {{ error }}
         </div>
     </div>
 </template>
@@ -41,6 +46,12 @@ defineProps<{
             background-color: rgba(255, 255, 255, 0.75);
             outline: 0;
         }
+    }
+
+    &__error {
+        grid-column: 2 / 3;
+        font-size: 0.75rem;
+        color: rgb(255, 112, 112);
     }
 }
 </style>

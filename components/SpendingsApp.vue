@@ -5,7 +5,7 @@ import { IIncome } from '~/interfaces/income.interface';
 
 const spendings: ISpending[] = reactive([]);
 const categories: ICategory[] = reactive([
-    { id: 'qWe123$', name: 'Без категории' },
+    { id: 'qWe123$', name: 'Без категории', sum: 0 },
 ]);
 const incomes: IIncome[] = reactive([]);
 
@@ -15,6 +15,8 @@ const addSpending = (spendingDto: ISpendingDto) => {
     );
 
     if (!category) return;
+
+    category.sum = category.sum + spendingDto.sum;
 
     spendings.push({
         id: spendingDto.id,
@@ -64,7 +66,10 @@ const totalSpendings = computed(() =>
         <div class="divider"></div>
 
         <div class="column categories">
-            <CategoriesForm @addCategory="addCategory" />
+            <CategoriesForm
+                @addCategory="addCategory"
+                :categories="categories"
+            />
 
             <div class="column__list">
                 <CategoriesItem

@@ -1,25 +1,39 @@
 <script lang="ts" setup>
+import { ICategory } from '~/interfaces/category.interface';
+
 const emit = defineEmits(['addCategory']);
 
-const name: Ref<string> = ref('');
-const isNameValid: Ref<Boolean> = ref(true);
+const props = defineProps<{
+    categories: ICategory[];
+}>();
+
+const name = ref<string>('');
+const errors: { name: string } = reactive({ name: '' });
 
 const checkName = () => {
     if (name.value.length <= 1) {
-        isNameValid.value = false;
+        errors.name = 'Слишком короткое имя';
         return false;
     }
 
-    isNameValid.value = true;
+    if (props.categories.find((c: ICategory) => c.name === name.value)) {
+        errors.name = 'Такое имя уже используется';
+        return false;
+    }
+
+    errors.name = '';
     return true;
 };
 
 const addCategory = () => {
-    if (!checkName()) return;
+    const isNameValid = checkName();
+
+    if (!isNameValid) return;
 
     emit('addCategory', {
         id: Date.now().toString(),
         name: name.value,
+        sum: 0,
     });
 
     name.value = '';
@@ -28,7 +42,7 @@ const addCategory = () => {
 
 <template>
     <UiForm :action="addCategory" title="Добавить категорию:">
-        <UiFormItem title="Название">
+        <UiFormItem title="Название" :error="errors.name">
             <input
                 v-model="name"
                 placeholder="Название категории"

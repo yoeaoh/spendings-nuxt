@@ -13,20 +13,36 @@ const date: Ref<string> = ref(formatDate());
 const categoryId: Ref<string> = ref(props.categories[0].id);
 const description: Ref<string> = ref('');
 
-const isSumValid: Ref<Boolean> = ref(true);
+const errors: { sum: string; date: string } = reactive({
+    sum: '',
+    date: '',
+});
 
 const checkSum = () => {
     if (sum.value === null || sum.value <= 0) {
-        isSumValid.value = false;
+        errors.sum = 'Введите сумму';
         return false;
     }
 
-    isSumValid.value = true;
+    errors.sum = '';
+    return true;
+};
+
+const checkDate = () => {
+    if (!date.value) {
+        errors.date = 'Введите дату';
+        return false;
+    }
+
+    errors.date = '';
     return true;
 };
 
 const addSpending = () => {
-    if (!checkSum()) return;
+    const isSumValid = checkSum();
+    const isDateValid = checkDate();
+
+    if (!isSumValid || !isDateValid) return;
 
     emit('addSpending', {
         id: Date.now().toString(),
@@ -43,7 +59,7 @@ const addSpending = () => {
 
 <template>
     <UiForm :action="addSpending" title="Добавить трату:">
-        <UiFormItem title="Сумма">
+        <UiFormItem title="Сумма" :error="errors.sum">
             <input
                 v-model="sum"
                 type="number"
@@ -52,7 +68,7 @@ const addSpending = () => {
             />
         </UiFormItem>
 
-        <UiFormItem title="Дата">
+        <UiFormItem title="Дата" :error="errors.date">
             <input v-model="date" type="date" />
         </UiFormItem>
 
