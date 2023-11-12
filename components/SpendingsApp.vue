@@ -1,3 +1,33 @@
+<script lang="ts" setup>
+import { ISpending } from '~/interfaces/spending.interface';
+import { ICategory } from '~/interfaces/category.interface';
+import { IIncome } from '~/interfaces/income.interface';
+
+const spendings: ISpending[] = reactive([]);
+const categories: ICategory[] = reactive([]);
+const incomes: IIncome[] = reactive([]);
+
+const addSpending = (spending: ISpending) => {
+    spendings.push(spending);
+};
+
+const addCategory = (category: ICategory) => {
+    categories.push(category);
+};
+
+const addIncome = (income: IIncome) => {
+    incomes.push(income);
+};
+
+const totalIncome = computed(() =>
+    incomes.reduce((sum, currentIncome) => currentIncome.sum + sum, 0),
+);
+
+const totalSpendings = computed(() =>
+    spendings.reduce((sum, currentSpending) => currentSpending.sum + sum, 0),
+);
+</script>
+
 <template>
     <div class="layout">
         <div class="column spendings">
@@ -48,36 +78,6 @@
         </div>
     </div>
 </template>
-
-<script lang="ts" setup>
-import { ISpending } from '~/interfaces/spending.interface';
-import { ICategory } from '~/interfaces/category.interface';
-import { IIncome } from '~/interfaces/income.interface';
-
-const spendings: ISpending[] = reactive([]);
-const categories: ICategory[] = reactive([]);
-const incomes: IIncome[] = reactive([]);
-
-const addSpending = (spending: ISpending) => {
-    spendings.push(spending);
-};
-
-const addCategory = (category: ICategory) => {
-    categories.push(category);
-};
-
-const addIncome = (income: IIncome) => {
-    incomes.push(income);
-};
-
-const totalIncome = computed(() =>
-    incomes.reduce((sum, currentIncome) => currentIncome.sum + sum, 0),
-);
-
-const totalSpendings = computed(() =>
-    spendings.reduce((sum, currentSpending) => currentSpending.sum + sum, 0),
-);
-</script>
 
 <style lang="scss" scoped>
 .layout {

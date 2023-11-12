@@ -1,3 +1,11 @@
+<script lang="ts" setup>
+import { IIncome } from '~/interfaces/income.interface';
+
+defineProps<{
+    income: IIncome;
+}>();
+</script>
+
 <template>
     <div class="incomes-item">
         <div class="incomes-item__sum">
@@ -13,14 +21,6 @@
         </div>
     </div>
 </template>
-
-<script lang="ts" setup>
-import { IIncome } from '~/interfaces/income.interface';
-
-defineProps<{
-    income: IIncome;
-}>();
-</script>
 
 <style lang="scss" scoped>
 .incomes-item {

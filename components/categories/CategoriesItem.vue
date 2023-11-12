@@ -1,9 +1,3 @@
-<template>
-    <div class="categories-item">
-        {{ category.name }}
-    </div>
-</template>
-
 <script lang="ts" setup>
 import { ICategory } from '~/interfaces/category.interface';
 
@@ -11,6 +5,12 @@ defineProps<{
     category: ICategory;
 }>();
 </script>
+
+<template>
+    <div class="categories-item">
+        {{ category.name }}
+    </div>
+</template>
 
 <style lang="scss" scoped>
 .categories-item {

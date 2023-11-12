@@ -1,41 +1,3 @@
-<template>
-    <UiForm :action="addSpending" title="Добавить трату:">
-        <UiFormItem title="Сумма">
-            <input
-                v-model="sum"
-                type="number"
-                step=".01"
-                placeholder="Сумма траты"
-            />
-        </UiFormItem>
-
-        <UiFormItem title="Дата">
-            <input v-model="date" type="date" />
-        </UiFormItem>
-
-        <UiFormItem title="Категория">
-            <select v-model="category">
-                <option selected disabled>Выберите категорию:</option>
-                <option
-                    v-for="category in categories"
-                    :key="category.id"
-                    :value="category.name"
-                >
-                    {{ category.name }}
-                </option>
-            </select>
-        </UiFormItem>
-
-        <UiFormItem title="Описание">
-            <input
-                v-model="description"
-                type="text"
-                placeholder="Дополнительная информация"
-            />
-        </UiFormItem>
-    </UiForm>
-</template>
-
 <script lang="ts" setup>
 import { formatDate } from '~/helpers/date.helper';
 import { ICategory } from '~/interfaces/category.interface';
@@ -78,3 +40,41 @@ const addSpending = () => {
     description.value = '';
 };
 </script>
+
+<template>
+    <UiForm :action="addSpending" title="Добавить трату:">
+        <UiFormItem title="Сумма">
+            <input
+                v-model="sum"
+                type="number"
+                step=".01"
+                placeholder="Сумма траты"
+            />
+        </UiFormItem>
+
+        <UiFormItem title="Дата">
+            <input v-model="date" type="date" />
+        </UiFormItem>
+
+        <UiFormItem title="Категория">
+            <select v-model="category">
+                <option selected disabled>Выберите категорию:</option>
+                <option
+                    v-for="category in categories"
+                    :key="category.id"
+                    :value="category.name"
+                >
+                    {{ category.name }}
+                </option>
+            </select>
+        </UiFormItem>
+
+        <UiFormItem title="Описание">
+            <input
+                v-model="description"
+                type="text"
+                placeholder="Дополнительная информация"
+            />
+        </UiFormItem>
+    </UiForm>
+</template>

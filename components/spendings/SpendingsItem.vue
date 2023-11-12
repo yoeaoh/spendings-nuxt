@@ -1,3 +1,11 @@
+<script lang="ts" setup>
+import { ISpending } from '~/interfaces/spending.interface';
+
+defineProps<{
+    spending: ISpending;
+}>();
+</script>
+
 <template>
     <div class="spendings-item">
         <div class="spendings-item__category">
@@ -17,14 +25,6 @@
         </div>
     </div>
 </template>
-
-<script lang="ts" setup>
-import { ISpending } from '~/interfaces/spending.interface';
-
-defineProps<{
-    spending: ISpending;
-}>();
-</script>
 
 <style lang="scss" scoped>
 .spendings-item {

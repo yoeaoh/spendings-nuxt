@@ -1,15 +1,3 @@
-<template>
-    <UiForm :action="addCategory" title="Добавить категорию:">
-        <UiFormItem title="Название">
-            <input
-                v-model="name"
-                placeholder="Название категории"
-                type="text"
-            />
-        </UiFormItem>
-    </UiForm>
-</template>
-
 <script lang="ts" setup>
 const emit = defineEmits(['addCategory']);
 
@@ -37,3 +25,15 @@ const addCategory = () => {
     name.value = '';
 };
 </script>
+
+<template>
+    <UiForm :action="addCategory" title="Добавить категорию:">
+        <UiFormItem title="Название">
+            <input
+                v-model="name"
+                placeholder="Название категории"
+                type="text"
+            />
+        </UiFormItem>
+    </UiForm>
+</template>

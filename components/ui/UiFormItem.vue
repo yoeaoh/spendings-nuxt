@@ -1,3 +1,9 @@
+<script lang="ts" setup>
+defineProps<{
+    title: string;
+}>();
+</script>
+
 <template>
     <div class="ui-form-item">
         <span class="ui-form-item__title">
@@ -9,12 +15,6 @@
         </div>
     </div>
 </template>
-
-<script lang="ts" setup>
-defineProps<{
-    title: string;
-}>();
-</script>
 
 <style lang="scss" scoped>
 .ui-form-item {

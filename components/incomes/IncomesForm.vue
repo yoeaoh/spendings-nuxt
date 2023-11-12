@@ -1,19 +1,3 @@
-<template>
-    <UiForm :action="addIncome" title="Добавить приход:">
-        <UiFormItem title="Название">
-            <input v-model="name" type="text" placeholder="Название" />
-        </UiFormItem>
-
-        <UiFormItem title="Сумма">
-            <input v-model="sum" type="number" placeholder="Сумма прихода" />
-        </UiFormItem>
-
-        <UiFormItem title="Дата">
-            <input v-model="date" type="date" />
-        </UiFormItem>
-    </UiForm>
-</template>
-
 <script lang="ts" setup>
 import { formatDate } from '~/helpers/date.helper';
 const emit = defineEmits(['addIncome']);
@@ -47,3 +31,19 @@ const addIncome = () => {
     sum.value = null;
 };
 </script>
+
+<template>
+    <UiForm :action="addIncome" title="Добавить приход:">
+        <UiFormItem title="Название">
+            <input v-model="name" type="text" placeholder="Название" />
+        </UiFormItem>
+
+        <UiFormItem title="Сумма">
+            <input v-model="sum" type="number" placeholder="Сумма прихода" />
+        </UiFormItem>
+
+        <UiFormItem title="Дата">
+            <input v-model="date" type="date" />
+        </UiFormItem>
+    </UiForm>
+</template>

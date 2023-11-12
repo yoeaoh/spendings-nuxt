@@ -1,3 +1,10 @@
+<script lang="ts" setup>
+defineProps<{
+    action: () => void;
+    title: string;
+}>();
+</script>
+
 <template>
     <form @submit.prevent="action" class="ui-form">
         <h3 class="ui-form__title">{{ title }}</h3>
@@ -9,13 +16,6 @@
         <button class="ui-form__button" type="submit">Добавить</button>
     </form>
 </template>
-
-<script lang="ts" setup>
-defineProps<{
-    action: () => void;
-    title: string;
-}>();
-</script>
 
 <style lang="scss" scoped>
 .ui-form {
