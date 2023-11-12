@@ -9,7 +9,7 @@ defineProps<{
 <template>
     <div class="spendings-item">
         <div class="spendings-item__category">
-            {{ spending.category }}
+            {{ spending.category.name }}
         </div>
 
         <div class="spendings-item__sum">

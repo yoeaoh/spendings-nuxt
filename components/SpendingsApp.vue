@@ -1,14 +1,28 @@
 <script lang="ts" setup>
-import { ISpending } from '~/interfaces/spending.interface';
+import { ISpending, ISpendingDto } from '~/interfaces/spending.interface';
 import { ICategory } from '~/interfaces/category.interface';
 import { IIncome } from '~/interfaces/income.interface';
 
 const spendings: ISpending[] = reactive([]);
-const categories: ICategory[] = reactive([]);
+const categories: ICategory[] = reactive([
+    { id: 'qWe123$', name: 'Без категории' },
+]);
 const incomes: IIncome[] = reactive([]);
 
-const addSpending = (spending: ISpending) => {
-    spendings.push(spending);
+const addSpending = (spendingDto: ISpendingDto) => {
+    const category = categories.find(
+        (c: ICategory) => c.id === spendingDto.categoryId,
+    );
+
+    if (!category) return;
+
+    spendings.push({
+        id: spendingDto.id,
+        sum: spendingDto.sum,
+        date: spendingDto.date,
+        category: category,
+        description: spendingDto.description,
+    });
 };
 
 const addCategory = (category: ICategory) => {
@@ -31,7 +45,7 @@ const totalSpendings = computed(() =>
 <template>
     <div class="layout">
         <div class="column spendings">
-            <SpendingsFormV2
+            <SpendingsForm
                 @addSpending="addSpending"
                 :categories="categories"
             />
@@ -50,7 +64,7 @@ const totalSpendings = computed(() =>
         <div class="divider"></div>
 
         <div class="column categories">
-            <CategoriesFormV2 @addCategory="addCategory" />
+            <CategoriesForm @addCategory="addCategory" />
 
             <div class="column__list">
                 <CategoriesItem
@@ -64,7 +78,7 @@ const totalSpendings = computed(() =>
         <div class="divider"></div>
 
         <div class="column incomes">
-            <IncomesFormV2 @addIncome="addIncome" />
+            <IncomesForm @addIncome="addIncome" />
 
             <div class="column__list">
                 <IncomesItem
