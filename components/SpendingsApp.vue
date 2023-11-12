@@ -1,12 +1,12 @@
 <template>
-    <div class="container">
-        <div class="spendings">
+    <div class="layout">
+        <div class="column spendings">
             <SpendingsFormV2
                 @addSpending="addSpending"
                 :categories="categories"
             />
 
-            <div class="spendings__list">
+            <div class="column__list">
                 <SpendingsItem
                     v-for="spending in spendings"
                     :key="spending.id"
@@ -14,15 +14,15 @@
                 />
             </div>
 
-            <div class="spendings__total">Всего: {{ totalSpendings }}</div>
+            <div class="column__total">Всего: {{ totalSpendings }}</div>
         </div>
 
         <div class="divider"></div>
 
-        <div class="categories">
+        <div class="column categories">
             <CategoriesFormV2 @addCategory="addCategory" />
 
-            <div class="categories__list">
+            <div class="column__list">
                 <CategoriesItem
                     v-for="category in categories"
                     :key="category.id"
@@ -33,10 +33,10 @@
 
         <div class="divider"></div>
 
-        <div class="incomes">
+        <div class="column incomes">
             <IncomesFormV2 @addIncome="addIncome" />
 
-            <div class="incomes__list">
+            <div class="column__list">
                 <IncomesItem
                     v-for="income in incomes"
                     :key="income.id"
@@ -44,7 +44,7 @@
                 />
             </div>
 
-            <div class="incomes__total">Всего: {{ totalIncome }}</div>
+            <div class="column__total">Всего: {{ totalIncome }}</div>
         </div>
     </div>
 </template>
@@ -80,7 +80,7 @@ const totalSpendings = computed(() =>
 </script>
 
 <style lang="scss" scoped>
-.container {
+.layout {
     min-height: 100vh;
     display: grid;
     grid-template-columns: 1fr 2px 1fr 2px 1fr;
@@ -95,7 +95,7 @@ const totalSpendings = computed(() =>
     margin-bottom: 1rem;
 }
 
-.spendings {
+.column {
     display: flex;
     position: relative;
     flex-direction: column;
@@ -131,79 +131,6 @@ const totalSpendings = computed(() =>
 
     &::-webkit-scrollbar-thumb {
         background-color: #2d1c63;
-        border-radius: 3px;
-    }
-
-    &::-webkit-scrollbar {
-        width: 5px;
-    }
-}
-
-.categories {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    max-height: 100vh;
-    padding: 1rem;
-
-    overflow-y: auto;
-
-    &__list {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-    &::-webkit-scrollbar-track {
-        background-color: transparent;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background-color: #635e1c;
-        border-radius: 3px;
-    }
-
-    &::-webkit-scrollbar {
-        width: 5px;
-    }
-}
-
-.incomes {
-    display: flex;
-    position: relative;
-    flex-direction: column;
-    gap: 1rem;
-    max-height: 100vh;
-    padding: 1rem;
-
-    overflow-y: auto;
-
-    &__list {
-        flex-grow: 1;
-
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-    }
-
-    &__total {
-        background-color: #28631c;
-        padding: 1rem;
-        border-radius: 0.5rem;
-        font-size: 1.25rem;
-        position: sticky;
-        bottom: 0;
-        left: 1rem;
-        right: 1rem;
-        box-shadow: 0 2rem 0 #0f0a20;
-    }
-
-    &::-webkit-scrollbar-track {
-        background-color: transparent;
-    }
-
-    &::-webkit-scrollbar-thumb {
-        background-color: #28631c;
         border-radius: 3px;
     }
 
