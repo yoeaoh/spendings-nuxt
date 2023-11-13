@@ -3,57 +3,44 @@ import { ISpending, ISpendingDto } from '~/interfaces/spending.interface';
 import { ICategory } from '~/interfaces/category.interface';
 import { IIncome } from '~/interfaces/income.interface';
 
-const spendings: ISpending[] = reactive([]);
-const categories: ICategory[] = reactive([
-    { id: 'qWe123$', name: 'Без категории', sum: 0 },
-]);
-const incomes: IIncome[] = reactive([]);
+const { spendings, updateSpendings } = inject<{
+    spendings: ISpending[];
+    updateSpendings: () => void;
+}>('spendings', { spendings: [], updateSpendings: () => {} });
 
-const addSpending = (spendingDto: ISpendingDto) => {
-    const category = categories.find(
-        (c: ICategory) => c.id === spendingDto.categoryId,
-    );
+const { categories, updateCategories } = inject<{
+    categories: ICategory[];
+    updateCategories: () => void;
+}>('categories', { categories: [], updateCategories: () => {} });
 
-    if (!category) return;
+const { incomes, updateIncomes } = inject<{
+    incomes: IIncome[];
+    updateIncomes: () => void;
+}>('incomes', { incomes: [], updateIncomes: () => {} });
 
-    category.sum = category.sum + spendingDto.sum;
-
-    spendings.push({
-        id: spendingDto.id,
-        sum: spendingDto.sum,
-        date: spendingDto.date,
-        category: category,
-        description: spendingDto.description,
-    });
-};
-
-const addCategory = (category: ICategory) => {
-    categories.push(category);
-};
-
-const addIncome = (income: IIncome) => {
-    incomes.push(income);
-};
-
-const totalIncome = computed(() =>
-    incomes.reduce((sum, currentIncome) => currentIncome.sum + sum, 0),
-);
-
-const totalSpendings = computed(() =>
-    spendings.reduce((sum, currentSpending) => currentSpending.sum + sum, 0),
-);
+const totalIncome = inject<number>('totalIncome', 0);
+const totalSpendings = inject<number>('totalSpendings', 0);
 </script>
 
 <template>
     <div class="layout">
+        <div class="column total">
+            <TotalCard
+                :totalIncome="totalIncome"
+                :totalSpendings="totalSpendings"
+            />
+        </div>
+
+        <div class="divider"></div>
+
         <div class="column spendings">
             <SpendingsForm
-                @addSpending="addSpending"
+                @addSpending="updateSpendings"
                 :categories="categories"
             />
 
             <div class="column__list">
-                <SpendingsItem
+                <SpendingsCard
                     v-for="spending in spendings"
                     :key="spending.id"
                     :spending="spending"
@@ -67,12 +54,12 @@ const totalSpendings = computed(() =>
 
         <div class="column categories">
             <CategoriesForm
-                @addCategory="addCategory"
+                @addCategory="updateCategories"
                 :categories="categories"
             />
 
             <div class="column__list">
-                <CategoriesItem
+                <CategoriesCard
                     v-for="category in categories"
                     :key="category.id"
                     :category="category"
@@ -83,10 +70,10 @@ const totalSpendings = computed(() =>
         <div class="divider"></div>
 
         <div class="column incomes">
-            <IncomesForm @addIncome="addIncome" />
+            <IncomesForm @addIncome="updateIncomes" />
 
             <div class="column__list">
-                <IncomesItem
+                <IncomesCard
                     v-for="income in incomes"
                     :key="income.id"
                     :income="income"
@@ -102,7 +89,7 @@ const totalSpendings = computed(() =>
 .layout {
     min-height: 100vh;
     display: grid;
-    grid-template-columns: 1fr 2px 1fr 2px 1fr;
+    grid-template-columns: 1fr 2px 1fr 2px 1fr 2px 1fr;
     grid-auto-flow: row;
 }
 
