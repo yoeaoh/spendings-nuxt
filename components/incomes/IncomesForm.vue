@@ -1,6 +1,11 @@
 <script lang="ts" setup>
 import { formatDate } from '~/helpers/date.helper';
-const emit = defineEmits(['addIncome']);
+import { IIncome } from '~/interfaces/income.interface';
+
+const updateIncomes = inject<(income: IIncome) => void>(
+    'updateIncomes',
+    () => {},
+);
 
 const name: Ref<string> = ref('');
 const sum: Ref<number | null> = ref(null);
@@ -49,11 +54,14 @@ const addIncome = () => {
 
     if (!isNameValid || !isSumValid || !isDateValid) return;
 
-    emit('addIncome', {
+    const newIncome = {
         id: Date.now().toString(),
-        sum: sum.value,
+        name: name.value,
+        sum: sum.value as number,
         date: date.value,
-    });
+    };
+
+    updateIncomes(newIncome);
 
     name.value = '';
     sum.value = null;

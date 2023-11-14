@@ -1,22 +1,11 @@
 <script lang="ts" setup>
-import { ISpending, ISpendingDto } from '~/interfaces/spending.interface';
+import { ISpending } from '~/interfaces/spending.interface';
 import { ICategory } from '~/interfaces/category.interface';
 import { IIncome } from '~/interfaces/income.interface';
 
-const { spendings, updateSpendings } = inject<{
-    spendings: ISpending[];
-    updateSpendings: () => void;
-}>('spendings', { spendings: [], updateSpendings: () => {} });
-
-const { categories, updateCategories } = inject<{
-    categories: ICategory[];
-    updateCategories: () => void;
-}>('categories', { categories: [], updateCategories: () => {} });
-
-const { incomes, updateIncomes } = inject<{
-    incomes: IIncome[];
-    updateIncomes: () => void;
-}>('incomes', { incomes: [], updateIncomes: () => {} });
+const spendings = inject<ISpending[]>('spendings', []);
+const categories = inject<ICategory[]>('categories', []);
+const incomes = inject<IIncome[]>('incomes', []);
 
 const totalIncome = inject<number>('totalIncome', 0);
 const totalSpendings = inject<number>('totalSpendings', 0);
@@ -34,10 +23,7 @@ const totalSpendings = inject<number>('totalSpendings', 0);
         <div class="divider"></div>
 
         <div class="column spendings">
-            <SpendingsForm
-                @addSpending="updateSpendings"
-                :categories="categories"
-            />
+            <SpendingsForm :categories="categories" />
 
             <div class="column__list">
                 <SpendingsCard
@@ -53,10 +39,7 @@ const totalSpendings = inject<number>('totalSpendings', 0);
         <div class="divider"></div>
 
         <div class="column categories">
-            <CategoriesForm
-                @addCategory="updateCategories"
-                :categories="categories"
-            />
+            <CategoriesForm />
 
             <div class="column__list">
                 <CategoriesCard
@@ -70,7 +53,7 @@ const totalSpendings = inject<number>('totalSpendings', 0);
         <div class="divider"></div>
 
         <div class="column incomes">
-            <IncomesForm @addIncome="updateIncomes" />
+            <IncomesForm />
 
             <div class="column__list">
                 <IncomesCard

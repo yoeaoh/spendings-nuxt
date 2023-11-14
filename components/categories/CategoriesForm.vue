@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import { ICategory } from '~/interfaces/category.interface';
 
-const emit = defineEmits(['addCategory']);
-
-const props = defineProps<{
-    categories: ICategory[];
-}>();
+const categories = inject<ICategory[]>('categories', []);
+const updateCategories = inject<(category: ICategory) => void>(
+    'updateCategories',
+    () => {},
+);
 
 const name = ref<string>('');
 const errors: { name: string } = reactive({ name: '' });
@@ -16,7 +16,7 @@ const checkName = () => {
         return false;
     }
 
-    if (props.categories.find((c: ICategory) => c.name === name.value)) {
+    if (categories.find((c: ICategory) => c.name === name.value)) {
         errors.name = 'Такое имя уже используется';
         return false;
     }
@@ -30,11 +30,13 @@ const addCategory = () => {
 
     if (!isNameValid) return;
 
-    emit('addCategory', {
+    const newCategory = {
         id: Date.now().toString(),
         name: name.value,
         sum: 0,
-    });
+    };
+
+    updateCategories(newCategory);
 
     name.value = '';
 };

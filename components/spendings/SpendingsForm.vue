@@ -1,16 +1,21 @@
 <script lang="ts" setup>
 import { formatDate } from '~/helpers/date.helper';
 import { ICategory } from '~/interfaces/category.interface';
+import { ISpendingDto } from '~/interfaces/spending.interface';
+import { DEFAULT_CATEGORY_ID } from '~/constants/categories.constants';
 
-const emit = defineEmits(['addSpending']);
-
-const props = defineProps<{
+defineProps<{
     categories: ICategory[];
 }>();
 
+const updateSpendings = inject<(spending: ISpendingDto) => void>(
+    'updateSpendings',
+    () => {},
+);
+
 const sum: Ref<number | null> = ref(null);
 const date: Ref<string> = ref(formatDate());
-const categoryId: Ref<string> = ref(props.categories[0].id);
+const categoryId: Ref<string> = ref(DEFAULT_CATEGORY_ID);
 const description: Ref<string> = ref('');
 
 const errors: { sum: string; date: string } = reactive({
@@ -44,13 +49,15 @@ const addSpending = () => {
 
     if (!isSumValid || !isDateValid) return;
 
-    emit('addSpending', {
+    const newSpending: ISpendingDto = {
         id: Date.now().toString(),
-        sum: sum.value,
+        sum: sum.value as number,
         date: date.value,
         categoryId: categoryId.value,
         description: description.value,
-    });
+    };
+
+    updateSpendings(newSpending);
 
     sum.value = null;
     description.value = '';

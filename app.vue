@@ -53,9 +53,13 @@ const totalSpendings = computed(() =>
     ),
 );
 
+provide('spendings', spendings);
+provide('updateSpendings', updateSpendings);
+provide('categories', categories);
+provide('updateCategories', updateCategories);
+provide('incomes', incomes);
+provide('updateIncomes', updateIncomes);
+
 provide('totalIncome', totalIncome);
 provide('totalSpendings', totalSpendings);
-provide('spendings', { spendings, updateSpendings });
-provide('categories', { categories, updateCategories });
-provide('incomes', { incomes, updateIncomes });
 </script>
