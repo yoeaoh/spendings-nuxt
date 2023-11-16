@@ -13,7 +13,21 @@ const categories: ICategory[] = reactive([
 ]);
 const incomes: IIncome[] = reactive([]);
 
-const updateSpendings = (spendingDto: ISpendingDto): void => {
+const totalIncome = computed(() =>
+    incomes.reduce(
+        (sum: number, currentIncome: IIncome) => currentIncome.sum + sum,
+        0,
+    ),
+);
+
+const totalSpendings = computed(() =>
+    spendings.reduce(
+        (sum: number, currentSpending: ISpending) => currentSpending.sum + sum,
+        0,
+    ),
+);
+
+function updateSpendings(spendingDto: ISpendingDto): void {
     const category = categories.find(
         (c: ICategory) => c.id === spendingDto.categoryId,
     );
@@ -29,29 +43,15 @@ const updateSpendings = (spendingDto: ISpendingDto): void => {
         category: category,
         description: spendingDto.description,
     });
-};
+}
 
-const updateCategories = (category: ICategory) => {
+function updateCategories(category: ICategory) {
     categories.push(category);
-};
+}
 
-const updateIncomes = (income: IIncome) => {
+function updateIncomes(income: IIncome) {
     incomes.push(income);
-};
-
-const totalIncome = computed(() =>
-    incomes.reduce(
-        (sum: number, currentIncome: IIncome) => currentIncome.sum + sum,
-        0,
-    ),
-);
-
-const totalSpendings = computed(() =>
-    spendings.reduce(
-        (sum: number, currentSpending: ISpending) => currentSpending.sum + sum,
-        0,
-    ),
-);
+}
 
 provide('spendings', spendings);
 provide('updateSpendings', updateSpendings);

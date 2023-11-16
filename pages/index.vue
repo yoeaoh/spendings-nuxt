@@ -9,21 +9,20 @@ const incomes = inject<IIncome[]>('incomes', []);
 
 const totalIncome = inject<number>('totalIncome', 0);
 const totalSpendings = inject<number>('totalSpendings', 0);
+
+// Добавить возможность фильтровать по дате добавления, по дате, по сумме.
 </script>
 
 <template>
     <div class="layout">
         <div class="column total">
-            <TotalCard
-                :totalIncome="totalIncome"
-                :totalSpendings="totalSpendings"
-            />
+            <TotalCard />
         </div>
 
         <div class="divider"></div>
 
         <div class="column spendings">
-            <SpendingsForm :categories="categories" />
+            <SpendingsForm />
 
             <div class="column__list">
                 <SpendingsCard

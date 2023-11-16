@@ -4,10 +4,7 @@ import { ICategory } from '~/interfaces/category.interface';
 import { ISpendingDto } from '~/interfaces/spending.interface';
 import { DEFAULT_CATEGORY_ID } from '~/constants/categories.constants';
 
-defineProps<{
-    categories: ICategory[];
-}>();
-
+const categories = inject<ICategory[]>('categories', []);
 const updateSpendings = inject<(spending: ISpendingDto) => void>(
     'updateSpendings',
     () => {},
@@ -23,7 +20,7 @@ const errors: { sum: string; date: string } = reactive({
     date: '',
 });
 
-const checkSum = () => {
+function checkSum() {
     if (sum.value === null || sum.value <= 0) {
         errors.sum = 'Введите сумму';
         return false;
@@ -31,9 +28,9 @@ const checkSum = () => {
 
     errors.sum = '';
     return true;
-};
+}
 
-const checkDate = () => {
+function checkDate() {
     if (!date.value) {
         errors.date = 'Введите дату';
         return false;
@@ -41,9 +38,9 @@ const checkDate = () => {
 
     errors.date = '';
     return true;
-};
+}
 
-const addSpending = () => {
+function addSpending() {
     const isSumValid = checkSum();
     const isDateValid = checkDate();
 
@@ -61,7 +58,7 @@ const addSpending = () => {
 
     sum.value = null;
     description.value = '';
-};
+}
 </script>
 
 <template>

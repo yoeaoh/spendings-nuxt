@@ -3,10 +3,8 @@
 </template>
 
 <script lang="ts" setup>
-defineProps<{
-    totalIncome: number;
-    totalSpendings: number;
-}>();
+const totalIncome = inject<number>('totalIncome', 0);
+const totalSpendings = inject<number>('totalSpendings', 0);
 </script>
 
 <style lang="scss" scoped>

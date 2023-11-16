@@ -17,7 +17,7 @@ const errors: { name: string; sum: string; date: string } = reactive({
     date: '',
 });
 
-const checkName = () => {
+function checkName() {
     if (name.value.length <= 1) {
         errors.name = 'Слишком короткое имя';
         return false;
@@ -25,9 +25,9 @@ const checkName = () => {
 
     errors.name = '';
     return true;
-};
+}
 
-const checkSum = () => {
+function checkSum() {
     if (sum.value === null || sum.value <= 0) {
         errors.sum = 'Введите сумму';
         return false;
@@ -35,9 +35,9 @@ const checkSum = () => {
 
     errors.sum = '';
     return true;
-};
+}
 
-const checkDate = () => {
+function checkDate() {
     if (!date.value) {
         errors.date = 'Введите Дату';
         return false;
@@ -45,9 +45,9 @@ const checkDate = () => {
 
     errors.date = '';
     return true;
-};
+}
 
-const addIncome = () => {
+function addIncome() {
     const isNameValid = checkName();
     const isSumValid = checkSum();
     const isDateValid = checkDate();
@@ -65,7 +65,7 @@ const addIncome = () => {
 
     name.value = '';
     sum.value = null;
-};
+}
 </script>
 
 <template>

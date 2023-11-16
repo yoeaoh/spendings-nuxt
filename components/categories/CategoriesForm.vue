@@ -25,7 +25,7 @@ const checkName = () => {
     return true;
 };
 
-const addCategory = () => {
+function addCategory() {
     const isNameValid = checkName();
 
     if (!isNameValid) return;
@@ -39,7 +39,7 @@ const addCategory = () => {
     updateCategories(newCategory);
 
     name.value = '';
-};
+}
 </script>
 
 <template>
