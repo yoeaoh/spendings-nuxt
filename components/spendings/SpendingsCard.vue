@@ -1,18 +1,15 @@
 <script lang="ts" setup>
 import { ISpending } from '~/interfaces/spending.interface';
 
-defineProps<{
+const props = defineProps<{
     spending: ISpending;
 }>();
 
-const isModalVisible = ref(false);
+const openModal = inject<(spendingId: string) => void>('openModal', () => {});
 
-function closeModal() {
-    isModalVisible.value = false;
-}
-
-function openModal() {
-    isModalVisible.value = true;
+function openCardModal() {
+    const spendingId = props.spending.id;
+    openModal(spendingId);
 }
 
 // При клике на карточку разворачивать модалку.
@@ -25,7 +22,7 @@ function openModal() {
 </script>
 
 <template>
-    <div class="spendings-item" @click="openModal">
+    <div class="spendings-item" @click="openCardModal">
         <div class="spendings-item__category">
             {{ spending.category.name }}
         </div>
@@ -42,18 +39,6 @@ function openModal() {
             {{ spending.date }}
         </div>
     </div>
-
-    <Teleport to="body" v-if="isModalVisible">
-        <UiModal @close="closeModal">
-            <template #header>
-                <h3>Добавить траты по чеку</h3>
-            </template>
-
-            <template #body>
-                <SpendingsForm />
-            </template>
-        </UiModal>
-    </Teleport>
 </template>
 
 <style lang="scss" scoped>

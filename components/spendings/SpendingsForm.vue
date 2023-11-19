@@ -68,12 +68,14 @@ function addSpending() {
                 v-model="sum"
                 type="number"
                 step=".01"
+                min="0"
                 placeholder="Сумма траты"
+                required
             />
         </UiFormItem>
 
         <UiFormItem title="Дата" :error="errors.date">
-            <input v-model="date" type="date" />
+            <input v-model="date" type="date" required />
         </UiFormItem>
 
         <UiFormItem title="Категория">

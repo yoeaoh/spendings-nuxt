@@ -22,22 +22,12 @@ onUnmounted(() => {
     <Transition name="modal">
         <div class="modal">
             <div class="modal__container">
-                <div class="modal__header modal-header">
-                    <h3 class="modal-header__title">
-                        <slot name="header"></slot>
-                    </h3>
+                <div class="modal__header">
+                    <button>close</button>
                 </div>
 
                 <div class="modal__body">
-                    <slot name="body"></slot>
-                </div>
-
-                <div class="modal__footer">
-                    <slot name="footer">
-                        <button class="modal__button" @click="$emit('close')">
-                            Закрыть
-                        </button>
-                    </slot>
+                    <slot name="default"></slot>
                 </div>
             </div>
         </div>
@@ -54,6 +44,8 @@ onUnmounted(() => {
     left: 0;
     background-color: rgba(0, 0, 0, 0.75);
     display: flex;
+    justify-content: center;
+    align-items: center;
     transition: opacity 0.3s ease;
 
     &__container {
@@ -62,10 +54,6 @@ onUnmounted(() => {
         background-color: #2d1c63;
         border-radius: 1rem;
         transition: all 0.3s ease;
-    }
-
-    &__header {
-        color: #fff;
     }
 }
 

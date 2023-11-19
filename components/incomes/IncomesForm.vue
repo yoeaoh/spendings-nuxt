@@ -71,15 +71,20 @@ function addIncome() {
 <template>
     <UiForm :action="addIncome" title="Добавить приход:">
         <UiFormItem title="Название" :error="errors.name">
-            <input v-model="name" type="text" placeholder="Название" />
+            <input v-model="name" type="text" placeholder="Название" required />
         </UiFormItem>
 
         <UiFormItem title="Сумма" :error="errors.sum">
-            <input v-model="sum" type="number" placeholder="Сумма прихода" />
+            <input
+                v-model="sum"
+                type="number"
+                placeholder="Сумма прихода"
+                required
+            />
         </UiFormItem>
 
         <UiFormItem title="Дата" :error="errors.date">
-            <input v-model="date" type="date" />
+            <input v-model="date" type="date" required />
         </UiFormItem>
     </UiForm>
 </template>

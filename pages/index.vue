@@ -10,6 +10,15 @@ const incomes = inject<IIncome[]>('incomes', []);
 const totalIncome = inject<number>('totalIncome', 0);
 const totalSpendings = inject<number>('totalSpendings', 0);
 
+const isSpendingCardModalOpen = inject<Boolean>(
+    'isSpendingCardModalOpen',
+    false,
+);
+const spendingCardModalSpendingId = inject<string | null>(
+    'spendingCardModalSpendingId',
+    null,
+);
+
 // Добавить возможность фильтровать по дате добавления, по дате, по сумме.
 </script>
 
@@ -64,6 +73,11 @@ const totalSpendings = inject<number>('totalSpendings', 0);
 
             <div class="column__total">Всего: {{ totalIncome }}</div>
         </div>
+
+        <SpendingsCardModal
+            :isModalVisible="isSpendingCardModalOpen"
+            :spendingId="spendingCardModalSpendingId"
+        />
     </div>
 </template>
 
