@@ -6,6 +6,7 @@ export interface ISpending {
     sum: number;
     date: string;
     description: string;
+    subSpendings: ISubSpending[];
 }
 
 export interface ISpendingDto {
@@ -19,13 +20,6 @@ export interface ISpendingDto {
 export interface ISubSpending {
     id: string;
     spending: ISpending;
-    sum: number;
-    name: string;
-}
-
-export interface ISubSpendingDto {
-    id: string;
-    spendingId: string;
     sum: number;
     name: string;
 }

@@ -1,12 +1,14 @@
 <script lang="ts" setup>
-import { ISpending, ISubSpendingDto } from '~/interfaces/spending.interface';
+import { ISpending, ISpendingDto } from '~/interfaces/spending.interface';
 
-const updateSubSpendings = inject<(subSpendingDto: ISubSpendingDto) => void>(
-    'updateSubSpendings',
+const props = defineProps<{
+    spending: ISpending;
+}>();
+
+const updateSpendings = inject<(spending: ISpendingDto) => void>(
+    'updateSpendings',
     () => {},
 );
-
-const spendingId = inject('spendingCardModalSpendingId', null);
 
 const name: Ref<string> = ref('');
 const sum: Ref<number | null> = ref(null);
@@ -36,21 +38,14 @@ function checkName() {
     return true;
 }
 
-function addSpending() {
+function addSubSpending() {
     const isNameValid = checkName();
     const isSumValid = checkSum();
 
     if (!isNameValid || !isSumValid) return;
-    if (spendingId === null) return;
+    if (!props.spending) return;
 
-    const newSubSpending: ISubSpendingDto = {
-        id: Date.now().toString(),
-        spendingId: spendingId,
-        name: name.value as string,
-        sum: sum.value as number,
-    };
-
-    updateSubSpendings(newSubSpending);
+    updateSpendings(newSubSpending);
 
     sum.value = null;
     name.value = '';
@@ -58,7 +53,7 @@ function addSpending() {
 </script>
 
 <template>
-    <UiForm :action="addSpending" title="Добавить трату:">
+    <UiForm :action="addSubSpending" title="Добавить трату:">
         <UiFormItem title="Название" :error="errors.name">
             <input v-model="name" type="text" required />
         </UiFormItem>

@@ -1,14 +1,22 @@
 <script lang="ts" setup>
-const isModalVisible: Boolean = inject('isSpendingCardModalOpen', false);
-const closeModal = inject<() => void>('closeModal', () => {});
+import { ISpending } from '~/interfaces/spending.interface';
 
-import SubSpendingsForm from './SubSpendingsForm.vue';
+defineProps<{
+    isModalOpen: Boolean;
+    spending: ISpending;
+}>();
+
+const emit = defineEmits(['close']);
+
+function close() {
+    emit('close');
+}
 </script>
 
 <template>
     <Teleport to="body">
-        <UiModal v-if="isModalVisible" @close="closeModal">
-            <SubSpendingsForm />
+        <UiModal v-if="isModalOpen" @close="close">
+            <SubSpendingsForm :spending="spending" />
         </UiModal>
     </Teleport>
 </template>

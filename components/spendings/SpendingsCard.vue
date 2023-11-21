@@ -1,15 +1,18 @@
 <script lang="ts" setup>
-import { ISpending } from '~/interfaces/spending.interface';
+import { ISpending, ISubSpending } from '~/interfaces/spending.interface';
 
 const props = defineProps<{
     spending: ISpending;
 }>();
 
-const openModal = inject<(spendingId: string) => void>('openModal', () => {});
+const isModalOpen = ref<Boolean>(false);
 
 function openCardModal() {
-    const spendingId = props.spending.id;
-    openModal(spendingId);
+    isModalOpen.value = true;
+}
+
+function closeCardModal() {
+    isModalOpen.value = false;
 }
 
 // При клике на карточку разворачивать модалку.
@@ -19,6 +22,9 @@ function openCardModal() {
 // можно вычитать несхождение с финальным чеком и записывать это в скидку.
 
 // В дополнительную информацию можно добавлять теги.
+
+// Добавить ограничение в subSpendings, чтобы сумма подкатегорий не могла быть
+// больше, чем сумма траты.
 </script>
 
 <template>
@@ -38,6 +44,21 @@ function openCardModal() {
         <div class="spendings-item__date">
             {{ spending.date }}
         </div>
+
+        <ul>
+            <li
+                v-for="subSpending in spending.subSpendings"
+                :key="subSpending.id"
+            >
+                {{ subSpending.name }} - {{ subSpending.sum }}
+            </li>
+        </ul>
+
+        <SpendingsCardModal
+            @close="closeCardModal"
+            :isModalOpen="isModalOpen"
+            :spending="spending"
+        />
     </div>
 </template>
 
