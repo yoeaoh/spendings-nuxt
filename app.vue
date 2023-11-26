@@ -5,7 +5,11 @@
 <script lang="ts" setup>
 import { ICategory } from './interfaces/category.interface';
 import { IIncome } from './interfaces/income.interface';
-import { ISpending, ISpendingDto } from './interfaces/spending.interface';
+import {
+    ISpending,
+    ISpendingDto,
+    ISubSpending,
+} from './interfaces/spending.interface';
 
 const spendings: ISpending[] = reactive([]);
 const categories: ICategory[] = reactive([
@@ -27,7 +31,7 @@ const totalSpendings = computed(() =>
     ),
 );
 
-function updateSpendings(spendingDto: ISpendingDto): void {
+function addNewSpending(spendingDto: ISpendingDto): void {
     const category = categories.find(
         (c: ICategory) => c.id === spendingDto.categoryId,
     );
@@ -46,22 +50,48 @@ function updateSpendings(spendingDto: ISpendingDto): void {
     });
 }
 
-function updateCategories(category: ICategory) {
+function addNewSubSpending(spending: ISpending, subSpending: ISubSpending) {
+    if (subSpending.sum > spending.sum) return 'hey';
+
+    const subSpendingsSum = spending.subSpendings.reduce(
+        (sum: number, currSpending: ISubSpending) => {
+            return sum + currSpending.sum;
+        },
+        0,
+    );
+
+    if (subSpendingsSum >= spending.sum) return;
+
+    spending.subSpendings.push(subSpending);
+
+    if (!categories.find((item) => item.name === subSpending.name)) {
+        categories.push({
+            id: Date.now().toString(),
+            name: subSpending.name,
+            sum: subSpending.sum,
+        });
+    }
+
+    return 'hey';
+}
+
+function addNewCategory(category: ICategory): void {
     categories.push(category);
 }
 
-function updateIncomes(income: IIncome) {
+function addNewIncome(income: IIncome): void {
     incomes.push(income);
 }
 
 provide('spendings', spendings);
-provide('updateSpendings', updateSpendings);
+provide('addNewSpending', addNewSpending);
+provide('addNewSubSpending', addNewSubSpending);
 
 provide('categories', categories);
-provide('updateCategories', updateCategories);
+provide('addNewCategory', addNewCategory);
 
 provide('incomes', incomes);
-provide('updateIncomes', updateIncomes);
+provide('addNewIncome', addNewIncome);
 
 provide('totalIncome', totalIncome);
 provide('totalSpendings', totalSpendings);

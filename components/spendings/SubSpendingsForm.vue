@@ -1,14 +1,13 @@
 <script lang="ts" setup>
-import { ISpending, ISpendingDto } from '~/interfaces/spending.interface';
+import { ISpending, ISubSpending } from '~/interfaces/spending.interface';
 
 const props = defineProps<{
     spending: ISpending;
 }>();
 
-const updateSpendings = inject<(spending: ISpendingDto) => void>(
-    'updateSpendings',
-    () => {},
-);
+const addNewSubSpending = inject<
+    (spending: ISpending, subSpending: ISubSpending) => string
+>('addNewSubSpending', () => '');
 
 const name: Ref<string> = ref('');
 const sum: Ref<number | null> = ref(null);
@@ -45,7 +44,16 @@ function addSubSpending() {
     if (!isNameValid || !isSumValid) return;
     if (!props.spending) return;
 
-    updateSpendings(newSubSpending);
+    if (!sum.value) return;
+
+    const newSubSpending = {
+        id: `subSpending${Date.now().toString()}`,
+        name: name.value,
+        sum: sum.value,
+    };
+
+    const error = addNewSubSpending(props.spending, newSubSpending);
+    errors.name = error;
 
     sum.value = null;
     name.value = '';

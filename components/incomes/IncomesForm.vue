@@ -2,8 +2,8 @@
 import { formatDate } from '~/helpers/date.helper';
 import { IIncome } from '~/interfaces/income.interface';
 
-const updateIncomes = inject<(income: IIncome) => void>(
-    'updateIncomes',
+const addNewIncome = inject<(income: IIncome) => void>(
+    'addNewIncome',
     () => {},
 );
 
@@ -61,7 +61,7 @@ function addIncome() {
         date: date.value,
     };
 
-    updateIncomes(newIncome);
+    addNewIncome(newIncome);
 
     name.value = '';
     sum.value = null;

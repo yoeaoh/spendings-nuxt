@@ -5,8 +5,8 @@ import { ISpendingDto } from '~/interfaces/spending.interface';
 import { DEFAULT_CATEGORY_ID } from '~/constants/categories.constants';
 
 const categories = inject<ICategory[]>('categories', []);
-const updateSpendings = inject<(spending: ISpendingDto) => void>(
-    'updateSpendings',
+const addNewSpending = inject<(spending: ISpendingDto) => void>(
+    'addNewSpending',
     () => {},
 );
 
@@ -54,7 +54,7 @@ function addSpending() {
         description: description.value,
     };
 
-    updateSpendings(newSpending);
+    addNewSpending(newSpending);
 
     sum.value = null;
     description.value = '';

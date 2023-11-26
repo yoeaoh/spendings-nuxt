@@ -19,7 +19,6 @@ export interface ISpendingDto {
 
 export interface ISubSpending {
     id: string;
-    spending: ISpending;
     sum: number;
     name: string;
 }

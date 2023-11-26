@@ -2,8 +2,8 @@
 import { ICategory } from '~/interfaces/category.interface';
 
 const categories = inject<ICategory[]>('categories', []);
-const updateCategories = inject<(category: ICategory) => void>(
-    'updateCategories',
+const addNewCategory = inject<(category: ICategory) => void>(
+    'addNewCategory',
     () => {},
 );
 
@@ -36,7 +36,7 @@ function addCategory() {
         sum: 0,
     };
 
-    updateCategories(newCategory);
+    addNewCategory(newCategory);
 
     name.value = '';
 }

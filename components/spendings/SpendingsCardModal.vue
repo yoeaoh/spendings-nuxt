@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import { ISpending } from '~/interfaces/spending.interface';
+import SubSpendingsForm from './SubSpendingsForm.vue';
 
 defineProps<{
     isModalOpen: Boolean;
