@@ -1,4 +1,8 @@
 <script setup lang="ts">
+defineProps<{
+    isOpen: Boolean;
+}>()
+
 const emit = defineEmits(['close']);
 
 const closeOnEscape = function (e: KeyboardEvent) {
@@ -19,19 +23,23 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <Transition name="modal">
-        <div class="modal">
-            <div class="modal__container">
-                <div class="modal__header">
-                    <button>close</button>
-                </div>
+    <Teleport to="body" v-if="isOpen">
+        <Transition name="modal">
+            <div class="modal" @click.self="emit('close')">
+                <div class="modal__container">
+                    <div class="modal__header">
+                        <button class="modal__close">
+                            <Icon name="lets-icons:close-round" @click="emit('close')"  />
+                        </button>
+                    </div>
 
-                <div class="modal__body">
-                    <slot name="default"></slot>
+                    <div class="modal__body">
+                        <slot name="default"></slot>
+                    </div>
                 </div>
             </div>
-        </div>
-    </Transition>
+        </Transition>
+    </Teleport>
 </template>
 
 <style lang="scss" scoped>
@@ -42,18 +50,40 @@ onUnmounted(() => {
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: rgba(0, 0, 0, 0.75);
+    background-color: hsla(0, 0%, 0%, 0.75);
     display: flex;
     justify-content: center;
     align-items: center;
     transition: opacity 0.3s ease;
 
     &__container {
-        padding: 1rem 2rem;
+        padding: 1rem;
         color: #fff;
-        background-color: #2d1c63;
+        background-color: hsla(0, 0%, 0%, 0.75);
+        border: 1px solid hsla(0, 0%, 100%, 0.5);
+        max-width: 25rem;
         border-radius: 1rem;
         transition: all 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    &__header {
+        display: flex;
+    }
+
+    &__close {
+        margin-left: auto;
+        font-size: 1.5rem;
+        background-color: transparent;
+        border: 0;
+        color: hsla(0, 0%, 100%, 0.75);
+        cursor: pointer;
+
+        &:hover {
+            color: hsla(0, 0%, 100%, 1);
+        }
     }
 }
 

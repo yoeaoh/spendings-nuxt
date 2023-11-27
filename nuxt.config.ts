@@ -3,6 +3,7 @@ export default defineNuxtConfig({
     devtools: { enabled: false },
     css: ['~/assets/scss/global.scss'],
     modules: [
+        'nuxt-icon',
         [
             '@nuxtjs/google-fonts',
             {

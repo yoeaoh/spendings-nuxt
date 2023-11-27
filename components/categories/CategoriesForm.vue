@@ -49,6 +49,7 @@ function addCategory() {
                 v-model="name"
                 placeholder="Название категории"
                 type="text"
+                maxlength="30"
                 required
             />
         </UiFormItem>

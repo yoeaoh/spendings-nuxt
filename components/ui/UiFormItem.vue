@@ -26,7 +26,7 @@ defineProps<{
     display: contents;
 
     &__title {
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: hsla(0, 0%, 0%, 0.5);
         color: white;
         padding: 0.5rem 0.5rem;
         border-top-left-radius: 3px;
@@ -35,15 +35,21 @@ defineProps<{
 
     &__input {
         display: flex;
+        min-width: 0;
 
+        :deep(div),
         :deep(input),
         :deep(select) {
+            display: flex;
+            align-items: center;
+            color: hsla(0, 0%, 0%, 1);
+            min-width: 0;
             flex-grow: 1;
             padding: 0 0.5rem;
             border: 0;
             border-top-right-radius: 3px;
             border-bottom-right-radius: 3px;
-            background-color: rgba(255, 255, 255, 0.75);
+            background-color: hsla(0, 0%, 100%, 0.75);
             outline: 0;
         }
     }

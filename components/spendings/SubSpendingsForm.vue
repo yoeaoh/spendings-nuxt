@@ -11,6 +11,18 @@ const addNewSubSpending = inject<
 
 const name: Ref<string> = ref('');
 const sum: Ref<number | null> = ref(null);
+const availableSum = computed(() => {
+    const subSpendingsSum = props.spending.subSpendings.reduce(
+        (sum: number, currSpending: ISubSpending) => {
+            return sum + currSpending.sum;
+        },
+        0,
+    );
+
+    const availableSum = props.spending.sum - subSpendingsSum;
+
+    return availableSum;
+})
 
 const errors: { name: string; sum: string } = reactive({
     name: '',
@@ -53,7 +65,7 @@ function addSubSpending() {
     };
 
     const error = addNewSubSpending(props.spending, newSubSpending);
-    errors.name = error;
+    errors.sum = error;
 
     sum.value = null;
     name.value = '';
@@ -62,6 +74,10 @@ function addSubSpending() {
 
 <template>
     <UiForm :action="addSubSpending" title="Добавить трату:">
+        <UiFormItem title="Остаток по чеку">
+            <div>{{ availableSum }} BYN</div>
+        </UiFormItem>
+
         <UiFormItem title="Название" :error="errors.name">
             <input v-model="name" type="text" required />
         </UiFormItem>
@@ -72,7 +88,7 @@ function addSubSpending() {
                 type="number"
                 step=".01"
                 min="0"
-                placeholder="Сумма траты"
+                placeholder="Стоимость продукта"
                 required
             />
         </UiFormItem>

@@ -21,12 +21,13 @@ defineProps<{
 .ui-form {
     padding: 1rem;
     border-radius: 0.5rem;
-    background-color: #2d1c63;
+    background-image: linear-gradient(30deg, hsl(213, 49%, 12%), hsl(212, 38%, 15%));
+    border: 1px solid hsla(0, 0%, 100%, 0.1);
 
     &__title {
-        font-family: 'Raleway';
+        font-family: 'Inter';
         color: white;
-        font-size: 24px;
+        font-size: 1.25rem;
         font-weight: 500;
         margin-bottom: 1rem;
     }
@@ -40,9 +41,20 @@ defineProps<{
 
     &__button {
         padding: 0.5rem 1rem;
-        border: 1px solid black;
+        background-color: transparent;
+        background-image: linear-gradient(0deg, hsla(0, 0%, 100%, 0.1), hsla(0, 0%, 100%, 0.2));
+        border: 1px solid hsla(0, 0%, 100%, 0.1);
+        color: hsl(0 ,0% ,100%);
         border-radius: 3px;
         width: 100%;
+        font-family: 'Inter';
+
+        &:hover,
+        &:focus {
+            background-image: linear-gradient(30deg, hsla(0, 0%, 100%, 0.1), hsla(0, 0%, 100%, 0.2));
+            outline: 0;
+            border: 1px solid hsla(0, 0%, 100%, 0.3);
+        }
     }
 }
 </style>

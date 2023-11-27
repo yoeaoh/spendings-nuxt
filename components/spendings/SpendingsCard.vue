@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ISpending, ISubSpending } from '~/interfaces/spending.interface';
+import { ISpending } from '~/interfaces/spending.interface';
 
 const props = defineProps<{
     spending: ISpending;
@@ -28,20 +28,22 @@ function closeCardModal() {
 </script>
 
 <template>
-    <div class="spendings-item" @click="openCardModal">
-        <div class="spendings-item__category">
-            {{ spending.category.name }}
+    <div class="spendings-card" @click="openCardModal">
+        <div class="spendings-card__category spendings-card-category">
+            <div class="spendings-card-category__text">
+                {{ spending.category.name }}
+            </div>
         </div>
 
-        <div class="spendings-item__sum">
-            {{ spending.sum }}<span class="spendings-item__currency">руб</span>
+        <div class="spendings-card__sum">
+            {{ spending.sum }}<span class="spendings-card__currency"> BYN</span>
         </div>
 
-        <div v-if="spending.description" class="spendings-item__description">
+        <div v-if="spending.description" class="spendings-card__description">
             {{ spending.description }}
         </div>
 
-        <div class="spendings-item__date">
+        <div class="spendings-card__date">
             {{ spending.date }}
         </div>
 
@@ -63,30 +65,38 @@ function closeCardModal() {
 </template>
 
 <style lang="scss" scoped>
-.spendings-item {
+.spendings-card {
     display: flex;
     flex-direction: column;
     padding: 0.5rem;
-    background-color: #611c63;
+    background-image: linear-gradient(120deg, hsl(298, 56%, 25%), hsl(298, 56%, 15%));
+    border: 1px solid hsla(0, 0%, 100%, 0.1);
     color: white;
     border-radius: 0.5rem;
     gap: 0.25rem;
 
-    &__category {
-        font-size: 1.25rem;
-    }
-
     &__sum {
-        font-size: 3rem;
+        font-size: 1.25rem;
+        font-weight: 600;
     }
 
     &__currency {
-        font-size: 1rem;
+        font-size: 0.75rem;
     }
 
     &__date {
         display: flex;
         justify-content: flex-end;
+        font-size: 0.75rem;
+    }
+}
+
+.spendings-card-category {
+    &__text {
+        font-size: 0.75rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 }
 </style>

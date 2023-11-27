@@ -15,11 +15,12 @@ function close() {
 </script>
 
 <template>
-    <Teleport to="body">
-        <UiModal v-if="isModalOpen" @close="close">
-            <SubSpendingsForm :spending="spending" />
-        </UiModal>
-    </Teleport>
+    <UiModal 
+        :isOpen="isModalOpen" 
+        @close="close"
+    >
+        <SubSpendingsForm :spending="spending" />
+    </UiModal>
 </template>
 
 <style lang="scss" scoped></style>

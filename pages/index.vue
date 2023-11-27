@@ -6,19 +6,10 @@ import { IIncome } from '~/interfaces/income.interface';
 const spendings = inject<ISpending[]>('spendings', []);
 const categories = inject<ICategory[]>('categories', []);
 const incomes = inject<IIncome[]>('incomes', []);
-const subSpendings = inject<ISubSpending[]>('subSpendings', []);
 
 const totalIncome = inject<number>('totalIncome', 0);
 const totalSpendings = inject<number>('totalSpendings', 0);
 
-const isSpendingCardModalOpen = inject<Boolean>(
-    'isSpendingCardModalOpen',
-    false,
-);
-const spendingCardModalSpendingItem = inject<ISpending | {}>(
-    'spendingCardModalSpendingItem',
-    {},
-);
 
 // Добавить возможность фильтровать по дате добавления, по дате, по сумме.
 </script>
@@ -34,15 +25,16 @@ const spendingCardModalSpendingItem = inject<ISpending | {}>(
         <div class="column spendings">
             <SpendingsForm />
 
-            <div class="column__list">
-                <SpendingsCard
-                    v-for="spending in spendings"
-                    :key="spending.id"
-                    :spending="spending"
-                />
-            </div>
+            <SpendingsList :spendings="spendings" class="column__list" />
 
-            <div class="column__total">Всего: {{ totalSpendings }}</div>
+            <div class="column__total column-total">
+                <div class="column-total__container">
+                    Всего:
+                    <span class="column-total__sum">
+                        {{ totalSpendings }}
+                    </span>
+                </div>
+            </div>
         </div>
 
         <div class="divider"></div>
@@ -50,13 +42,7 @@ const spendingCardModalSpendingItem = inject<ISpending | {}>(
         <div class="column categories">
             <CategoriesForm />
 
-            <div class="column__list">
-                <CategoriesCard
-                    v-for="category in categories"
-                    :key="category.id"
-                    :category="category"
-                />
-            </div>
+            <CategoriesList :categories="categories" class="column__list" />
         </div>
 
         <div class="divider"></div>
@@ -64,15 +50,16 @@ const spendingCardModalSpendingItem = inject<ISpending | {}>(
         <div class="column incomes">
             <IncomesForm />
 
-            <div class="column__list">
-                <IncomesCard
-                    v-for="income in incomes"
-                    :key="income.id"
-                    :income="income"
-                />
-            </div>
+            <IncomesList :incomes="incomes" class="column__list" />
 
-            <div class="column__total">Всего: {{ totalIncome }}</div>
+            <div class="column__total column-total">
+                <div class="column-total__container">
+                    Всего:
+                    <span class="column-total__sum">
+                        {{ totalIncome }}
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -88,7 +75,7 @@ const spendingCardModalSpendingItem = inject<ISpending | {}>(
 .divider {
     flex: none;
     width: 2px;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: hsla(0, 0%, 100%, 0.05);
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
@@ -103,24 +90,19 @@ const spendingCardModalSpendingItem = inject<ISpending | {}>(
 
     overflow-y: auto;
 
-    &__list {
-        flex-grow: 1;
+    &__total {
+        position: sticky;
+        bottom: -1rem;
+        left: 0;
+        right: 0;
 
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
+        margin-left: -1rem;
+        margin-right: -1rem;
+        margin-bottom: -1rem;
     }
 
-    &__total {
-        background-color: #2d1c63;
-        padding: 1rem;
-        border-radius: 0.5rem;
-        font-size: 1.5rem;
-        position: sticky;
-        bottom: 0;
-        left: 1rem;
-        right: 1rem;
-        box-shadow: 0 2rem 0 #0f0a20;
+    &__list {
+        flex-grow: 1;
     }
 
     &::-webkit-scrollbar-track {
@@ -128,12 +110,33 @@ const spendingCardModalSpendingItem = inject<ISpending | {}>(
     }
 
     &::-webkit-scrollbar-thumb {
-        background-color: #2d1c63;
+        background-color: hsl(212, 18%, 31%);
         border-radius: 3px;
     }
 
     &::-webkit-scrollbar {
         width: 5px;
+        height: 5px;
+    }
+}
+
+.column-total {
+    background-image: linear-gradient(0deg, hsl(231, 78%, 7%) 5rem, transparent);
+    padding-top: 3rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+    padding-left: 1rem;
+
+    &__container {
+        background-image: linear-gradient(30deg, hsl(213, 49%, 12%), hsl(212, 38%, 15%));
+        border: 1px solid hsla(0, 0%, 100%, 0.1);
+        padding: 1rem;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+    }
+    
+    &__sum {
+        font-weight: 600;
     }
 }
 </style>

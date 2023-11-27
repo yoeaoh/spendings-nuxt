@@ -51,7 +51,7 @@ function addNewSpending(spendingDto: ISpendingDto): void {
 }
 
 function addNewSubSpending(spending: ISpending, subSpending: ISubSpending) {
-    if (subSpending.sum > spending.sum) return 'hey';
+    if (subSpending.sum > spending.sum) return 'Сумма продукта не должна превышать общую сумму чека';
 
     const subSpendingsSum = spending.subSpendings.reduce(
         (sum: number, currSpending: ISubSpending) => {
