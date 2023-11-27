@@ -43,7 +43,7 @@ function addNewSpending(spendingDto: ISpendingDto): void {
     spendings.push({
         id: spendingDto.id,
         sum: spendingDto.sum,
-        date: spendingDto.date,
+        date: Date.parse(spendingDto.date),
         category: category,
         description: spendingDto.description,
         subSpendings: [],
@@ -51,7 +51,8 @@ function addNewSpending(spendingDto: ISpendingDto): void {
 }
 
 function addNewSubSpending(spending: ISpending, subSpending: ISubSpending) {
-    if (subSpending.sum > spending.sum) return 'Сумма продукта не должна превышать общую сумму чека';
+    if (subSpending.sum > spending.sum)
+        return 'Сумма продукта не должна превышать общую сумму чека';
 
     const subSpendingsSum = spending.subSpendings.reduce(
         (sum: number, currSpending: ISubSpending) => {

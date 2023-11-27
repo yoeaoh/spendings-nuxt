@@ -4,7 +4,7 @@ export interface ISpending {
     id: string;
     category: ICategory;
     sum: number;
-    date: string;
+    date: number;
     description: string;
     subSpendings: ISubSpending[];
 }

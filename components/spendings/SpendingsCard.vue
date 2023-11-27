@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import { formatDate } from '~/helpers/date.helper';
 import { ISpending } from '~/interfaces/spending.interface';
 
 const props = defineProps<{
@@ -14,6 +15,8 @@ function openCardModal() {
 function closeCardModal() {
     isModalOpen.value = false;
 }
+
+const formattedDate = computed(() => formatDate(new Date(props.spending.date)));
 
 // При клике на карточку разворачивать модалку.
 // Далее, в модалке добавляются траты, закреплённые к этой карточке и
@@ -44,7 +47,7 @@ function closeCardModal() {
         </div>
 
         <div class="spendings-card__date">
-            {{ spending.date }}
+            {{ formattedDate }}
         </div>
 
         <ul>
@@ -69,7 +72,11 @@ function closeCardModal() {
     display: flex;
     flex-direction: column;
     padding: 0.5rem;
-    background-image: linear-gradient(120deg, hsl(298, 56%, 25%), hsl(298, 56%, 15%));
+    background-image: linear-gradient(
+        120deg,
+        hsl(298, 56%, 25%),
+        hsl(298, 56%, 15%)
+    );
     border: 1px solid hsla(0, 0%, 100%, 0.1);
     color: white;
     border-radius: 0.5rem;
