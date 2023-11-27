@@ -1,7 +1,7 @@
 <script setup lang="ts">
 defineProps<{
     isOpen: Boolean;
-}>()
+}>();
 
 const emit = defineEmits(['close']);
 
@@ -29,7 +29,10 @@ onUnmounted(() => {
                 <div class="modal__container">
                     <div class="modal__header">
                         <button class="modal__close">
-                            <Icon name="lets-icons:close-round" @click="emit('close')"  />
+                            <Icon
+                                name="lets-icons:close-round"
+                                @click="emit('close')"
+                            />
                         </button>
                     </div>
 

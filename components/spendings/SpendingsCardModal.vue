@@ -7,18 +7,11 @@ defineProps<{
     spending: ISpending;
 }>();
 
-const emit = defineEmits(['close']);
-
-function close() {
-    emit('close');
-}
+defineEmits(['close']);
 </script>
 
 <template>
-    <UiModal 
-        :isOpen="isModalOpen" 
-        @close="close"
-    >
+    <UiModal :isOpen="isModalOpen" @close="$emit('close')">
         <SubSpendingsForm :spending="spending" />
     </UiModal>
 </template>

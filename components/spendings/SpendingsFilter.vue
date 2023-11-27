@@ -1,29 +1,28 @@
 <script lang="ts" setup>
-enum filterVariants {
-    ASC = 'ascending',
-    DESC = 'descending'
-};
+import { FilterVariants } from '~/constants/spendings.constants';
 
-const selectedFilter: Ref<filterVariants> = ref(filterVariants.ASC);
+const props = defineProps<{
+    selectedFilter: FilterVariants;
+    changeFilterValue: (newValue: FilterVariants) => void;
+}>();
 
-function changeFilterValue () {
-    if (selectedFilter.value === filterVariants.ASC) {
-        selectedFilter.value = filterVariants.DESC;
-        return;
-    };
+// Изменить функцию изменения
 
-    if (selectedFilter.value === filterVariants.DESC) {
-        selectedFilter.value = filterVariants.ASC;
-        return;
-    };
+const filterValue = ref<FilterVariants>(props.selectedFilter);
+function changeValue(e: HTMLevent) {
+    defineEmits();
 }
+
+defineEmits(['changeFilterValue']);
 </script>
 
 <template>
     <div class="spendings-filter">
-        <button @click="changeFilterValue" class="spendings-filter__button">
-            {{ selectedFilter }}
-        </button>
+        <select v-model="filterValue" @change="">
+            <option value="variant" v-for="variant in FilterVariants">
+                {{ variant }}
+            </option>
+        </select>
     </div>
 </template>
 

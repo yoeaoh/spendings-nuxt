@@ -22,7 +22,7 @@ const availableSum = computed(() => {
     const availableSum = props.spending.sum - subSpendingsSum;
 
     return availableSum;
-})
+});
 
 const errors: { name: string; sum: string } = reactive({
     name: '',
@@ -73,7 +73,7 @@ function addSubSpending() {
 </script>
 
 <template>
-    <UiForm :action="addSubSpending" title="Добавить трату:">
+    <UiForm :action="addSubSpending" title="Добавить позицию:">
         <UiFormItem title="Остаток по чеку">
             <div>{{ availableSum }} BYN</div>
         </UiFormItem>
