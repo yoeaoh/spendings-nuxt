@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ISpending } from '~/interfaces/spending.interface';
+import { type ISpending } from '~/interfaces/spending.interface';
 import SubSpendingsForm from './SubSpendingsForm.vue';
 
 defineProps<{
@@ -13,6 +13,8 @@ defineEmits(['close']);
 <template>
     <UiModal :isOpen="isModalOpen" @close="$emit('close')">
         <SubSpendingsForm :spending="spending" />
+
+        <SpendingsCard :spending="spending" />
     </UiModal>
 </template>
 

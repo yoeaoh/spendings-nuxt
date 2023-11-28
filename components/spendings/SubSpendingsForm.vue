@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ISpending, ISubSpending } from '~/interfaces/spending.interface';
+import { type ISpending, type ISubSpending } from '~/interfaces/spending.interface';
 
 const props = defineProps<{
     spending: ISpending;

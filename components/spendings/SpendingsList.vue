@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { ISpending } from '~/interfaces/spending.interface';
-import { FilterVariants } from '~/constants/spendings.constants';
+import { type ISpending } from '~/interfaces/spending.interface';
 import { type IFilterVariants } from '~/constants/spendings.constants';
+import { FilterVariants } from '~/constants/spendings.constants';
 
 const props = defineProps<{
     spendings: ISpending[];
@@ -41,7 +41,6 @@ const filteredSpendings = computed(() => {
             :selectedFilter="selectedFilter"
             @changeFilterValue="changeFilterValue"
             v-if="spendings.length"
-            class="spendings-list__filter"
         />
 
         <SpendingsCard
@@ -57,9 +56,5 @@ const filteredSpendings = computed(() => {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-
-    &__filter {
-        margin-left: auto;
-    }
 }
 </style>

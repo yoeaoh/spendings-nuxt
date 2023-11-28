@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IIncome } from '~/interfaces/income.interface';
+import { type IIncome } from '~/interfaces/income.interface';
 
 defineProps<{
     incomes: IIncome[];

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { formatDate } from '~/helpers/date.helper';
-import { ISpending } from '~/interfaces/spending.interface';
+import { type ISpending } from '~/interfaces/spending.interface';
 
 const props = defineProps<{
     spending: ISpending;
@@ -25,9 +25,6 @@ const formattedDate = computed(() => formatDate(new Date(props.spending.date)));
 // можно вычитать несхождение с финальным чеком и записывать это в скидку.
 
 // В дополнительную информацию можно добавлять теги.
-
-// Добавить ограничение в subSpendings, чтобы сумма подкатегорий не могла быть
-// больше, чем сумма траты.
 </script>
 
 <template>

@@ -1,14 +1,10 @@
-<template>
-    <NuxtPage />
-</template>
-
 <script lang="ts" setup>
-import { ICategory } from './interfaces/category.interface';
-import { IIncome } from './interfaces/income.interface';
+import { type ICategory } from './interfaces/category.interface';
+import { type IIncome } from './interfaces/income.interface';
 import {
-    ISpending,
-    ISpendingDto,
-    ISubSpending,
+    type ISpending,
+    type ISpendingDto,
+    type ISubSpending,
 } from './interfaces/spending.interface';
 
 const spendings: ISpending[] = reactive([]);
@@ -65,15 +61,21 @@ function addNewSubSpending(spending: ISpending, subSpending: ISubSpending) {
 
     spending.subSpendings.push(subSpending);
 
-    if (!categories.find((item) => item.name === subSpending.name)) {
+    const category = categories.find((item) => item.name === subSpending.name);
+
+    if (!category) {
         categories.push({
             id: Date.now().toString(),
             name: subSpending.name,
             sum: subSpending.sum,
         });
+
+        return;
     }
 
-    return 'hey';
+    category.sum = category.sum + subSpending.sum;
+
+    return;
 }
 
 function addNewCategory(category: ICategory): void {
@@ -97,3 +99,7 @@ provide('addNewIncome', addNewIncome);
 provide('totalIncome', totalIncome);
 provide('totalSpendings', totalSpendings);
 </script>
+
+<template>
+    <NuxtPage />
+</template>

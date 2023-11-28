@@ -1,7 +1,7 @@
 <script lang="ts" setup>
+import { type ICategory } from '~/interfaces/category.interface';
+import { type ISpendingDto } from '~/interfaces/spending.interface';
 import { formatDate } from '~/helpers/date.helper';
-import { ICategory } from '~/interfaces/category.interface';
-import { ISpendingDto } from '~/interfaces/spending.interface';
 import { DEFAULT_CATEGORY_ID } from '~/constants/categories.constants';
 
 const categories = inject<ICategory[]>('categories', []);

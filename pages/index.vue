@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { ISpending, ISubSpending } from '~/interfaces/spending.interface';
-import { ICategory } from '~/interfaces/category.interface';
-import { IIncome } from '~/interfaces/income.interface';
+import { type ISpending } from '~/interfaces/spending.interface';
+import { type ICategory } from '~/interfaces/category.interface';
+import { type IIncome } from '~/interfaces/income.interface';
 
 const spendings = inject<ISpending[]>('spendings', []);
 const categories = inject<ICategory[]>('categories', []);
@@ -9,9 +9,6 @@ const incomes = inject<IIncome[]>('incomes', []);
 
 const totalIncome = inject<number>('totalIncome', 0);
 const totalSpendings = inject<number>('totalSpendings', 0);
-
-
-// Добавить возможность фильтровать по дате добавления, по дате, по сумме.
 </script>
 
 <template>
@@ -73,7 +70,7 @@ const totalSpendings = inject<number>('totalSpendings', 0);
 }
 
 .divider {
-    flex: none;
+flex: none;
     width: 2px;
     background-color: hsla(0, 0%, 100%, 0.05);
     margin-top: 1rem;
@@ -86,7 +83,7 @@ const totalSpendings = inject<number>('totalSpendings', 0);
     flex-direction: column;
     gap: 1rem;
     max-height: 100vh;
-    padding: 1rem;
+    padding: 0.5rem;
 
     overflow-y: auto;
 
@@ -96,9 +93,9 @@ const totalSpendings = inject<number>('totalSpendings', 0);
         left: 0;
         right: 0;
 
-        margin-left: -1rem;
-        margin-right: -1rem;
-        margin-bottom: -1rem;
+        margin-left: -0.5rem;
+        margin-right: -0.5rem;
+        margin-bottom: -0.5rem;
     }
 
     &__list {
@@ -123,9 +120,9 @@ const totalSpendings = inject<number>('totalSpendings', 0);
 .column-total {
     background-image: linear-gradient(0deg, hsl(231, 78%, 7%) 5rem, transparent);
     padding-top: 3rem;
-    padding-right: 1rem;
-    padding-bottom: 1rem;
-    padding-left: 1rem;
+    padding-right: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.5rem;
 
     &__container {
         background-image: linear-gradient(30deg, hsl(213, 49%, 12%), hsl(212, 38%, 15%));

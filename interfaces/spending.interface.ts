@@ -1,4 +1,4 @@
-import { ICategory } from './category.interface';
+import { type ICategory } from './category.interface';
 
 export interface ISpending {
     id: string;
