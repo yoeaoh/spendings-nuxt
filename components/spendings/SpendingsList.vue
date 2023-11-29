@@ -7,7 +7,7 @@ const props = defineProps<{
     spendings: ISpending[];
 }>();
 
-const selectedFilter: Ref<IFilterVariants> = ref(FilterVariants.ASC_DATE.key);
+const selectedFilter: Ref<IFilterVariants | null> = ref(null);
 
 function changeFilterValue(newValue: IFilterVariants) {
     selectedFilter.value = newValue;
@@ -31,6 +31,8 @@ const filteredSpendings = computed(() => {
             return props.spendings.toSorted(
                 (a: ISpending, b: ISpending) => b.date - a.date,
             );
+        case null:
+            return props.spendings;
     }
 });
 </script>
