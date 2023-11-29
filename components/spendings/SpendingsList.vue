@@ -16,19 +16,19 @@ function changeFilterValue(newValue: IFilterVariants) {
 const filteredSpendings = computed(() => {
     switch (selectedFilter.value) {
         case FilterVariants.ASC_SUM.key:
-            return props.spendings.sort(
+            return props.spendings.toSorted(
                 (a: ISpending, b: ISpending) => a.sum - b.sum,
             );
         case FilterVariants.DESC_SUM.key:
-            return props.spendings.sort(
+            return props.spendings.toSorted(
                 (a: ISpending, b: ISpending) => b.sum - a.sum,
             );
         case FilterVariants.ASC_DATE.key:
-            return props.spendings.sort(
+            return props.spendings.toSorted(
                 (a: ISpending, b: ISpending) => a.date - b.date,
             );
         case FilterVariants.DESC_DATE.key:
-            return props.spendings.sort(
+            return props.spendings.toSorted(
                 (a: ISpending, b: ISpending) => b.date - a.date,
             );
     }
