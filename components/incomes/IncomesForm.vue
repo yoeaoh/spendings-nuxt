@@ -1,6 +1,6 @@
 <script lang="ts" setup>
+import { type IIncome } from '~/interfaces/income.interface';
 import { formatDate } from '~/helpers/date.helper';
-import { IIncome } from '~/interfaces/income.interface';
 
 const addNewIncome = inject<(income: IIncome) => void>(
     'addNewIncome',

@@ -28,9 +28,10 @@ defineProps<{
     &__title {
         background-color: hsla(0, 0%, 0%, 0.5);
         color: white;
-        padding: 0.5rem 0.5rem;
+        padding: 0.25rem 0.5rem;
         border-top-left-radius: 3px;
         border-bottom-left-radius: 3px;
+        font-size: 0.75rem;
     }
 
     &__input {
@@ -40,17 +41,22 @@ defineProps<{
         :deep(div),
         :deep(input),
         :deep(select) {
+            font-size: 0.75rem;
             display: flex;
             align-items: center;
             color: hsla(0, 0%, 0%, 1);
             min-width: 0;
             flex-grow: 1;
-            padding: 0 0.5rem;
             border: 0;
             border-top-right-radius: 3px;
             border-bottom-right-radius: 3px;
             background-color: hsla(0, 0%, 100%, 0.75);
             outline: 0;
+        }
+
+        :deep(div),
+        :deep(input) { 
+            padding: 0 0.25rem;
         }
     }
 

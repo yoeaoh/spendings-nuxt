@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ICategory } from '~/interfaces/category.interface';
+import { type ICategory } from '~/interfaces/category.interface';
 
 const categories = inject<ICategory[]>('categories', []);
 const addNewCategory = inject<(category: ICategory) => void>(

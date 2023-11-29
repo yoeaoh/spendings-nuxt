@@ -1,6 +1,5 @@
 <script lang="ts" setup>
-import { ICategory } from '~/interfaces/category.interface';
-
+import { type ICategory } from '~/interfaces/category.interface';
 
 defineProps<{
     categories: ICategory[];

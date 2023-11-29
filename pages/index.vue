@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { ISpending, ISubSpending } from '~/interfaces/spending.interface';
-import { ICategory } from '~/interfaces/category.interface';
-import { IIncome } from '~/interfaces/income.interface';
+import { type ISpending } from '~/interfaces/spending.interface';
+import { type ICategory } from '~/interfaces/category.interface';
+import { type IIncome } from '~/interfaces/income.interface';
 
 const spendings = inject<ISpending[]>('spendings', []);
 const categories = inject<ICategory[]>('categories', []);
@@ -9,15 +9,13 @@ const incomes = inject<IIncome[]>('incomes', []);
 
 const totalIncome = inject<number>('totalIncome', 0);
 const totalSpendings = inject<number>('totalSpendings', 0);
-
-
-// Добавить возможность фильтровать по дате добавления, по дате, по сумме.
+const totalValue = computed(() => unref(totalIncome) - unref(totalSpendings));
 </script>
 
 <template>
     <div class="layout">
         <div class="column total">
-            <TotalCard />
+            <TotalCard :totalValue="totalValue" />
         </div>
 
         <div class="divider"></div>
@@ -25,16 +23,15 @@ const totalSpendings = inject<number>('totalSpendings', 0);
         <div class="column spendings">
             <SpendingsForm />
 
-            <SpendingsList :spendings="spendings" class="column__list" />
+            <SpendingsList
+                :spendings="spendings" 
+                class="column__list" 
+            />
 
-            <div class="column__total column-total">
-                <div class="column-total__container">
-                    Всего:
-                    <span class="column-total__sum">
-                        {{ totalSpendings }}
-                    </span>
-                </div>
-            </div>
+            <TotalCard 
+                :totalValue="totalSpendings" 
+                class="column__total" 
+            />
         </div>
 
         <div class="divider"></div>
@@ -42,7 +39,10 @@ const totalSpendings = inject<number>('totalSpendings', 0);
         <div class="column categories">
             <CategoriesForm />
 
-            <CategoriesList :categories="categories" class="column__list" />
+            <CategoriesList 
+                :categories="categories" 
+                class="column__list" 
+            />
         </div>
 
         <div class="divider"></div>
@@ -50,16 +50,15 @@ const totalSpendings = inject<number>('totalSpendings', 0);
         <div class="column incomes">
             <IncomesForm />
 
-            <IncomesList :incomes="incomes" class="column__list" />
+            <IncomesList 
+                :incomes="incomes" 
+                class="column__list" 
+            />
 
-            <div class="column__total column-total">
-                <div class="column-total__container">
-                    Всего:
-                    <span class="column-total__sum">
-                        {{ totalIncome }}
-                    </span>
-                </div>
-            </div>
+            <TotalCard 
+                :totalValue="totalIncome" 
+                class="column__total" 
+            />
         </div>
     </div>
 </template>
@@ -86,19 +85,26 @@ const totalSpendings = inject<number>('totalSpendings', 0);
     flex-direction: column;
     gap: 1rem;
     max-height: 100vh;
-    padding: 1rem;
+    padding-top: 0.5rem;
+    padding-right: 0.5rem;
+    padding-bottom: 0;
+    padding-left: 0.5rem;
 
     overflow-y: auto;
 
     &__total {
         position: sticky;
-        bottom: -1rem;
+        bottom: 0;
         left: 0;
         right: 0;
 
-        margin-left: -1rem;
-        margin-right: -1rem;
-        margin-bottom: -1rem;
+        margin-left: -0.5rem;
+        margin-right: -0.5rem;
+
+        padding-top: 3rem;
+        padding-right: 0.5rem;
+        padding-bottom: 0.5rem;
+        padding-left: 0.5rem;
     }
 
     &__list {
@@ -117,26 +123,6 @@ const totalSpendings = inject<number>('totalSpendings', 0);
     &::-webkit-scrollbar {
         width: 5px;
         height: 5px;
-    }
-}
-
-.column-total {
-    background-image: linear-gradient(0deg, hsl(231, 78%, 7%) 5rem, transparent);
-    padding-top: 3rem;
-    padding-right: 1rem;
-    padding-bottom: 1rem;
-    padding-left: 1rem;
-
-    &__container {
-        background-image: linear-gradient(30deg, hsl(213, 49%, 12%), hsl(212, 38%, 15%));
-        border: 1px solid hsla(0, 0%, 100%, 0.1);
-        padding: 1rem;
-        border-radius: 0.5rem;
-        font-size: 1rem;
-    }
-    
-    &__sum {
-        font-weight: 600;
     }
 }
 </style>
