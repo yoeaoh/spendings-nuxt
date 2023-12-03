@@ -1,12 +1,13 @@
 <script lang="ts" setup>
 import { type ICategory } from '~/interfaces/category.interface';
 import { type IIncome } from '~/interfaces/income.interface';
+import { useCategoriesStore } from '~/store/categories.store';
+import { useIncomesStore } from '~/store/incomes.store';
 import { useSpendingsStore } from '~/store/spendings.store';
 
 const spendings = useSpendingsStore();
-
-const categories = inject<ICategory[]>('categories', []);
-const incomes = inject<IIncome[]>('incomes', []);
+const categories = useCategoriesStore();
+const incomes = useIncomesStore();
 
 const totalIncome = inject<number>('totalIncome', 0);
 const totalSpendings = inject<number>('totalSpendings', 0);
@@ -34,7 +35,10 @@ const totalValue = computed(() => unref(totalIncome) - unref(totalSpendings));
         <div class="column categories">
             <CategoriesForm />
 
-            <CategoriesList :categories="categories" class="column__list" />
+            <CategoriesList
+                :categories="categories.items"
+                class="column__list"
+            />
         </div>
 
         <div class="divider"></div>
@@ -42,7 +46,7 @@ const totalValue = computed(() => unref(totalIncome) - unref(totalSpendings));
         <div class="column incomes">
             <IncomesForm />
 
-            <IncomesList :incomes="incomes" class="column__list" />
+            <IncomesList :incomes="incomes.items" class="column__list" />
 
             <TotalCard :totalValue="totalIncome" class="column__total" />
         </div>

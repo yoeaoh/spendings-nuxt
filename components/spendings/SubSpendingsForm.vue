@@ -1,13 +1,15 @@
 <script lang="ts" setup>
-import { type ISpending, type ISubSpending } from '~/interfaces/spending.interface';
+import {
+    type ISpending,
+    type ISubSpending,
+} from '~/interfaces/spending.interface';
+import { useSpendingsStore } from '~/store/spendings.store';
 
 const props = defineProps<{
     spending: ISpending;
 }>();
 
-const addNewSubSpending = inject<
-    (spending: ISpending, subSpending: ISubSpending) => string
->('addNewSubSpending', () => '');
+const spendings = useSpendingsStore();
 
 const name: Ref<string> = ref('');
 const sum: Ref<number | null> = ref(null);
@@ -64,8 +66,7 @@ function addSubSpending() {
         sum: sum.value,
     };
 
-    const error = addNewSubSpending(props.spending, newSubSpending);
-    errors.sum = error;
+    const error = spendings.addNewSubSpending(props.spending, newSubSpending);
 
     sum.value = null;
     name.value = '';

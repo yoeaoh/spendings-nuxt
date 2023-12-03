@@ -1,11 +1,8 @@
 <script lang="ts" setup>
 import { type ICategory } from '~/interfaces/category.interface';
+import { useCategoriesStore } from '~/store/categories.store';
 
-const categories = inject<ICategory[]>('categories', []);
-const addNewCategory = inject<(category: ICategory) => void>(
-    'addNewCategory',
-    () => {},
-);
+const categories = useCategoriesStore();
 
 const name = ref<string>('');
 const errors: { name: string } = reactive({ name: '' });
@@ -16,7 +13,7 @@ const checkName = () => {
         return false;
     }
 
-    if (categories.find((c: ICategory) => c.name === name.value)) {
+    if (categories.items.find((c: ICategory) => c.name === name.value)) {
         errors.name = 'Такое имя уже используется';
         return false;
     }
@@ -36,7 +33,7 @@ function addCategory() {
         sum: 0,
     };
 
-    addNewCategory(newCategory);
+    categories.addNewItem(newCategory);
 
     name.value = '';
 }

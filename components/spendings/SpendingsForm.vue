@@ -53,7 +53,7 @@ function addSpending() {
         description: description.value,
     };
 
-    spendings.addItem(newSpending);
+    spendings.addNewItem(newSpending);
 
     sum.value = null;
     description.value = '';
