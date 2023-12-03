@@ -5,20 +5,20 @@ import { useCategoriesStore } from '~/store/categories.store';
 const categories = useCategoriesStore();
 
 const name = ref<string>('');
-const errors: { name: string } = reactive({ name: '' });
+const errors: Ref<{ name: string }> = ref({ name: '' });
 
 const checkName = () => {
     if (name.value.length <= 1) {
-        errors.name = 'Слишком короткое имя';
+        errors.value.name = 'Слишком короткое имя';
         return false;
     }
 
     if (categories.items.find((c: ICategory) => c.name === name.value)) {
-        errors.name = 'Такое имя уже используется';
+        errors.value.name = 'Такое имя уже используется';
         return false;
     }
 
-    errors.name = '';
+    errors.value.name = '';
     return true;
 };
 
@@ -31,6 +31,7 @@ function addCategory() {
         id: Date.now().toString(),
         name: name.value,
         sum: 0,
+        subCategories: [],
     };
 
     categories.addNewItem(newCategory);

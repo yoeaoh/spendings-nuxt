@@ -13,6 +13,13 @@ const spendings = useSpendingsStore();
 
 const name: Ref<string> = ref('');
 const sum: Ref<number | null> = ref(null);
+
+const nameInput: Ref<HTMLInputElement | null> = ref(null);
+
+onMounted(() => {
+    nameInput.value?.focus();
+});
+
 const availableSum = computed(() => {
     const subSpendingsSum = props.spending.subSpendings.reduce(
         (sum: number, currSpending: ISubSpending) => {
@@ -26,28 +33,28 @@ const availableSum = computed(() => {
     return availableSum;
 });
 
-const errors: { name: string; sum: string } = reactive({
+const errors: Ref<{ name: string; sum: string }> = ref({
     name: '',
     sum: '',
 });
 
 function checkSum() {
     if (sum.value === null || sum.value <= 0) {
-        errors.sum = 'Введите сумму';
+        errors.value.sum = 'Введите сумму';
         return false;
     }
 
-    errors.sum = '';
+    errors.value.sum = '';
     return true;
 }
 
 function checkName() {
     if (!name.value) {
-        errors.name = 'Введите название';
+        errors.value.name = 'Введите название';
         return false;
     }
 
-    errors.name = '';
+    errors.value.name = '';
     return true;
 }
 
@@ -66,10 +73,19 @@ function addSubSpending() {
         sum: sum.value,
     };
 
-    const error = spendings.addNewSubSpending(props.spending, newSubSpending);
+    const errors = spendings.addNewSubSpending(
+        props.spending,
+        newSubSpending,
+        availableSum.value,
+    );
+
+    console.log(errors);
+
+    if (errors) return;
 
     sum.value = null;
     name.value = '';
+    nameInput.value?.focus();
 }
 </script>
 
@@ -80,7 +96,13 @@ function addSubSpending() {
         </UiFormItem>
 
         <UiFormItem title="Название" :error="errors.name">
-            <input v-model="name" type="text" required />
+            <input
+                v-model="name"
+                type="text"
+                required
+                ref="nameInput"
+                placeholder="Название продукта"
+            />
         </UiFormItem>
 
         <UiFormItem title="Сумма" :error="errors.sum">

@@ -7,9 +7,7 @@ const spendings = useSpendingsStore();
 const categories = useCategoriesStore();
 const incomes = useIncomesStore();
 
-const totalIncome = incomes.totalIncome;
-const totalSpendings = spendings.totalSpendings;
-const totalValue = computed(() => unref(totalIncome) - unref(totalSpendings));
+const totalValue = computed(() => incomes.total - spendings.total);
 </script>
 
 <template>
@@ -23,9 +21,9 @@ const totalValue = computed(() => unref(totalIncome) - unref(totalSpendings));
         <div class="column spendings">
             <SpendingsForm />
 
-            <SpendingsList :spendings="spendings.items" class="column__list" />
+            <SpendingsList class="column__list" />
 
-            <TotalCard :totalValue="totalSpendings" class="column__total" />
+            <TotalCard :totalValue="spendings.total" class="column__total" />
         </div>
 
         <div class="divider"></div>
@@ -46,7 +44,7 @@ const totalValue = computed(() => unref(totalIncome) - unref(totalSpendings));
 
             <IncomesList :incomes="incomes.items" class="column__list" />
 
-            <TotalCard :totalValue="totalIncome" class="column__total" />
+            <TotalCard :totalValue="incomes.total" class="column__total" />
         </div>
     </div>
 </template>

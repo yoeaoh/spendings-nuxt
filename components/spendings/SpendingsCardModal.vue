@@ -11,11 +11,26 @@ defineEmits(['close']);
 </script>
 
 <template>
-    <UiModal :isOpen="isModalOpen" @close="$emit('close')">
-        <SubSpendingsForm :spending="spending" />
+    <UiModal
+        :isOpen="isModalOpen"
+        @close="$emit('close')"
+        class="spendings-card-modal"
+    >
+        <SubSpendingsForm
+            :spending="spending"
+            class="spendings-card-modal__form"
+        />
 
-        <SpendingsCard :spending="spending" />
+        <SpendingsCard
+            :spending="spending"
+            class="spendings-card-modal__card"
+        />
     </UiModal>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.spendings-card-modal {
+    display: flex;
+    gap: 1rem;
+}
+</style>

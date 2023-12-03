@@ -19,7 +19,7 @@ defineProps<{
 .total-card {
     background-image: linear-gradient(
         0deg,
-        hsl(231, 78%, 7%) 5rem,
+        hsl(231, 78%, 7%) 4rem,
         transparent
     );
 

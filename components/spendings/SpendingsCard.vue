@@ -18,6 +18,8 @@ function closeCardModal() {
 
 const formattedDate = computed(() => formatDate(new Date(props.spending.date)));
 
+const hasSubSpendings = computed(() => props.spending.subSpendings.length);
+
 // При клике на карточку разворачивать модалку.
 // Далее, в модалке добавляются траты, закреплённые к этой карточке и
 // к категории карточки. В карточке соответствующей категории автоматически
@@ -47,12 +49,12 @@ const formattedDate = computed(() => formatDate(new Date(props.spending.date)));
             {{ formattedDate }}
         </div>
 
-        <ul>
+        <ul v-if="hasSubSpendings" class="spendings-card__sub-spendings">
             <li
                 v-for="subSpending in spending.subSpendings"
                 :key="subSpending.id"
             >
-                {{ subSpending.name }} - {{ subSpending.sum }}
+                ▹ {{ subSpending.name }} - {{ subSpending.sum }}
             </li>
         </ul>
 
@@ -92,6 +94,12 @@ const formattedDate = computed(() => formatDate(new Date(props.spending.date)));
         display: flex;
         justify-content: flex-end;
         font-size: 0.75rem;
+    }
+
+    &__sub-spendings {
+        border-top: 1px dashed hsla(0, 0%, 100%, 0.2);
+        padding-top: 1rem;
+        margin-top: 1rem;
     }
 }
 

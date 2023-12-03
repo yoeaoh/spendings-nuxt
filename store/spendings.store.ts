@@ -12,12 +12,10 @@ import type { ICategory } from '~/interfaces/category.interface';
 
 // Погуглить, как неймят массивы данных в сторах
 
-// мейби поменять все reactive на ref
-
 export const useSpendingsStore = defineStore('spendings', () => {
     const categories = useCategoriesStore();
 
-    const items: ISpending[] = reactive([]);
+    const items: Ref<ISpending[]> = ref([]);
 
     function addNewItem(item: ISpendingDto): void {
         const category = categories.items.find(
@@ -28,7 +26,7 @@ export const useSpendingsStore = defineStore('spendings', () => {
 
         category.sum = category.sum + item.sum;
 
-        items.push({
+        items.value.push({
             id: item.id,
             sum: item.sum,
             date: Date.parse(item.date),
@@ -38,25 +36,19 @@ export const useSpendingsStore = defineStore('spendings', () => {
         });
     }
 
-    const totalSpendings = computed(() =>
-        items.reduce(
-            (sum: number, currentItem: ISpending) => currentItem.sum + sum,
-            0,
-        ),
-    );
+    function addNewSubSpending(
+        spending: ISpending,
+        subSpending: ISubSpending,
+        availableSum: number,
+    ) {
+        console.log(`subSpending.sum: ${subSpending.sum}`);
+        console.log(`spending.sum: ${spending.sum}`);
+        console.log(`availableSum: ${availableSum}`);
 
-    function addNewSubSpending(spending: ISpending, subSpending: ISubSpending) {
         if (subSpending.sum > spending.sum)
             return 'Сумма продукта не должна превышать общую сумму чека';
 
-        const subSpendingsSum = spending.subSpendings.reduce(
-            (sum: number, currSpending: ISubSpending) => {
-                return sum + currSpending.sum;
-            },
-            0,
-        );
-
-        if (subSpendingsSum >= spending.sum)
+        if (availableSum - subSpending.sum < 0)
             return 'Сумма всех продуктов не должна превышать общую сумму чека';
 
         spending.subSpendings.push(subSpending);
@@ -71,7 +63,16 @@ export const useSpendingsStore = defineStore('spendings', () => {
             name: subSpending.name,
             sum: subSpending.sum,
         });
+
+        return;
     }
 
-    return { items, addNewItem, totalSpendings, addNewSubSpending };
+    const total = computed(() =>
+        items.value.reduce(
+            (sum: number, currentItem: ISpending) => currentItem.sum + sum,
+            0,
+        ),
+    );
+
+    return { items, total, addNewItem, addNewSubSpending };
 });

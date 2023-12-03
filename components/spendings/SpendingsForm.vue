@@ -13,28 +13,28 @@ const date: Ref<string> = ref(formatDate());
 const categoryId: Ref<string> = ref(DEFAULT_CATEGORY_ID);
 const description: Ref<string> = ref('');
 
-const errors: { sum: string; date: string } = reactive({
+const errors: Ref<{ sum: string; date: string }> = ref({
     sum: '',
     date: '',
 });
 
 function checkSum() {
     if (sum.value === null || sum.value <= 0) {
-        errors.sum = 'Введите сумму';
+        errors.value.sum = 'Введите сумму';
         return false;
     }
 
-    errors.sum = '';
+    errors.value.sum = '';
     return true;
 }
 
 function checkDate() {
     if (!date.value) {
-        errors.date = 'Введите дату';
+        errors.value.date = 'Введите дату';
         return false;
     }
 
-    errors.date = '';
+    errors.value.date = '';
     return true;
 }
 
