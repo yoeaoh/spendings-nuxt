@@ -1,9 +1,10 @@
 <script lang="ts" setup>
-import { type ISpending } from '~/interfaces/spending.interface';
 import { type ICategory } from '~/interfaces/category.interface';
 import { type IIncome } from '~/interfaces/income.interface';
+import { useSpendingsStore } from '~/store/spendings.store';
 
-const spendings = inject<ISpending[]>('spendings', []);
+const spendings = useSpendingsStore();
+
 const categories = inject<ICategory[]>('categories', []);
 const incomes = inject<IIncome[]>('incomes', []);
 
@@ -23,15 +24,9 @@ const totalValue = computed(() => unref(totalIncome) - unref(totalSpendings));
         <div class="column spendings">
             <SpendingsForm />
 
-            <SpendingsList
-                :spendings="spendings" 
-                class="column__list" 
-            />
+            <SpendingsList :spendings="spendings.items" class="column__list" />
 
-            <TotalCard 
-                :totalValue="totalSpendings" 
-                class="column__total" 
-            />
+            <TotalCard :totalValue="totalSpendings" class="column__total" />
         </div>
 
         <div class="divider"></div>
@@ -39,10 +34,7 @@ const totalValue = computed(() => unref(totalIncome) - unref(totalSpendings));
         <div class="column categories">
             <CategoriesForm />
 
-            <CategoriesList 
-                :categories="categories" 
-                class="column__list" 
-            />
+            <CategoriesList :categories="categories" class="column__list" />
         </div>
 
         <div class="divider"></div>
@@ -50,15 +42,9 @@ const totalValue = computed(() => unref(totalIncome) - unref(totalSpendings));
         <div class="column incomes">
             <IncomesForm />
 
-            <IncomesList 
-                :incomes="incomes" 
-                class="column__list" 
-            />
+            <IncomesList :incomes="incomes" class="column__list" />
 
-            <TotalCard 
-                :totalValue="totalIncome" 
-                class="column__total" 
-            />
+            <TotalCard :totalValue="totalIncome" class="column__total" />
         </div>
     </div>
 </template>

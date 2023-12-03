@@ -3,12 +3,11 @@ import { type ICategory } from '~/interfaces/category.interface';
 import { type ISpendingDto } from '~/interfaces/spending.interface';
 import { formatDate } from '~/helpers/date.helper';
 import { DEFAULT_CATEGORY_ID } from '~/constants/categories.constants';
+import { useSpendingsStore } from '~/store/spendings.store';
+
+const spendings = useSpendingsStore();
 
 const categories = inject<ICategory[]>('categories', []);
-const addNewSpending = inject<(spending: ISpendingDto) => void>(
-    'addNewSpending',
-    () => {},
-);
 
 const sum: Ref<number | null> = ref(null);
 const date: Ref<string> = ref(formatDate());
@@ -54,7 +53,7 @@ function addSpending() {
         description: description.value,
     };
 
-    addNewSpending(newSpending);
+    spendings.addItem(newSpending);
 
     sum.value = null;
     description.value = '';

@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { type ICategory } from './interfaces/category.interface';
-import { type IIncome } from './interfaces/income.interface';
+import { type ICategory } from '~/interfaces/category.interface';
+import { type IIncome } from '~/interfaces/income.interface';
 import {
     type ISpending,
     type ISpendingDto,
