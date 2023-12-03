@@ -64,7 +64,6 @@ onUnmounted(() => {
         color: #fff;
         background-color: hsla(0, 0%, 0%, 0.75);
         border: 1px solid hsla(0, 0%, 100%, 0.5);
-        max-width: 25rem;
         border-radius: 1rem;
         transition: all 0.3s ease;
         display: flex;

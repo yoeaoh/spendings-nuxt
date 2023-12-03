@@ -49,12 +49,19 @@ const hasSubSpendings = computed(() => props.spending.subSpendings.length);
             {{ formattedDate }}
         </div>
 
-        <ul v-if="hasSubSpendings" class="spendings-card__sub-spendings">
+        <ul
+            v-if="hasSubSpendings"
+            class="spendings-card__sub-spendings spendings-card-sub-spendings"
+        >
             <li
                 v-for="subSpending in spending.subSpendings"
                 :key="subSpending.id"
             >
-                ▹ {{ subSpending.name }} - {{ subSpending.sum }}
+                ▹ {{ subSpending.name }} —
+                <span class="spendings-card-sub-spendings__sum">
+                    {{ subSpending.sum }}
+                </span>
+                <span class="spendings-card-sub-spendings__currency">BYN</span>
             </li>
         </ul>
 
@@ -80,6 +87,16 @@ const hasSubSpendings = computed(() => props.spending.subSpendings.length);
     color: white;
     border-radius: 0.5rem;
     gap: 0.25rem;
+
+    &:hover {
+        background-image: linear-gradient(
+            30deg,
+            hsl(298, 56%, 35%),
+            hsl(298, 56%, 15%)
+        );
+        cursor: pointer;
+        border: 1px solid hsla(0, 0%, 100%, 0.5);
+    }
 
     &__sum {
         font-size: 1.25rem;
@@ -109,6 +126,17 @@ const hasSubSpendings = computed(() => props.spending.subSpendings.length);
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+    }
+}
+
+.spendings-card-sub-spendings {
+    &__sum {
+        font-weight: 600;
+    }
+
+    &__currency {
+        margin-left: 0.2rem;
+        font-size: 0.75rem;
     }
 }
 </style>

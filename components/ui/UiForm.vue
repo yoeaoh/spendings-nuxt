@@ -27,24 +27,25 @@ defineProps<{
         hsl(212, 38%, 15%)
     );
     border: 1px solid hsla(0, 0%, 100%, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
 
     &__title {
         font-family: 'Inter';
         color: white;
         font-size: 1rem;
         font-weight: 500;
-        margin-bottom: 0.5rem;
     }
 
     &__fields {
         display: grid;
         grid-template-columns: max-content auto;
         row-gap: 0.25rem;
-        margin-bottom: 0.5rem;
     }
 
     &__button {
-        padding: 0.25rem 0.5rem;
+        padding: 0.5rem 0.5rem;
         background-color: transparent;
         background-image: linear-gradient(
             0deg,
@@ -54,19 +55,20 @@ defineProps<{
         border: 1px solid hsla(0, 0%, 100%, 0.1);
         color: hsl(0, 0%, 100%);
         border-radius: 3px;
-        width: 100%;
         font-size: 0.75rem;
         font-family: 'Inter';
+        align-self: flex-end;
 
         &:hover,
         &:focus {
             background-image: linear-gradient(
                 30deg,
                 hsla(0, 0%, 100%, 0.1),
-                hsla(0, 0%, 100%, 0.2)
+                hsla(0, 0%, 100%, 0.3)
             );
             outline: 0;
             border: 1px solid hsla(0, 0%, 100%, 0.3);
+            cursor: pointer;
         }
     }
 }

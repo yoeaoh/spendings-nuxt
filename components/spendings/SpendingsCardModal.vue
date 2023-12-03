@@ -16,21 +16,36 @@ defineEmits(['close']);
         @close="$emit('close')"
         class="spendings-card-modal"
     >
-        <SubSpendingsForm
-            :spending="spending"
-            class="spendings-card-modal__form"
-        />
+        <div class="spendings-card-modal__container">
+            <SubSpendingsForm
+                :spending="spending"
+                class="spendings-card-modal__form"
+            />
 
-        <SpendingsCard
-            :spending="spending"
-            class="spendings-card-modal__card"
-        />
+            <SpendingsCard
+                :spending="spending"
+                class="spendings-card-modal__card"
+            />
+        </div>
     </UiModal>
 </template>
 
 <style lang="scss" scoped>
 .spendings-card-modal {
-    display: flex;
-    gap: 1rem;
+    &__container {
+        display: flex;
+        gap: 1rem;
+        width: 40rem;
+        align-items: flex-start;
+    }
+
+    &__form {
+        flex-grow: 0;
+    }
+
+    &__card {
+        flex-grow: 1;
+        pointer-events: none;
+    }
 }
 </style>

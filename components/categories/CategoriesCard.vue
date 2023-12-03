@@ -28,7 +28,13 @@ const hasSubCategories = computed(() => props.category.subCategories?.length);
                 v-for="subCategory in category.subCategories"
                 :key="subCategory.id"
             >
-                ▹ {{ subCategory.name }} - {{ subCategory.sum }}
+                ▹ {{ subCategory.name }} —
+                <span class="categories-card-sub-categories__sum">
+                    {{ subCategory.sum }}
+                </span>
+                <span class="categories-card-sub-categories__currency"
+                    >BYN</span
+                >
             </li>
         </ul>
     </div>
@@ -82,6 +88,17 @@ const hasSubCategories = computed(() => props.category.subCategories?.length);
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+    }
+}
+
+.categories-card-sub-categories {
+    &__sum {
+        font-weight: 600;
+    }
+
+    &__currency {
+        margin-left: 0.2rem;
+        font-size: 0.75rem;
     }
 }
 </style>

@@ -32,6 +32,8 @@ defineProps<{
         border-top-left-radius: 3px;
         border-bottom-left-radius: 3px;
         font-size: 0.75rem;
+        display: flex;
+        align-items: center;
     }
 
     &__input {
@@ -54,9 +56,13 @@ defineProps<{
             outline: 0;
         }
 
+        :deep(select) {
+            padding: 0.5rem 0.25rem;
+        }
+
         :deep(div),
         :deep(input) {
-            padding: 0 0.25rem;
+            padding: 0.5rem 0.5rem;
         }
     }
 

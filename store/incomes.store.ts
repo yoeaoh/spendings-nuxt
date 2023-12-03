@@ -7,14 +7,12 @@ export const useIncomesStore = defineStore('incomes', () => {
         items.value.push(item);
     }
 
-    // const total = computed(() =>
-    //     items.reduce(
-    //         (sum: number, currentItem: IIncome) => currentItem.sum + sum,
-    //         0,
-    //     ),
-    // );
-
-    const total = computed(() => items.value.length);
+    const total = computed(() =>
+        items.value.reduce(
+            (sum: number, currentItem: IIncome) => currentItem.sum + sum,
+            0,
+        ),
+    );
 
     return { items, total, addNewItem };
 });

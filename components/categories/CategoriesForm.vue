@@ -4,6 +4,10 @@ import { useCategoriesStore } from '~/store/categories.store';
 
 const categories = useCategoriesStore();
 
+// Добавлять дефолтную категорию "Без категории"
+// только если при добавлении чека не будет выбрано категории
+// (если так можно вообще)
+
 const name = ref<string>('');
 const errors: Ref<{ name: string }> = ref({ name: '' });
 

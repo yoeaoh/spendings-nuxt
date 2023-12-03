@@ -30,7 +30,7 @@ const availableSum = computed(() => {
 
     const availableSum = props.spending.sum - subSpendingsSum;
 
-    return availableSum;
+    return Number.parseFloat(availableSum.toFixed(2));
 });
 
 const errors: Ref<{ name: string; sum: string }> = ref({

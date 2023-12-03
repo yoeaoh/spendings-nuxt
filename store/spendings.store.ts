@@ -30,7 +30,7 @@ export const useSpendingsStore = defineStore('spendings', () => {
             id: item.id,
             sum: item.sum,
             date: Date.parse(item.date),
-            category: DEFAULT_CATEGORY,
+            category: category,
             description: item.description,
             subSpendings: [],
         });
