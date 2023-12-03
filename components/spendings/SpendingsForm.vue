@@ -1,13 +1,12 @@
 <script lang="ts" setup>
-import { type ICategory } from '~/interfaces/category.interface';
 import { type ISpendingDto } from '~/interfaces/spending.interface';
 import { formatDate } from '~/helpers/date.helper';
 import { DEFAULT_CATEGORY_ID } from '~/constants/categories.constants';
 import { useSpendingsStore } from '~/store/spendings.store';
+import { useCategoriesStore } from '~/store/categories.store';
 
 const spendings = useSpendingsStore();
-
-const categories = inject<ICategory[]>('categories', []);
+const categories = useCategoriesStore();
 
 const sum: Ref<number | null> = ref(null);
 const date: Ref<string> = ref(formatDate());
@@ -82,7 +81,7 @@ function addSpending() {
             <select v-model="categoryId">
                 <option selected disabled>Выберите категорию:</option>
                 <option
-                    v-for="category in categories"
+                    v-for="category in categories.items"
                     :key="category.id"
                     :value="category.id"
                 >

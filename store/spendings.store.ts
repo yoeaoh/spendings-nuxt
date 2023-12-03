@@ -10,6 +10,10 @@ import type { ICategory } from '~/interfaces/category.interface';
 // TODO: Отрефакторить добавление айтемов
 // (чтобы все валидации были в одном месте)
 
+// Погуглить, как неймят массивы данных в сторах
+
+// мейби поменять все reactive на ref
+
 export const useSpendingsStore = defineStore('spendings', () => {
     const categories = useCategoriesStore();
 
@@ -52,27 +56,21 @@ export const useSpendingsStore = defineStore('spendings', () => {
             0,
         );
 
-        if (subSpendingsSum >= spending.sum) return;
+        if (subSpendingsSum >= spending.sum)
+            return 'Сумма всех продуктов не должна превышать общую сумму чека';
 
         spending.subSpendings.push(subSpending);
 
         const category = categories.items.find(
-            (item) => item.name === subSpending.name,
+            (item) => spending.category.id === item.id,
         );
 
-        if (!category) {
-            categories.items.push({
-                id: Date.now().toString(),
-                name: subSpending.name,
-                sum: subSpending.sum,
-            });
-
-            return;
-        }
-
-        category.sum = category.sum + subSpending.sum;
-
-        return;
+        category?.subCategories.push({
+            id: Date.now().toString(),
+            categoryId: spending.category.id,
+            name: subSpending.name,
+            sum: subSpending.sum,
+        });
     }
 
     return { items, addNewItem, totalSpendings, addNewSubSpending };

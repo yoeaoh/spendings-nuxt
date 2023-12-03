@@ -55,7 +55,7 @@ defineProps<{
         }
 
         :deep(div),
-        :deep(input) { 
+        :deep(input) {
             padding: 0 0.25rem;
         }
     }

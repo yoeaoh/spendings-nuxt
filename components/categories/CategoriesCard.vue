@@ -15,8 +15,18 @@ defineProps<{
         </div>
 
         <div class="categories-card__sum">
-            {{ category.sum }}<span class="categories-card__currency"> BYN</span>
+            {{ category.sum }}
+            <span class="categories-card__currency"> BYN</span>
         </div>
+
+        <ul>
+            <li
+                v-for="subCategory in category.subCategories"
+                :key="subCategory.id"
+            >
+                {{ subCategory.name }} - {{ subCategory.sum }}
+            </li>
+        </ul>
     </div>
 </template>
 
@@ -26,7 +36,11 @@ defineProps<{
     padding: 0.5rem;
     justify-content: space-between;
     align-items: center;
-    background-image: linear-gradient(120deg, hsl(178, 56%, 25%), hsl(178, 56%, 15%));
+    background-image: linear-gradient(
+        120deg,
+        hsl(178, 56%, 25%),
+        hsl(178, 56%, 15%)
+    );
     border: 1px solid hsla(0, 0%, 100%, 0.1);
     color: white;
     border-radius: 0.5rem;

@@ -8,7 +8,6 @@ defineProps<{
 
 <template>
     <div class="incomes-list">
-
         <IncomesCard
             v-for="income in incomes"
             :key="income.id"

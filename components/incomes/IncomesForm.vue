@@ -1,11 +1,8 @@
 <script lang="ts" setup>
-import { type IIncome } from '~/interfaces/income.interface';
 import { formatDate } from '~/helpers/date.helper';
+import { useIncomesStore } from '~/store/incomes.store';
 
-const addNewIncome = inject<(income: IIncome) => void>(
-    'addNewIncome',
-    () => {},
-);
+const incomes = useIncomesStore();
 
 const name: Ref<string> = ref('');
 const sum: Ref<number | null> = ref(null);
@@ -49,7 +46,7 @@ function addIncome() {
         date: date.value,
     };
 
-    addNewIncome(newIncome);
+    incomes.addNewItem(newIncome);
 
     name.value = '';
     sum.value = null;

@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-import { type ICategory } from '~/interfaces/category.interface';
-import { type IIncome } from '~/interfaces/income.interface';
 import { useCategoriesStore } from '~/store/categories.store';
 import { useIncomesStore } from '~/store/incomes.store';
 import { useSpendingsStore } from '~/store/spendings.store';
@@ -9,8 +7,8 @@ const spendings = useSpendingsStore();
 const categories = useCategoriesStore();
 const incomes = useIncomesStore();
 
-const totalIncome = inject<number>('totalIncome', 0);
-const totalSpendings = inject<number>('totalSpendings', 0);
+const totalIncome = incomes.totalIncome;
+const totalSpendings = spendings.totalSpendings;
 const totalValue = computed(() => unref(totalIncome) - unref(totalSpendings));
 </script>
 
