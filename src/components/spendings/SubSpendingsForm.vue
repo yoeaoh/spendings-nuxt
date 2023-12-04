@@ -7,6 +7,7 @@ import { useSpendingsStore } from '~/store/spendings.store';
 
 const props = defineProps<{
     spending: ISpending;
+    availableSum: number;
 }>();
 
 const spendings = useSpendingsStore();
@@ -18,19 +19,6 @@ const nameInput: Ref<HTMLInputElement | null> = ref(null);
 
 onMounted(() => {
     nameInput.value?.focus();
-});
-
-const availableSum = computed(() => {
-    const subSpendingsSum = props.spending.subSpendings.reduce(
-        (sum: number, currSpending: ISubSpending) => {
-            return sum + currSpending.sum;
-        },
-        0,
-    );
-
-    const availableSum = props.spending.sum - subSpendingsSum;
-
-    return Number.parseFloat(availableSum.toFixed(2));
 });
 
 const errors: Ref<{ name: string; sum: string }> = ref({
@@ -76,10 +64,8 @@ function addSubSpending() {
     const errors = spendings.addNewSubSpending(
         props.spending,
         newSubSpending,
-        availableSum.value,
+        props.availableSum,
     );
-
-    console.log(errors);
 
     if (errors) return;
 

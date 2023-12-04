@@ -41,10 +41,6 @@ export const useSpendingsStore = defineStore('spendings', () => {
         subSpending: ISubSpending,
         availableSum: number,
     ) {
-        console.log(`subSpending.sum: ${subSpending.sum}`);
-        console.log(`spending.sum: ${spending.sum}`);
-        console.log(`availableSum: ${availableSum}`);
-
         if (subSpending.sum > spending.sum)
             return 'Сумма продукта не должна превышать общую сумму чека';
 

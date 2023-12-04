@@ -1,14 +1,30 @@
 <script lang="ts" setup>
 import { formatDate } from '~/helpers/date.helper';
-import { type ISpending } from '~/interfaces/spending.interface';
+import {
+    type ISpending,
+    type ISubSpending,
+} from '~/interfaces/spending.interface';
 
 const props = defineProps<{
     spending: ISpending;
 }>();
 
-const isModalOpen = ref<Boolean>(false);
+const availableSum = computed(() => {
+    const subSpendingsSum = props.spending.subSpendings.reduce(
+        (sum: number, currSpending: ISubSpending) => {
+            return sum + currSpending.sum;
+        },
+        0,
+    );
 
+    const availableSum = props.spending.sum - subSpendingsSum;
+
+    return Number.parseFloat(availableSum.toFixed(2));
+});
+
+const isModalOpen = ref<Boolean>(false);
 const isCardOpen = ref<Boolean>(false);
+const isButtonHovered = ref<Boolean>(false);
 
 const cardButtonText = computed(() =>
     isCardOpen.value ? 'Закрыть ⇡' : 'Открыть ⇣',
@@ -26,6 +42,10 @@ const formattedDate = computed(() => formatDate(new Date(props.spending.date)));
 
 const hasSubSpendings = computed(() => props.spending.subSpendings.length);
 
+const spendingsCardClasses = computed(() => ({
+    'spendings-card--hover': isButtonHovered.value,
+}));
+
 // При клике на карточку разворачивать модалку.
 // Далее, в модалке добавляются траты, закреплённые к этой карточке и
 // к категории карточки. В карточке соответствующей категории автоматически
@@ -36,7 +56,7 @@ const hasSubSpendings = computed(() => props.spending.subSpendings.length);
 </script>
 
 <template>
-    <div class="spendings-card">
+    <div class="spendings-card" :class="spendingsCardClasses">
         <div class="spendings-card__container" @click="openCardModal">
             <div class="spendings-card__category spendings-card-category">
                 <div class="spendings-card-category__text">
@@ -63,6 +83,8 @@ const hasSubSpendings = computed(() => props.spending.subSpendings.length);
 
         <button
             v-if="hasSubSpendings"
+            @mouseover="isButtonHovered = true"
+            @mouseleave="isButtonHovered = false"
             @click="isCardOpen = !isCardOpen"
             class="spendings-card__button"
         >
@@ -73,6 +95,12 @@ const hasSubSpendings = computed(() => props.spending.subSpendings.length);
             v-if="isCardOpen"
             class="spendings-card__sub-spendings spendings-card-sub-spendings"
         >
+            <li>
+                ▹ Осталось по чеку: {{ availableSum
+                }}<span class="spendings-card-sub-spendings__currency">
+                    BYN
+                </span>
+            </li>
             <li
                 v-for="subSpending in spending.subSpendings"
                 :key="subSpending.id"
@@ -87,6 +115,7 @@ const hasSubSpendings = computed(() => props.spending.subSpendings.length);
 
         <SpendingsCardModal
             @close="closeCardModal"
+            :availableSum="availableSum"
             :isModalOpen="isModalOpen"
             :spending="spending"
         />
@@ -148,8 +177,12 @@ const hasSubSpendings = computed(() => props.spending.subSpendings.length);
         border-radius: 0.5rem;
 
         &:hover {
-            padding-bottom: 0.7rem;
+            cursor: pointer;
         }
+    }
+
+    &--hover {
+        background-color: hsl(298, 56%, 30%);
     }
 
     &__sub-spendings {

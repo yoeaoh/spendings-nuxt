@@ -6,16 +6,21 @@ const props = defineProps<{
 }>();
 
 const isCardOpen = ref<Boolean>(false);
+const isButtonHovered = ref<Boolean>(false);
 
 const cardButtonText = computed(() =>
     isCardOpen.value ? 'Закрыть ⇡' : 'Открыть ⇣',
 );
 
 const hasSubCategories = computed(() => props.category.subCategories?.length);
+
+const categoriesCardClasses = computed(() => ({
+    'categories-card--hover': isButtonHovered.value,
+}));
 </script>
 
 <template>
-    <div class="categories-card">
+    <div class="categories-card" :class="categoriesCardClasses">
         <div class="categories-card__container">
             <div class="categories-card__content">
                 <div class="categories-card__name categories-card-name">
@@ -33,6 +38,8 @@ const hasSubCategories = computed(() => props.category.subCategories?.length);
 
         <button
             v-if="hasSubCategories"
+            @mouseover="isButtonHovered = true"
+            @mouseleave="isButtonHovered = false"
             @click="isCardOpen = !isCardOpen"
             class="categories-card__button"
         >
@@ -107,8 +114,12 @@ const hasSubCategories = computed(() => props.category.subCategories?.length);
         border-radius: 0.5rem;
 
         &:hover {
-            padding-bottom: 0.7rem;
+            cursor: pointer;
         }
+    }
+
+    &--hover {
+        background-color: hsl(178, 56%, 30%);
     }
 
     &__sub-categories {

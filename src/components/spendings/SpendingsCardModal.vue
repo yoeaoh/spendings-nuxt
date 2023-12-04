@@ -5,29 +5,29 @@ import SubSpendingsForm from './SubSpendingsForm.vue';
 defineProps<{
     isModalOpen: Boolean;
     spending: ISpending;
+    availableSum: number;
 }>();
 
 defineEmits(['close']);
 </script>
 
 <template>
-    <UiModal
-        :isOpen="isModalOpen"
-        @close="$emit('close')"
-        class="spendings-card-modal"
-    >
-        <div class="spendings-card-modal__container">
-            <SubSpendingsForm
-                :spending="spending"
-                class="spendings-card-modal__form"
-            />
+    <div class="spendings-card-modal">
+        <UiModal :isOpen="isModalOpen" @close="$emit('close')">
+            <div class="spendings-card-modal__container">
+                <SubSpendingsForm
+                    :spending="spending"
+                    :availableSum="availableSum"
+                    class="spendings-card-modal__form"
+                />
 
-            <SpendingsCard
-                :spending="spending"
-                class="spendings-card-modal__card"
-            />
-        </div>
-    </UiModal>
+                <SpendingsCard
+                    :spending="spending"
+                    class="spendings-card-modal__card"
+                />
+            </div>
+        </UiModal>
+    </div>
 </template>
 
 <style lang="scss" scoped>
