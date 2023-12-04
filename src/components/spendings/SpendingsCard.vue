@@ -8,6 +8,12 @@ const props = defineProps<{
 
 const isModalOpen = ref<Boolean>(false);
 
+const isCardOpen = ref<Boolean>(false);
+
+const cardButtonText = computed(() =>
+    isCardOpen.value ? 'Закрыть ⇡' : 'Открыть ⇣',
+);
+
 function openCardModal() {
     isModalOpen.value = true;
 }
@@ -30,27 +36,41 @@ const hasSubSpendings = computed(() => props.spending.subSpendings.length);
 </script>
 
 <template>
-    <div class="spendings-card" @click="openCardModal">
-        <div class="spendings-card__category spendings-card-category">
-            <div class="spendings-card-category__text">
-                {{ spending.category.name }}
+    <div class="spendings-card">
+        <div class="spendings-card__container" @click="openCardModal">
+            <div class="spendings-card__category spendings-card-category">
+                <div class="spendings-card-category__text">
+                    {{ spending.category.name }}
+                </div>
+            </div>
+
+            <div class="spendings-card__sum">
+                {{ spending.sum
+                }}<span class="spendings-card__currency"> BYN</span>
+            </div>
+
+            <div
+                v-if="spending.description"
+                class="spendings-card__description"
+            >
+                {{ spending.description }}
+            </div>
+
+            <div class="spendings-card__date">
+                {{ formattedDate }}
             </div>
         </div>
 
-        <div class="spendings-card__sum">
-            {{ spending.sum }}<span class="spendings-card__currency"> BYN</span>
-        </div>
-
-        <div v-if="spending.description" class="spendings-card__description">
-            {{ spending.description }}
-        </div>
-
-        <div class="spendings-card__date">
-            {{ formattedDate }}
-        </div>
+        <button
+            v-if="hasSubSpendings"
+            @click="isCardOpen = !isCardOpen"
+            class="spendings-card__button"
+        >
+            {{ cardButtonText }}
+        </button>
 
         <ul
-            v-if="hasSubSpendings"
+            v-if="isCardOpen"
             class="spendings-card__sub-spendings spendings-card-sub-spendings"
         >
             <li
@@ -77,25 +97,32 @@ const hasSubSpendings = computed(() => props.spending.subSpendings.length);
 .spendings-card {
     display: flex;
     flex-direction: column;
-    padding: 0.5rem;
-    background-image: linear-gradient(
-        120deg,
-        hsl(298, 56%, 25%),
-        hsl(298, 56%, 15%)
-    );
-    border: 1px solid hsla(0, 0%, 100%, 0.1);
-    color: white;
+    background-color: hsl(298, 56%, 25%);
     border-radius: 0.5rem;
-    gap: 0.25rem;
 
-    &:hover {
+    &__container {
+        display: flex;
+        flex-direction: column;
+        padding: 0.5rem;
         background-image: linear-gradient(
-            30deg,
-            hsl(298, 56%, 35%),
+            120deg,
+            hsl(298, 56%, 25%),
             hsl(298, 56%, 15%)
         );
-        cursor: pointer;
-        border: 1px solid hsla(0, 0%, 100%, 0.5);
+        border: 1px solid hsla(0, 0%, 100%, 0.1);
+        color: white;
+        border-radius: 0.5rem;
+        gap: 0.25rem;
+
+        &:hover {
+            background-image: linear-gradient(
+                30deg,
+                hsl(298, 56%, 35%),
+                hsl(298, 56%, 15%)
+            );
+            cursor: pointer;
+            border: 1px solid hsla(0, 0%, 100%, 0.5);
+        }
     }
 
     &__sum {
@@ -113,10 +140,22 @@ const hasSubSpendings = computed(() => props.spending.subSpendings.length);
         font-size: 0.75rem;
     }
 
+    &__button {
+        background-color: transparent;
+        border: 0;
+        padding: 0.5rem;
+        color: hsla(0, 0%, 100%, 1);
+        border-radius: 0.5rem;
+
+        &:hover {
+            padding-bottom: 0.7rem;
+        }
+    }
+
     &__sub-spendings {
         border-top: 1px dashed hsla(0, 0%, 100%, 0.2);
-        padding-top: 1rem;
-        margin-top: 1rem;
+        padding: 0.5rem;
+        margin-top: 0.25rem;
     }
 }
 
