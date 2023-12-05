@@ -55,9 +55,9 @@ const categoriesCardClasses = computed(() => ({
                 <span class="categories-card-sub-categories__sum">
                     {{ subCategory.sum }}
                 </span>
-                <span class="categories-card-sub-categories__currency"
-                    >BYN</span
-                >
+                <span class="categories-card-sub-categories__currency">
+                    BYN (x{{ subCategory.count }})
+                </span>
             </li>
         </ul>
     </div>

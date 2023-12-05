@@ -5,7 +5,7 @@ import type {
     ISubSpending,
 } from '~/interfaces/spending.interface';
 import { useCategoriesStore } from './categories.store';
-import type { ICategory } from '~/interfaces/category.interface';
+import type { ICategory, ISubCategory } from '~/interfaces/category.interface';
 
 // TODO: Отрефакторить добавление айтемов
 // (чтобы все валидации были в одном месте)
@@ -50,15 +50,12 @@ export const useSpendingsStore = defineStore('spendings', () => {
         spending.subSpendings.push(subSpending);
 
         const category = categories.items.find(
-            (item) => spending.category.id === item.id,
+            (i: ICategory) => i.id === spending.category.id,
         );
 
-        category?.subCategories.push({
-            id: Date.now().toString(),
-            categoryId: spending.category.id,
-            name: subSpending.name,
-            sum: subSpending.sum,
-        });
+        if (!category) return;
+
+        categories.addNewSubCategoryOrChangeIfExists(category, subSpending);
 
         return;
     }

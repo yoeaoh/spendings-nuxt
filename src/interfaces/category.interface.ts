@@ -10,4 +10,5 @@ export interface ISubCategory {
     categoryId: string;
     name: string;
     sum: number;
+    count: number;
 }

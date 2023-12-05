@@ -9,6 +9,10 @@ const props = defineProps<{
     spending: ISpending;
 }>();
 
+const isModalOpen = ref<Boolean>(false);
+const isCardOpen = ref<Boolean>(false);
+const isButtonHovered = ref<Boolean>(false);
+
 const availableSum = computed(() => {
     const subSpendingsSum = props.spending.subSpendings.reduce(
         (sum: number, currSpending: ISubSpending) => {
@@ -22,13 +26,13 @@ const availableSum = computed(() => {
     return Number.parseFloat(availableSum.toFixed(2));
 });
 
-const isModalOpen = ref<Boolean>(false);
-const isCardOpen = ref<Boolean>(false);
-const isButtonHovered = ref<Boolean>(false);
-
 const cardButtonText = computed(() =>
     isCardOpen.value ? 'Закрыть ⇡' : 'Открыть ⇣',
 );
+
+const formattedDate = computed(() => formatDate(new Date(props.spending.date)));
+
+const hasSubSpendings = computed(() => props.spending.subSpendings.length);
 
 function openCardModal() {
     isModalOpen.value = true;
@@ -38,18 +42,14 @@ function closeCardModal() {
     isModalOpen.value = false;
 }
 
-const formattedDate = computed(() => formatDate(new Date(props.spending.date)));
-
-const hasSubSpendings = computed(() => props.spending.subSpendings.length);
-
 const spendingsCardClasses = computed(() => ({
     'spendings-card--hover': isButtonHovered.value,
 }));
 
-// При клике на карточку разворачивать модалку.
-// Далее, в модалке добавляются траты, закреплённые к этой карточке и
-// к категории карточки. В карточке соответствующей категории автоматически
-// добавляются подкатегории с уникальными названиями товаров. Потом из суммы
+// В карточке соответствующей категории автоматически
+// добавляются подкатегории с уникальными названиями товаров.
+
+// Потом из суммы
 // можно вычитать несхождение с финальным чеком и записывать это в скидку.
 
 // В дополнительную информацию можно добавлять теги.
