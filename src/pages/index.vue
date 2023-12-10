@@ -11,53 +11,62 @@ const totalValue = computed(() => incomes.total - spendings.total);
 </script>
 
 <template>
-    <div class="layout">
-        <div class="column total">
+    <div class="dashboard">
+        <div class="dashboard__column dashboard-column">
             <TotalCard :totalValue="totalValue" />
         </div>
 
-        <div class="divider"></div>
+        <div class="dashboard__divider dashboard-divider"></div>
 
-        <div class="column spendings">
+        <div class="dashboard__column dashboard-column">
             <SpendingsForm />
 
-            <SpendingsList class="column__list" />
+            <SpendingsList class="dashboard-column__list" />
 
-            <TotalCard :totalValue="spendings.total" class="column__total" />
+            <TotalCard
+                :totalValue="spendings.total"
+                class="dashboard-column__total"
+            />
         </div>
 
-        <div class="divider"></div>
+        <div class="dashboard__divider dashboard-divider"></div>
 
-        <div class="column categories">
+        <div class="dashboard__column dashboard-column">
             <CategoriesForm />
 
             <CategoriesList
                 :categories="categories.items"
-                class="column__list"
+                class="dashboard-column__list"
             />
         </div>
 
-        <div class="divider"></div>
+        <div class="dashboard__divider dashboard-divider"></div>
 
-        <div class="column incomes">
+        <div class="dashboard__column dashboard-column">
             <IncomesForm />
 
-            <IncomesList :incomes="incomes.items" class="column__list" />
+            <IncomesList
+                :incomes="incomes.items"
+                class="dashboard-column__list"
+            />
 
-            <TotalCard :totalValue="incomes.total" class="column__total" />
+            <TotalCard
+                :totalValue="incomes.total"
+                class="dashboard-column__total"
+            />
         </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
-.layout {
-    min-height: 100vh;
+.dashboard {
     display: grid;
     grid-template-columns: 1fr 2px 1fr 2px 1fr 2px 1fr;
     grid-auto-flow: row;
+    min-height: 100vh;
 }
 
-.divider {
+.dashboard-divider {
     flex: none;
     width: 2px;
     background-color: hsla(0, 0%, 100%, 0.05);
@@ -65,18 +74,19 @@ const totalValue = computed(() => incomes.total - spendings.total);
     margin-bottom: 1rem;
 }
 
-.column {
+.dashboard-column {
     display: flex;
-    position: relative;
     flex-direction: column;
     gap: 1rem;
+
+    position: relative;
     max-height: 100vh;
+    overflow-y: auto;
+
     padding-top: 0.5rem;
     padding-right: 0.5rem;
     padding-bottom: 0;
     padding-left: 0.5rem;
-
-    overflow-y: auto;
 
     &__total {
         position: sticky;
