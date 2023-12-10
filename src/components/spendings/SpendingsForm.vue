@@ -60,7 +60,7 @@ function addSpending() {
 </script>
 
 <template>
-    <UiForm :action="addSpending" title="Добавить чек:">
+    <UiForm :action="addSpending" title="Добавить расход:">
         <UiFormItem title="Сумма" :error="errors.sum">
             <input
                 v-model="sum"
@@ -68,7 +68,7 @@ function addSpending() {
                 step=".01"
                 min="0"
                 max="9999"
-                placeholder="Сумма чека"
+                placeholder="Сумма расхода"
                 required
             />
         </UiFormItem>

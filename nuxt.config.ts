@@ -19,6 +19,8 @@ export default async () =>
                 Oswald: [300, 400, 500],
                 Raleway: [300, 400, 500, 600, 700, 800],
                 Inter: [300, 400, 500, 600, 700, 800],
+                Whisper: [400],
+                'Bebas Neue': [400],
             },
         },
     });

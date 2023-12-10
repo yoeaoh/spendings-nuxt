@@ -17,3 +17,16 @@ body {
 ul {
     list-style: none;
 }
+
+a,
+a:visited,
+a:active {
+    text-decoration: none;
+    color: hsl(100, 100%, 100%);
+}
+
+a:hover,
+a:focus {
+    text-decoration: underline;
+    text-underline-offset: 5px;
+}
