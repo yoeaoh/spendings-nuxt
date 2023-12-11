@@ -3,26 +3,42 @@
 <template>
     <div class="default-layout">
         <div class="default-layout__sidebar default-layout-sidebar">
-            <div class="default-layout-sidebar__logo">Spend /</div>
+            <div class="default-layout-sidebar__logo">
+                <NuxtLink :to="'/'">
+                    Spend /
+                </NuxtLink>
+            </div>
 
-            <hr class="default-layout-sidebar__divider" />
+            <!-- <hr class="default-layout-sidebar__divider" /> -->
 
             <nav>
-                <ul class="default-layout-sidebar__menu">
+                <ul class="default-layout-sidebar__menu default-layout-sidebar-menu">
                     <li>
-                        <NuxtLink :to="'dashboard'">Обзор</NuxtLink>
+                        <NuxtLink :to="'dashboard'">
+                            <Icon name="ph:grid-four-bold" class="default-layout-sidebar-menu__icon" />
+                            <span class="default-layout-sidebar-menu__text">Обзор</span>
+                        </NuxtLink>
                     </li>
 
                     <li>
-                        <NuxtLink :to="'spendings'">Расходы</NuxtLink>
+                        <NuxtLink :to="'spendings'">
+                            <Icon name="ph:trend-down-bold" class="default-layout-sidebar-menu__icon" />
+                            <span class="default-layout-sidebar-menu__text">Расходы</span>
+                        </NuxtLink>
                     </li>
 
                     <li>
-                        <NuxtLink :to="'categories'">Категории</NuxtLink>
+                        <NuxtLink :to="'categories'">
+                            <Icon name="ph:list-bold" class="default-layout-sidebar-menu__icon" />
+                            <span class="default-layout-sidebar-menu__text">Категории</span>
+                        </NuxtLink>
                     </li>
 
                     <li>
-                        <NuxtLink :to="'incomes'">Доходы</NuxtLink>
+                        <NuxtLink :to="'incomes'">
+                            <Icon name="ph:trend-up-bold" class="default-layout-sidebar-menu__icon" />
+                            <span class="default-layout-sidebar-menu__text">Доходы</span>
+                        </NuxtLink>
                     </li>
                 </ul>
             </nav>
@@ -56,6 +72,10 @@
     &__logo {
         font-family: 'Bebas Neue';
         font-size: 3.25rem;
+        background-image: linear-gradient(150deg, hsl(0, 0%, 100%), hsl(0, 0%, 50%));
+        // background-size: 200%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 
     &__divider {
@@ -65,19 +85,30 @@
         border-bottom: 0;
         border-left: 0;
     }
+}
 
-    &__menu {
+.default-layout-sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+
+    li > a {
         display: flex;
-        flex-direction: column;
-        gap: 2rem;
+        align-items: center;
+        padding: 0.75rem 0.5rem;
+        font-weight: 600;
+        border-radius: 0.5rem;
+        // font-size: 0.75rem;
+        gap: 0.5rem;
+        // text-transform: uppercase;
 
-        li > a {
-            display: block;
-            font-family: 'Inter';
-            font-weight: 600;
-            text-transform: uppercase;
-            // font-size: 1.15rem;
+        &:hover {
+            background-color: hsl(212, 42%, 14%);
         }
+    }
+
+    &__icon {
+        font-size: 1.5rem;
     }
 }
 </style>
