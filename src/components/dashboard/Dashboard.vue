@@ -63,8 +63,7 @@ const totalValue = computed(() => incomes.total - spendings.total);
     display: grid;
     grid-template-columns: 1fr 2px 1fr 2px 1fr 2px 1fr;
     grid-auto-flow: row;
-    min-height: 100vh;
-    padding-left: 1rem;
+    height: 100%;
 }
 
 .dashboard-divider {
@@ -81,13 +80,11 @@ const totalValue = computed(() => incomes.total - spendings.total);
     gap: 1rem;
 
     position: relative;
-    max-height: 100vh;
     overflow-y: auto;
 
-    padding-top: 1rem;
-    padding-right: 1rem;
+    padding-right: 0.5rem;
     padding-bottom: 0;
-    padding-left: 1rem;
+    padding-left: 0.5rem;
 
     &__total {
         position: sticky;

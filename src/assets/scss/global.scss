@@ -31,3 +31,9 @@ a:focus {
     // text-underline-offset: 6px;
     // text-decoration-thickness: 2px;
 }
+
+button {
+  border: 0;
+  background-color: transparent;
+  color: hsl(100, 100%, 100%);
+}
