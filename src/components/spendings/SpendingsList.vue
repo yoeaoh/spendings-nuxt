@@ -49,16 +49,9 @@ const filteredSpendings = computed(() => {
 <template>
     <div class="spendings-list">
         <div v-if="spendings.items.length" class="spendings-list__container">
-            <SpendingsFilter
-                :selectedFilter="selectedFilter"
-                @changeFilterValue="changeFilterValue"
-            />
+            <SpendingsFilter :selectedFilter="selectedFilter" @changeFilterValue="changeFilterValue" />
 
-            <SpendingsCard
-                v-for="spending in filteredSpendings"
-                :key="spending.id"
-                :spending="spending"
-            />
+            <SpendingsCard v-for="spending in filteredSpendings" :key="spending.id" :spending="spending" />
         </div>
     </div>
 </template>

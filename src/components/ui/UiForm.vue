@@ -21,11 +21,9 @@ defineProps<{
 .ui-form {
     padding: 0.75rem;
     border-radius: 0.5rem;
-    background-image: linear-gradient(
-        30deg,
-        hsl(213, 49%, 12%),
-        hsl(212, 38%, 15%)
-    );
+    background-image: linear-gradient(30deg,
+            hsl(213, 49%, 12%),
+            hsl(212, 38%, 15%));
     border: 1px solid hsla(0, 0%, 100%, 0.1);
     display: flex;
     flex-direction: column;
@@ -47,11 +45,9 @@ defineProps<{
     &__button {
         padding: 0.5rem 0.5rem;
         background-color: transparent;
-        background-image: linear-gradient(
-            0deg,
-            hsla(0, 0%, 100%, 0.1),
-            hsla(0, 0%, 100%, 0.2)
-        );
+        background-image: linear-gradient(0deg,
+                hsla(0, 0%, 100%, 0.1),
+                hsla(0, 0%, 100%, 0.2));
         border: 1px solid hsla(0, 0%, 100%, 0.1);
         color: hsl(0, 0%, 100%);
         border-radius: 3px;
@@ -61,11 +57,9 @@ defineProps<{
 
         &:hover,
         &:focus {
-            background-image: linear-gradient(
-                30deg,
-                hsla(0, 0%, 100%, 0.1),
-                hsla(0, 0%, 100%, 0.3)
-            );
+            background-image: linear-gradient(30deg,
+                    hsla(0, 0%, 100%, 0.1),
+                    hsla(0, 0%, 100%, 0.3));
             outline: 0;
             border: 1px solid hsla(0, 0%, 100%, 0.3);
             cursor: pointer;

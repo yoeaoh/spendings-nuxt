@@ -62,15 +62,7 @@ function addSpending() {
 <template>
     <UiForm :action="addSpending" title="Добавить расход:">
         <UiFormItem title="Сумма" :error="errors.sum">
-            <input
-                v-model="sum"
-                type="number"
-                step=".01"
-                min="0"
-                max="9999"
-                placeholder="Сумма расхода"
-                required
-            />
+            <input v-model="sum" type="number" step=".01" min="0" max="9999" placeholder="Сумма расхода" required />
         </UiFormItem>
 
         <UiFormItem title="Дата" :error="errors.date">
@@ -80,22 +72,14 @@ function addSpending() {
         <UiFormItem title="Категория">
             <select v-model="categoryId">
                 <option selected disabled>Выберите категорию:</option>
-                <option
-                    v-for="category in categories.items"
-                    :key="category.id"
-                    :value="category.id"
-                >
+                <option v-for="category in categories.items" :key="category.id" :value="category.id">
                     {{ category.name }}
                 </option>
             </select>
         </UiFormItem>
 
         <UiFormItem title="Описание">
-            <input
-                v-model="description"
-                type="text"
-                placeholder="Дополнительная информация"
-            />
+            <input v-model="description" type="text" placeholder="Дополнительная информация" />
         </UiFormItem>
     </UiForm>
 </template>

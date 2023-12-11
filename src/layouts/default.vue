@@ -71,7 +71,7 @@
         flex-direction: column;
         gap: 2rem;
 
-        li > a {
+        li>a {
             display: block;
             font-family: 'Inter';
             font-weight: 600;

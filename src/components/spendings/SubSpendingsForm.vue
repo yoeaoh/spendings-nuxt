@@ -82,24 +82,11 @@ function addSubSpending() {
         </UiFormItem>
 
         <UiFormItem title="Название" :error="errors.name">
-            <input
-                v-model="name"
-                type="text"
-                required
-                ref="nameInput"
-                placeholder="Название продукта"
-            />
+            <input v-model="name" type="text" required ref="nameInput" placeholder="Название продукта" />
         </UiFormItem>
 
         <UiFormItem title="Сумма" :error="errors.sum">
-            <input
-                v-model="sum"
-                type="number"
-                step=".01"
-                min="0"
-                placeholder="Стоимость продукта"
-                required
-            />
+            <input v-model="sum" type="number" step=".01" min="0" placeholder="Стоимость продукта" required />
         </UiFormItem>
     </UiForm>
 </template>

@@ -56,12 +56,7 @@ function addIncome() {
 <template>
     <UiForm :action="addIncome" title="Добавить доход:">
         <UiFormItem title="Сумма" :error="errors.sum">
-            <input
-                v-model="sum"
-                type="number"
-                placeholder="Сумма дохода"
-                required
-            />
+            <input v-model="sum" type="number" placeholder="Сумма дохода" required />
         </UiFormItem>
 
         <UiFormItem title="Название">

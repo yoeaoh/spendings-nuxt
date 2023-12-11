@@ -8,11 +8,7 @@ defineProps<{
 
 <template>
     <div class="categories-list">
-        <CategoriesCard
-            v-for="category in categories"
-            :key="category.id"
-            :category="category"
-        />
+        <CategoriesCard v-for="category in categories" :key="category.id" :category="category" />
     </div>
 </template>
 

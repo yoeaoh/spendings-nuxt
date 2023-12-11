@@ -15,16 +15,9 @@ defineEmits(['close']);
     <div class="spendings-card-modal">
         <UiModal :isOpen="isModalOpen" @close="$emit('close')">
             <div class="spendings-card-modal__container">
-                <SubSpendingsForm
-                    :spending="spending"
-                    :availableSum="availableSum"
-                    class="spendings-card-modal__form"
-                />
+                <SubSpendingsForm :spending="spending" :availableSum="availableSum" class="spendings-card-modal__form" />
 
-                <SpendingsCard
-                    :spending="spending"
-                    class="spendings-card-modal__card"
-                />
+                <SpendingsCard :spending="spending" class="spendings-card-modal__card" />
             </div>
         </UiModal>
     </div>

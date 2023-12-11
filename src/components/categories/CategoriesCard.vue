@@ -30,31 +30,19 @@ const categoriesCardClasses = computed(() => ({
                 </div>
 
                 <div class="categories-card__sum">
-                    {{ category.sum }}
-                    <span class="categories-card__currency"> BYN</span>
+                    {{ category.sum }}<span class="categories-card__currency">BYN</span>
                 </div>
             </div>
         </div>
 
-        <button
-            v-if="hasSubCategories"
-            @mouseover="isButtonHovered = true"
-            @mouseleave="isButtonHovered = false"
-            @click="isCardOpen = !isCardOpen"
-            class="categories-card__button"
-        >
+        <button v-if="hasSubCategories" @mouseover="isButtonHovered = true" @mouseleave="isButtonHovered = false"
+            @click="isCardOpen = !isCardOpen" class="categories-card__button">
             {{ cardButtonText }}
         </button>
 
         <ul v-if="isCardOpen" class="categories-card__sub-categories">
-            <li
-                v-for="subCategory in category.subCategories"
-                :key="subCategory.id"
-            >
-                ▹ {{ subCategory.name }} —
-                <span class="categories-card-sub-categories__sum">
-                    {{ subCategory.sum }}
-                </span>
+            <li v-for="subCategory in category.subCategories" :key="subCategory.id">
+                ▹ {{ subCategory.name }} — <span class="categories-card-sub-categories__sum">{{ subCategory.sum }}</span>
                 <span class="categories-card-sub-categories__currency">
                     BYN (x{{ subCategory.count }})
                 </span>
@@ -71,11 +59,9 @@ const categoriesCardClasses = computed(() => ({
     border-radius: 0.5rem;
 
     &__container {
-        background-image: linear-gradient(
-            120deg,
-            hsl(178, 56%, 25%),
-            hsl(178, 56%, 15%)
-        );
+        background-image: linear-gradient(120deg,
+                hsl(178, 56%, 25%),
+                hsl(178, 56%, 15%));
         padding: 0.5rem;
         border: 1px solid hsla(0, 0%, 100%, 0.1);
         color: white;
