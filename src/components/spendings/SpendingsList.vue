@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import { type ISpending } from '~/interfaces/spending.interface';
-import { type IFilterVariants } from '~/constants/spendings.constants';
-import { FilterVariants } from '~/constants/spendings.constants';
-import { useSpendingsStore } from '~/store/spendings.store';
+import { type ISpending } from "~/interfaces/spending.interface";
+import { type IFilterVariants } from "~/constants/spendings.constants";
+import { FilterVariants } from "~/constants/spendings.constants";
+import { useSpendingsStore } from "~/store/spendings.store";
 
 const spendings = useSpendingsStore();
 
@@ -49,9 +49,16 @@ const filteredSpendings = computed(() => {
 <template>
     <div class="spendings-list">
         <div v-if="spendings.items.length" class="spendings-list__container">
-            <SpendingsFilter :selectedFilter="selectedFilter" @changeFilterValue="changeFilterValue" />
+            <SpendingsFilter
+                :selectedFilter="selectedFilter"
+                @changeFilterValue="changeFilterValue"
+            />
 
-            <SpendingsCard v-for="spending in filteredSpendings" :key="spending.id" :spending="spending" />
+            <SpendingsCard
+                v-for="spending in filteredSpendings"
+                :key="spending.id"
+                :spending="spending"
+            />
         </div>
     </div>
 </template>

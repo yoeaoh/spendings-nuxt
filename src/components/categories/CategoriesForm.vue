@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { type ICategory } from '~/interfaces/category.interface';
-import { useCategoriesStore } from '~/store/categories.store';
+import { type ICategory } from "~/interfaces/category.interface";
+import { useCategoriesStore } from "~/store/categories.store";
 
 const categories = useCategoriesStore();
 
@@ -8,21 +8,21 @@ const categories = useCategoriesStore();
 // только если при добавлении расхода не будет выбрано категории
 // (если так можно вообще)
 
-const name = ref<string>('');
-const errors: Ref<{ name: string }> = ref({ name: '' });
+const name = ref<string>("");
+const errors: Ref<{ name: string }> = ref({ name: "" });
 
 const checkName = () => {
     if (name.value.length <= 1) {
-        errors.value.name = 'Слишком короткое имя';
+        errors.value.name = "Слишком короткое имя";
         return false;
     }
 
     if (categories.items.find((c: ICategory) => c.name === name.value)) {
-        errors.value.name = 'Такое имя уже используется';
+        errors.value.name = "Такое имя уже используется";
         return false;
     }
 
-    errors.value.name = '';
+    errors.value.name = "";
     return true;
 };
 
@@ -40,14 +40,20 @@ function addCategory() {
 
     categories.addNewItem(newCategory);
 
-    name.value = '';
+    name.value = "";
 }
 </script>
 
 <template>
     <UiForm :action="addCategory" title="Добавить категорию:">
         <UiFormItem title="Название" :error="errors.name">
-            <input v-model="name" placeholder="Название категории" type="text" maxlength="30" required />
+            <input
+                v-model="name"
+                placeholder="Название категории"
+                type="text"
+                maxlength="30"
+                required
+            />
         </UiFormItem>
     </UiForm>
 </template>

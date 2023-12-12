@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { formatDate } from '~/helpers/date.helper';
+import { formatDate } from "~/helpers/date.helper";
 import {
     type ISpending,
     type ISubSpending,
-} from '~/interfaces/spending.interface';
+} from "~/interfaces/spending.interface";
 
 const props = defineProps<{
     spending: ISpending;
@@ -14,10 +14,12 @@ const isCardOpen = ref<Boolean>(false);
 const isButtonHovered = ref<Boolean>(false);
 
 const availableSum = computed(() => {
-    const subSpendingsSum = props.spending.subSpendings
-        .reduce((sum: number, currSpending: ISubSpending) => {
+    const subSpendingsSum = props.spending.subSpendings.reduce(
+        (sum: number, currSpending: ISubSpending) => {
             return sum + currSpending.sum;
-        }, 0);
+        },
+        0,
+    );
 
     const availableSum = props.spending.sum - subSpendingsSum;
 
@@ -25,7 +27,7 @@ const availableSum = computed(() => {
 });
 
 const cardButtonText = computed(() =>
-    isCardOpen.value ? 'Закрыть ⇡' : 'Открыть ⇣',
+    isCardOpen.value ? "Закрыть ⇡" : "Открыть ⇣",
 );
 
 const formattedDate = computed(() => formatDate(new Date(props.spending.date)));
@@ -41,7 +43,7 @@ function closeCardModal() {
 }
 
 const spendingsCardClasses = computed(() => ({
-    'spendings-card--hover': isButtonHovered.value,
+    "spendings-card--hover": isButtonHovered.value,
 }));
 
 // В карточке соответствующей категории автоматически
@@ -63,10 +65,14 @@ const spendingsCardClasses = computed(() => ({
             </div>
 
             <div class="spendings-card__sum">
-                {{ spending.sum }}<span class="spendings-card__currency">BYN</span>
+                {{ spending.sum
+                }}<span class="spendings-card__currency">BYN</span>
             </div>
 
-            <div v-if="spending.description" class="spendings-card__description">
+            <div
+                v-if="spending.description"
+                class="spendings-card__description"
+            >
                 {{ spending.description }}
             </div>
 
@@ -75,25 +81,46 @@ const spendingsCardClasses = computed(() => ({
             </div>
         </div>
 
-        <button v-if="hasSubSpendings" @mouseover="isButtonHovered = true" @mouseleave="isButtonHovered = false"
-            @click="isCardOpen = !isCardOpen" class="spendings-card__button">
+        <button
+            v-if="hasSubSpendings"
+            @mouseover="isButtonHovered = true"
+            @mouseleave="isButtonHovered = false"
+            @click="isCardOpen = !isCardOpen"
+            class="spendings-card__button"
+        >
             {{ cardButtonText }}
         </button>
 
-        <ul v-if="isCardOpen" class="spendings-card__sub-spendings spendings-card-sub-spendings">
+        <ul
+            v-if="isCardOpen"
+            class="spendings-card__sub-spendings spendings-card-sub-spendings"
+        >
             <li>
-                ▹ Осталось по чеку: {{ availableSum }}<span class="spendings-card-sub-spendings__currency">BYN</span>
+                ▹ Осталось по чеку: {{ availableSum
+                }}<span class="spendings-card-sub-spendings__currency"
+                    >BYN</span
+                >
             </li>
 
-            <li v-for="subSpending in spending.subSpendings" :key="subSpending.id">
-                ▹ {{ subSpending.name }} — <span class="spendings-card-sub-spendings__sum">{{ subSpending.sum }}</span>
+            <li
+                v-for="subSpending in spending.subSpendings"
+                :key="subSpending.id"
+            >
+                ▹ {{ subSpending.name }} —
+                <span class="spendings-card-sub-spendings__sum">{{
+                    subSpending.sum
+                }}</span>
 
                 <span class="spendings-card-sub-spendings__currency">BYN</span>
             </li>
         </ul>
 
-        <SpendingsCardModal @close="closeCardModal" :availableSum="availableSum" :isModalOpen="isModalOpen"
-            :spending="spending" />
+        <SpendingsCardModal
+            @close="closeCardModal"
+            :availableSum="availableSum"
+            :isModalOpen="isModalOpen"
+            :spending="spending"
+        />
     </div>
 </template>
 
@@ -108,18 +135,22 @@ const spendingsCardClasses = computed(() => ({
         display: flex;
         flex-direction: column;
         padding: 0.5rem;
-        background-image: linear-gradient(120deg,
-                hsl(298, 56%, 25%),
-                hsl(298, 56%, 15%));
+        background-image: linear-gradient(
+            120deg,
+            hsl(298, 56%, 25%),
+            hsl(298, 56%, 15%)
+        );
         border: 1px solid hsla(0, 0%, 100%, 0.1);
         color: white;
         border-radius: 0.5rem;
         gap: 0.25rem;
 
         &:hover {
-            background-image: linear-gradient(30deg,
-                    hsl(298, 56%, 35%),
-                    hsl(298, 56%, 15%));
+            background-image: linear-gradient(
+                30deg,
+                hsl(298, 56%, 35%),
+                hsl(298, 56%, 15%)
+            );
             cursor: pointer;
             border: 1px solid hsla(0, 0%, 100%, 0.5);
         }

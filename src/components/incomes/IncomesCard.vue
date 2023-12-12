@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { type IIncome } from '~/interfaces/income.interface';
+import { type IIncome } from "~/interfaces/income.interface";
 
 defineProps<{
     income: IIncome;
@@ -27,9 +27,11 @@ defineProps<{
     display: flex;
     flex-direction: column;
     padding: 0.5rem;
-    background-image: linear-gradient(120deg,
-            hsl(216, 56%, 25%),
-            hsl(216, 56%, 15%));
+    background-image: linear-gradient(
+        120deg,
+        hsl(216, 56%, 25%),
+        hsl(216, 56%, 15%)
+    );
     border: 1px solid hsla(0, 0%, 100%, 0.1);
     color: white;
     border-radius: 0.5rem;

@@ -1,18 +1,18 @@
-import { DEFAULT_CATEGORY } from '~/constants/categories.constants';
+import { DEFAULT_CATEGORY } from "~/constants/categories.constants";
 import type {
     ISpending,
     ISpendingDto,
     ISubSpending,
-} from '~/interfaces/spending.interface';
-import { useCategoriesStore } from './categories.store';
-import type { ICategory, ISubCategory } from '~/interfaces/category.interface';
+} from "~/interfaces/spending.interface";
+import { useCategoriesStore } from "./categories.store";
+import type { ICategory, ISubCategory } from "~/interfaces/category.interface";
 
 // TODO: Отрефакторить добавление айтемов
 // (чтобы все валидации были в одном месте)
 
 // Погуглить, как неймят массивы данных в сторах
 
-export const useSpendingsStore = defineStore('spendings', () => {
+export const useSpendingsStore = defineStore("spendings", () => {
     const categories = useCategoriesStore();
 
     const items: Ref<ISpending[]> = ref([]);
@@ -42,10 +42,10 @@ export const useSpendingsStore = defineStore('spendings', () => {
         availableSum: number,
     ) {
         if (subSpending.sum > spending.sum)
-            return 'Сумма продукта не должна превышать общую сумму чека';
+            return "Сумма продукта не должна превышать общую сумму чека";
 
         if (availableSum - subSpending.sum < 0)
-            return 'Сумма всех продуктов не должна превышать общую сумму чека';
+            return "Сумма всех продуктов не должна превышать общую сумму чека";
 
         spending.subSpendings.push(subSpending);
 

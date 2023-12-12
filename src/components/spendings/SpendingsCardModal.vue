@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { type ISpending } from '~/interfaces/spending.interface';
-import SubSpendingsForm from './SubSpendingsForm.vue';
+import { type ISpending } from "~/interfaces/spending.interface";
+import SubSpendingsForm from "./SubSpendingsForm.vue";
 
 defineProps<{
     isModalOpen: Boolean;
@@ -8,16 +8,23 @@ defineProps<{
     availableSum: number;
 }>();
 
-defineEmits(['close']);
+defineEmits(["close"]);
 </script>
 
 <template>
     <div class="spendings-card-modal">
         <UiModal :isOpen="isModalOpen" @close="$emit('close')">
             <div class="spendings-card-modal__container">
-                <SubSpendingsForm :spending="spending" :availableSum="availableSum" class="spendings-card-modal__form" />
+                <SubSpendingsForm
+                    :spending="spending"
+                    :availableSum="availableSum"
+                    class="spendings-card-modal__form"
+                />
 
-                <SpendingsCard :spending="spending" class="spendings-card-modal__card" />
+                <SpendingsCard
+                    :spending="spending"
+                    class="spendings-card-modal__card"
+                />
             </div>
         </UiModal>
     </div>

@@ -3,22 +3,22 @@ defineProps<{
     isOpen: Boolean;
 }>();
 
-const emit = defineEmits(['close']);
+const emit = defineEmits(["close"]);
 
 const closeOnEscape = function (e: KeyboardEvent) {
-    if (e.key === 'Escape') {
-        emit('close');
+    if (e.key === "Escape") {
+        emit("close");
     }
 };
 
 onMounted(() => {
-    console.log('modal open');
-    document.addEventListener('keydown', closeOnEscape);
+    console.log("modal open");
+    document.addEventListener("keydown", closeOnEscape);
 });
 
 onUnmounted(() => {
-    console.log('modal closed');
-    document.removeEventListener('keydown', closeOnEscape);
+    console.log("modal closed");
+    document.removeEventListener("keydown", closeOnEscape);
 });
 </script>
 
@@ -29,7 +29,10 @@ onUnmounted(() => {
                 <div class="modal__container">
                     <div class="modal__header">
                         <button class="modal__close">
-                            <Icon name="lets-icons:close-round" @click="emit('close')" />
+                            <Icon
+                                name="lets-icons:close-round"
+                                @click="emit('close')"
+                            />
                         </button>
                     </div>
 

@@ -1,9 +1,7 @@
 <script lang="ts" setup></script>
 
 <template>
-    <div class="categories">
-        Категории
-    </div>
+    <div class="categories">Категории</div>
 </template>
 
 <style lang="scss" scoped>

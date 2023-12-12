@@ -1,6 +1,6 @@
-import type { IIncome } from '~/interfaces/income.interface';
+import type { IIncome } from "~/interfaces/income.interface";
 
-export const useIncomesStore = defineStore('incomes', () => {
+export const useIncomesStore = defineStore("incomes", () => {
     const items: Ref<IIncome[]> = ref([]);
 
     function addNewItem(item: IIncome): void {

@@ -1,35 +1,35 @@
 <script lang="ts" setup>
-import { formatDate } from '~/helpers/date.helper';
-import { useIncomesStore } from '~/store/incomes.store';
+import { formatDate } from "~/helpers/date.helper";
+import { useIncomesStore } from "~/store/incomes.store";
 
 const incomes = useIncomesStore();
 
-const name: Ref<string> = ref('');
+const name: Ref<string> = ref("");
 const sum: Ref<number | null> = ref(null);
 const date: Ref<string> = ref(formatDate());
 
 const errors: Ref<{ sum: string; date: string }> = ref({
-    sum: '',
-    date: '',
+    sum: "",
+    date: "",
 });
 
 function checkSum() {
     if (sum.value === null || sum.value <= 0) {
-        errors.value.sum = 'Введите сумму';
+        errors.value.sum = "Введите сумму";
         return false;
     }
 
-    errors.value.sum = '';
+    errors.value.sum = "";
     return true;
 }
 
 function checkDate() {
     if (!date.value) {
-        errors.value.date = 'Введите Дату';
+        errors.value.date = "Введите Дату";
         return false;
     }
 
-    errors.value.date = '';
+    errors.value.date = "";
     return true;
 }
 
@@ -48,7 +48,7 @@ function addIncome() {
 
     incomes.addNewItem(newIncome);
 
-    name.value = '';
+    name.value = "";
     sum.value = null;
 }
 </script>
@@ -56,7 +56,12 @@ function addIncome() {
 <template>
     <UiForm :action="addIncome" title="Добавить доход:">
         <UiFormItem title="Сумма" :error="errors.sum">
-            <input v-model="sum" type="number" placeholder="Сумма дохода" required />
+            <input
+                v-model="sum"
+                type="number"
+                placeholder="Сумма дохода"
+                required
+            />
         </UiFormItem>
 
         <UiFormItem title="Название">

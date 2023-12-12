@@ -1,38 +1,39 @@
 <script lang="ts" setup>
-import { useGlobalStore } from '~/store/global.store';
+import { useGlobalStore } from "~/store/global.store";
 
 // TODO: Добавить стор для тёмной темы
 const globalStore = useGlobalStore();
 const { theme, isSidebarOpen } = storeToRefs(globalStore);
 const { toggleTheme, toggleSidebar } = globalStore;
 
-const themeIcon = computed(() => theme.value === 'light' ? 'ph:sun-bold' : 'ph:moon-bold');
+const themeIcon = computed(() =>
+    theme.value === "light" ? "ph:sun-bold" : "ph:moon-bold",
+);
 
-const sidebarLogoText = computed(() => isSidebarOpen.value ? '/ Spend' : '/S');
+const sidebarLogoText = computed(() =>
+    isSidebarOpen.value ? "/ Spend" : "/S",
+);
 
 const sidebarClasses = computed(() => ({
-    'sidebar--open': isSidebarOpen.value,
-    'sidebar--compact': !isSidebarOpen.value,
-}))
+    "sidebar--open": isSidebarOpen.value,
+    "sidebar--compact": !isSidebarOpen.value,
+}));
 
 const sidebarMenuIconClasses = computed(() => ({
-    'sidebar-menu__item--compact': !isSidebarOpen.value,
-}))
+    "sidebar-menu__item--compact": !isSidebarOpen.value,
+}));
 
 const sidebarTogglesClasses = computed(() => ({
-    'sidebar__toggles--compact': !isSidebarOpen.value,
+    "sidebar__toggles--compact": !isSidebarOpen.value,
 }));
 
 const sidebarButtonToggleClasses = computed(() => ({
-    'sidebar__button-toggle--compact': !isSidebarOpen.value,
-}))
+    "sidebar__button-toggle--compact": !isSidebarOpen.value,
+}));
 </script>
 
 <template>
-    <div 
-        :class="sidebarClasses" 
-        class="sidebar"
-    >
+    <div :class="sidebarClasses" class="sidebar">
         <div class="sidebar__start">
             <div class="sidebar__logo">
                 <NuxtLink :to="'/'">
@@ -45,13 +46,16 @@ const sidebarButtonToggleClasses = computed(() => ({
             <nav>
                 <ul class="sidebar__menu sidebar-menu">
                     <li>
-                        <NuxtLink 
+                        <NuxtLink
                             :to="'dashboard'"
                             :class="sidebarMenuIconClasses"
                             title="Обзор"
                             class="sidebar-menu__item"
                         >
-                            <Icon name="ph:grid-four-bold" class="sidebar-menu__icon" />
+                            <Icon
+                                name="ph:grid-four-bold"
+                                class="sidebar-menu__icon"
+                            />
 
                             <span
                                 v-if="isSidebarOpen"
@@ -63,13 +67,16 @@ const sidebarButtonToggleClasses = computed(() => ({
                     </li>
 
                     <li>
-                        <NuxtLink 
-                            :to="'categories'" 
+                        <NuxtLink
+                            :to="'categories'"
                             :class="sidebarMenuIconClasses"
                             title="Категории"
                             class="sidebar-menu__item"
                         >
-                            <Icon name="ph:list-bold" class="sidebar-menu__icon" />
+                            <Icon
+                                name="ph:list-bold"
+                                class="sidebar-menu__icon"
+                            />
 
                             <span
                                 v-if="isSidebarOpen"
@@ -81,13 +88,16 @@ const sidebarButtonToggleClasses = computed(() => ({
                     </li>
 
                     <li>
-                        <NuxtLink 
-                            :to="'spendings'" 
+                        <NuxtLink
+                            :to="'spendings'"
                             :class="sidebarMenuIconClasses"
                             title="Расходы"
                             class="sidebar-menu__item"
                         >
-                            <Icon name="ph:trend-down-bold" class="sidebar-menu__icon" />
+                            <Icon
+                                name="ph:trend-down-bold"
+                                class="sidebar-menu__icon"
+                            />
 
                             <span
                                 v-if="isSidebarOpen"
@@ -99,13 +109,16 @@ const sidebarButtonToggleClasses = computed(() => ({
                     </li>
 
                     <li>
-                        <NuxtLink 
-                            :to="'incomes'" 
+                        <NuxtLink
+                            :to="'incomes'"
                             :class="sidebarMenuIconClasses"
                             title="Доходы"
                             class="sidebar-menu__item"
                         >
-                            <Icon name="ph:trend-up-bold" class="sidebar-menu__icon" />
+                            <Icon
+                                name="ph:trend-up-bold"
+                                class="sidebar-menu__icon"
+                            />
 
                             <span
                                 v-if="isSidebarOpen"
@@ -120,22 +133,19 @@ const sidebarButtonToggleClasses = computed(() => ({
         </div>
 
         <div class="sidebar__end">
-            <div 
-                :class="sidebarTogglesClasses"
-                class="sidebar__toggles"
-            >
-                <button 
+            <div :class="sidebarTogglesClasses" class="sidebar__toggles">
+                <button
                     @click="toggleSidebar"
-                    type="button" 
+                    type="button"
                     :class="sidebarButtonToggleClasses"
                     class="sidebar__button-toggle sidebar__button-toggle-sidebar"
                 >
                     <Icon name="ph:sidebar-simple-bold" />
                 </button>
 
-                <button 
-                    @click="toggleTheme" 
-                    type="button" 
+                <button
+                    @click="toggleTheme"
+                    type="button"
                     :class="sidebarButtonToggleClasses"
                     class="sidebar__button-toggle sidebar__button-toggle-theme"
                 >
@@ -163,9 +173,13 @@ const sidebarButtonToggleClasses = computed(() => ({
     }
 
     &__logo {
-        font-family: 'Bebas Neue';
+        font-family: "Bebas Neue";
         font-size: 3.25rem;
-        background-image: linear-gradient(150deg, hsl(0, 0%, 100%), hsl(0, 0%, 50%));
+        background-image: linear-gradient(
+            150deg,
+            hsl(0, 0%, 100%),
+            hsl(0, 0%, 50%)
+        );
         // background-size: 200%;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
@@ -205,7 +219,6 @@ const sidebarButtonToggleClasses = computed(() => ({
     }
 
     &__button-toggle-sidebar {
-        
     }
 
     &__button-toggle-theme {

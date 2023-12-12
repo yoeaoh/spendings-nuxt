@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { useCategoriesStore } from '~/store/categories.store';
-import { useIncomesStore } from '~/store/incomes.store';
-import { useSpendingsStore } from '~/store/spendings.store';
+import { useCategoriesStore } from "~/store/categories.store";
+import { useIncomesStore } from "~/store/incomes.store";
+import { useSpendingsStore } from "~/store/spendings.store";
 
 const spendings = useSpendingsStore();
 const categories = useCategoriesStore();
@@ -23,7 +23,10 @@ const totalValue = computed(() => incomes.total - spendings.total);
 
             <SpendingsList class="dashboard-column__list" />
 
-            <TotalCard :totalValue="spendings.total" class="dashboard-column__total" />
+            <TotalCard
+                :totalValue="spendings.total"
+                class="dashboard-column__total"
+            />
         </div>
 
         <div class="dashboard__divider dashboard-divider"></div>
@@ -31,7 +34,10 @@ const totalValue = computed(() => incomes.total - spendings.total);
         <div class="dashboard__column dashboard-column">
             <CategoriesForm />
 
-            <CategoriesList :categories="categories.items" class="dashboard-column__list" />
+            <CategoriesList
+                :categories="categories.items"
+                class="dashboard-column__list"
+            />
         </div>
 
         <div class="dashboard__divider dashboard-divider"></div>
@@ -39,9 +45,15 @@ const totalValue = computed(() => incomes.total - spendings.total);
         <div class="dashboard__column dashboard-column">
             <IncomesForm />
 
-            <IncomesList :incomes="incomes.items" class="dashboard-column__list" />
+            <IncomesList
+                :incomes="incomes.items"
+                class="dashboard-column__list"
+            />
 
-            <TotalCard :totalValue="incomes.total" class="dashboard-column__total" />
+            <TotalCard
+                :totalValue="incomes.total"
+                class="dashboard-column__total"
+            />
         </div>
     </div>
 </template>

@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { type ICategory } from '~/interfaces/category.interface';
+import { type ICategory } from "~/interfaces/category.interface";
 
 defineProps<{
     categories: ICategory[];
@@ -8,7 +8,11 @@ defineProps<{
 
 <template>
     <div class="categories-list">
-        <CategoriesCard v-for="category in categories" :key="category.id" :category="category" />
+        <CategoriesCard
+            v-for="category in categories"
+            :key="category.id"
+            :category="category"
+        />
     </div>
 </template>
 

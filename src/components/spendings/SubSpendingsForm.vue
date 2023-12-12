@@ -2,8 +2,8 @@
 import {
     type ISpending,
     type ISubSpending,
-} from '~/interfaces/spending.interface';
-import { useSpendingsStore } from '~/store/spendings.store';
+} from "~/interfaces/spending.interface";
+import { useSpendingsStore } from "~/store/spendings.store";
 
 const props = defineProps<{
     spending: ISpending;
@@ -12,7 +12,7 @@ const props = defineProps<{
 
 const spendings = useSpendingsStore();
 
-const name: Ref<string> = ref('');
+const name: Ref<string> = ref("");
 const sum: Ref<number | null> = ref(null);
 
 const nameInput: Ref<HTMLInputElement | null> = ref(null);
@@ -22,27 +22,27 @@ onMounted(() => {
 });
 
 const errors: Ref<{ name: string; sum: string }> = ref({
-    name: '',
-    sum: '',
+    name: "",
+    sum: "",
 });
 
 function checkSum() {
     if (sum.value === null || sum.value <= 0) {
-        errors.value.sum = 'Введите сумму';
+        errors.value.sum = "Введите сумму";
         return false;
     }
 
-    errors.value.sum = '';
+    errors.value.sum = "";
     return true;
 }
 
 function checkName() {
     if (!name.value) {
-        errors.value.name = 'Введите название';
+        errors.value.name = "Введите название";
         return false;
     }
 
-    errors.value.name = '';
+    errors.value.name = "";
     return true;
 }
 
@@ -70,7 +70,7 @@ function addSubSpending() {
     if (errors) return;
 
     sum.value = null;
-    name.value = '';
+    name.value = "";
     nameInput.value?.focus();
 }
 </script>
@@ -82,11 +82,24 @@ function addSubSpending() {
         </UiFormItem>
 
         <UiFormItem title="Название" :error="errors.name">
-            <input v-model="name" type="text" required ref="nameInput" placeholder="Название продукта" />
+            <input
+                v-model="name"
+                type="text"
+                required
+                ref="nameInput"
+                placeholder="Название продукта"
+            />
         </UiFormItem>
 
         <UiFormItem title="Сумма" :error="errors.sum">
-            <input v-model="sum" type="number" step=".01" min="0" placeholder="Стоимость продукта" required />
+            <input
+                v-model="sum"
+                type="number"
+                step=".01"
+                min="0"
+                placeholder="Стоимость продукта"
+                required
+            />
         </UiFormItem>
     </UiForm>
 </template>

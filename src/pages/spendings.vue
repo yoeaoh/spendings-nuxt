@@ -1,8 +1,14 @@
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { useSpendingsStore } from "~/store/spendings.store";
+
+const spendings = useSpendingsStore();
+</script>
 
 <template>
-    <div>
-        Расходы
+    <div class="spendings-page">
+        <div>
+            {{ spendings }}
+        </div>
     </div>
 </template>
 
