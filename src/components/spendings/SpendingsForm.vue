@@ -11,7 +11,7 @@ const categories = useCategoriesStore();
 const sum: Ref<number | null> = ref(null);
 const date: Ref<string> = ref(formatDate());
 const categoryId: Ref<string> = ref(DEFAULT_CATEGORY_ID);
-const description: Ref<string> = ref("");
+const name: Ref<string> = ref("");
 
 const errors: Ref<{ sum: string; date: string }> = ref({
     sum: "",
@@ -49,13 +49,13 @@ function addSpending() {
         sum: sum.value as number,
         date: date.value,
         categoryId: categoryId.value,
-        description: description.value,
+        name: name.value,
     };
 
     spendings.addNewItem(newSpending);
 
     sum.value = null;
-    description.value = "";
+    name.value = "";
 }
 </script>
 
@@ -92,7 +92,7 @@ function addSpending() {
 
         <UiFormItem title="Описание">
             <input
-                v-model="description"
+                v-model="name"
                 type="text"
                 placeholder="Дополнительная информация"
             />

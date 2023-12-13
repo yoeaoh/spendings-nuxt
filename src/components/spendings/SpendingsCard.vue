@@ -69,11 +69,8 @@ const spendingsCardClasses = computed(() => ({
                 }}<span class="spendings-card__currency">BYN</span>
             </div>
 
-            <div
-                v-if="spending.description"
-                class="spendings-card__description"
-            >
-                {{ spending.description }}
+            <div v-if="spending.name" class="spendings-card__name">
+                {{ spending.name }}
             </div>
 
             <div class="spendings-card__date">

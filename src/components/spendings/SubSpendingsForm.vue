@@ -59,6 +59,8 @@ function addSubSpending() {
         id: `subSpending${Date.now().toString()}`,
         name: name.value,
         sum: sum.value,
+        category: props.spending.category,
+        date: props.spending.date,
     };
 
     const errors = spendings.addNewSubSpending(
