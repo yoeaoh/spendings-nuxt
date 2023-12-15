@@ -7,8 +7,8 @@ export interface ICategory {
 
 export interface ISubCategory {
     id: string;
-    categoryId: string;
     name: string;
     sum: number;
+    categoryId: string;
     count: number;
 }

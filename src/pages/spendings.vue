@@ -7,6 +7,9 @@ const { items } = spendings;
 
 const isFlattenToggle: Ref<Boolean> = ref(false);
 
+// В дальнейшем добавить возможность выбирать, какие колонки показывать
+const visibleColumns = ['name', 'sum', 'date', 'category.name'];
+
 const computedSpendings: ComputedRef<
     Array<ISpending | ISubSpending> | Array<ISpending>
 > = computed(() => {
@@ -32,8 +35,6 @@ const computedSpendings: ComputedRef<
 
 <template>
     <div class="spendings-page">
-        <div class="spendings-page__title">Расходы</div>
-
         <label for="is-flatten-toggle">
             Развернуть
             <input
@@ -43,26 +44,7 @@ const computedSpendings: ComputedRef<
             />
         </label>
 
-        <div class="spendings-page__content">
-            <table>
-                <thead>
-                    <th>Название</th>
-                    <th>Сумма</th>
-                    <th>Категория</th>
-                </thead>
-
-                <tbody>
-                    <tr
-                        v-for="spending in computedSpendings"
-                        :key="spending.id"
-                    >
-                        <td>{{ spending.name }}</td>
-                        <td>{{ spending.sum }}</td>
-                        <td>{{ spending.category.name }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <UiTable :rows="computedSpendings" :columns="visibleColumns" />
     </div>
 </template>
 
