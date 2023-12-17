@@ -3,18 +3,32 @@ import type { ISpending, ISubSpending } from "~/interfaces/spending.interface";
 import { useSpendingsStore } from "~/store/spendings.store";
 
 const spendings = useSpendingsStore();
-const { items } = spendings;
 
 const isFlattenToggle: Ref<Boolean> = ref(false);
 
+// Добавить автоматическое разбиение по месяцам. (где даты будут
+// только по выбранному месяцу)
+
+// Добавить возможность добавлять трату через модалку (в сайдбаре)
+
+// На странице с таблицей трат, добавить возможность редактировать трату
+// (и добавлять подтраты).
+
+// Возможно, нет необходимости раскрывать ПОДтраты на странице с таблицей трат
+
+// Подключить mokky.dev для мок-данных
+
+//
+//
+
 // В дальнейшем добавить возможность выбирать, какие колонки показывать
-const visibleColumns = ['name', 'sum', 'date', 'category.name'];
+const visibleColumns = ["name", "sum", "date", "category"];
 
 const computedSpendings: ComputedRef<
     Array<ISpending | ISubSpending> | Array<ISpending>
 > = computed(() => {
     if (isFlattenToggle.value === true) {
-        const flatSpendings = items
+        const flatSpendings = spendings.items
             .map((i: ISpending) => {
                 if (i.subSpendings.length > 0) {
                     return i.subSpendings;
@@ -27,7 +41,7 @@ const computedSpendings: ComputedRef<
         return flatSpendings;
     }
 
-    return items;
+    return spendings.items;
 });
 
 // TODO: Добавить самую крупную одноразовую покупку и т.д.

@@ -12,3 +12,5 @@ export interface ISubCategory {
     categoryId: string;
     count: number;
 }
+
+export type ICategoryColumns = Array<Partial<keyof ICategory>>;

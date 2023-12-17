@@ -1,20 +1,22 @@
 <script lang="ts" setup>
-import type { ICategory, ISubCategory } from "~/interfaces/category.interface";
-import type { ISpending, ISubSpending } from "~/interfaces/spending.interface";
+import type {
+    ICategory,
+    ICategoryColumns,
+    ISubCategory,
+} from "~/interfaces/category.interface";
 import { useCategoriesStore } from "~/store/categories.store";
 
 const categories = useCategoriesStore();
-const { items } = categories;
 
 const isFlattenToggle: Ref<Boolean> = ref(false);
 
-const visibleColumns = ['name', 'sum'];
+const visibleColumns: Ref<ICategoryColumns> = ref(["name", "sum"]);
 
 const computedCategories: ComputedRef<
     Array<ICategory | ISubCategory> | Array<ICategory>
 > = computed(() => {
     if (isFlattenToggle.value === true) {
-        const flatCategories = items
+        const flatCategories = categories.items
             .map((i: ICategory) => {
                 if (i.subCategories.length > 0) {
                     return i.subCategories;
@@ -27,7 +29,7 @@ const computedCategories: ComputedRef<
         return flatCategories;
     }
 
-    return items;
+    return categories.items;
 });
 
 // TODO: Добавить самую крупную одноразовую покупку и т.д.
@@ -35,7 +37,7 @@ const computedCategories: ComputedRef<
 
 <template>
     <div class="spendings-page">
-        {{computedCategories}} 
+        <input v-model="isFlattenToggle" type="checkbox" />
 
         <UiTable :rows="computedCategories" :columns="visibleColumns" />
     </div>

@@ -19,5 +19,10 @@ export const useGlobalStore = defineStore("global", () => {
         isSidebarOpen.value = !isSidebarOpen.value;
     }
 
-    return { theme, isSidebarOpen, toggleTheme, toggleSidebar };
+    return {
+        theme,
+        isSidebarOpen,
+        toggleTheme,
+        toggleSidebar,
+    };
 });

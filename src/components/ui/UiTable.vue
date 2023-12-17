@@ -6,47 +6,92 @@ const props = defineProps<{
 </script>
 
 <template>
-    <table class="ui-table">
-        <thead class="ui-table__heading">
-            <tr class="ui-table__row">
+    <div
+        class="ui-table"
+        :style="{
+            gridTemplateColumns: `repeat(${columns.length}, minmax(10rem, auto))`,
+        }"
+    >
+        <div class="ui-table__heading">
+            <div class="ui-table__row">
                 <!-- Поменять ключи -->
-                <th v-for="column in columns" :key="column" class="ui-table__header-cell">{{ column }}</th>
-            </tr>
-        </thead>
+                <div
+                    v-for="column in columns"
+                    :key="column"
+                    class="ui-table__cell ui-table__header-cell"
+                >
+                    {{ column }}
+                </div>
+            </div>
+        </div>
 
-        <tbody class="ui-table__body">
+        <div class="ui-table__body">
             <!-- Поменять ключи ? -->
-            <tr v-for="row in rows" class="ui-table__row">
-                <td v-for="column in columns" :key="row.id" class="ui-table__cell">{{ row[column] }}</td>
-            </tr>
-        </tbody>
-    </table>
+            <div v-for="row in rows" class="ui-table__row">
+                <div
+                    v-for="column in columns"
+                    :key="row.id"
+                    class="ui-table__cell"
+                >
+                    {{ row[column] }}
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
 
 <style lang="scss" scoped>
 .ui-table {
-    border: 1px solid hsl(100, 100%, 100%);
+    display: grid;
+    border-radius: 0.5rem;
 
     &__heading {
-        // border: 1px solid hsl(100, 100%, 100%);
+        display: contents;
+
+        border-top-left-radius: inherit;
+        border-top-right-radius: inherit;
     }
 
     &__body {
-        // border: 1px solid hsl(100, 100%, 100%);
+        display: contents;
+
+        border-bottom-left-radius: inherit;
+        border-bottom-right-radius: inherit;
     }
 
     &__row {
-        // border: 1px solid hsl(100, 100%, 100%);
+        display: contents;
+
+        &:first-child {
+            border-top-left-radius: inherit;
+            border-top-right-radius: inherit;
+        }
+
+        &:last-child {
+            border-bottom-left-radius: inherit;
+            border-bottom-right-radius: inherit;
+        }
     }
 
     &__cell {
-        border: 1px solid hsl(100, 100%, 100%);
         padding: 0.5rem 1rem;
+        background-color: hsla(100, 100%, 100%, 0.1);
+        border-bottom: 1px solid hsla(100, 100%, 100%, 0.3);
+
+        &:first-child {
+            border-top-left-radius: inherit;
+            border-bottom-left-radius: inherit;
+        }
+
+        &:last-child {
+            border-top-right-radius: inherit;
+            border-bottom-right-radius: inherit;
+        }
     }
 
     &__header-cell {
-        border: 1px solid hsl(100, 100%, 100%);
-        padding: 0.5rem 1rem;
+        // background-color: #162433;
+        background-color: hsla(100, 100%, 100%, 0.3);
     }
 }
 </style>

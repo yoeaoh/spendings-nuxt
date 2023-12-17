@@ -1,8 +1,5 @@
 <script lang="ts" setup>
-import {
-    type ISpending,
-    type ISubSpending,
-} from "~/interfaces/spending.interface";
+import { type ISpending } from "~/interfaces/spending.interface";
 import { useSpendingsStore } from "~/store/spendings.store";
 
 const props = defineProps<{
