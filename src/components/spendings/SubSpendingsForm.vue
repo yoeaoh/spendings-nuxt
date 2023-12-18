@@ -82,10 +82,10 @@ function addSubSpending() {
 
         <UiFormItem title="Название" :error="errors.name">
             <input
+                ref="nameInput"
                 v-model="name"
                 type="text"
                 required
-                ref="nameInput"
                 placeholder="Название продукта"
             />
         </UiFormItem>

@@ -20,12 +20,16 @@ function changeValue(e: Event) {
     <div class="spendings-filter">
         <select
             v-model="filterValue"
-            @change="changeValue"
             class="spendings-filter__select"
+            @change="changeValue"
         >
             <option value="0" disabled selected>Сортировать:</option>
 
-            <option :value="variant.key" v-for="variant of FilterVariants">
+            <option
+                v-for="variant of FilterVariants"
+                :key="variant.key"
+                :value="variant.key"
+            >
                 {{ variant.name }}
             </option>
         </select>

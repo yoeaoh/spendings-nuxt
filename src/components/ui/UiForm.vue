@@ -6,7 +6,7 @@ defineProps<{
 </script>
 
 <template>
-    <form @submit.prevent="action" class="ui-form">
+    <form class="ui-form" @submit.prevent="action">
         <h3 class="ui-form__title">{{ title }}</h3>
 
         <div class="ui-form__fields">

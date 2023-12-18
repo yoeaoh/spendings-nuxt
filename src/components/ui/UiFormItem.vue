@@ -12,7 +12,7 @@ defineProps<{
         </span>
 
         <div class="ui-form-item__input">
-            <slot></slot>
+            <slot />
         </div>
 
         <div v-if="error" class="ui-form-item__error">

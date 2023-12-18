@@ -12,7 +12,7 @@ defineProps<{
             {{ income.sum }}<span class="incomes-card__currency"> BYN</span>
         </div>
 
-        <div class="incomes-card__name" v-if="income.name">
+        <div v-if="income.name" class="incomes-card__name">
             {{ income.name }}
         </div>
 

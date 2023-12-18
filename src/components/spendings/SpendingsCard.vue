@@ -80,10 +80,10 @@ const spendingsCardClasses = computed(() => ({
 
         <button
             v-if="hasSubSpendings"
+            class="spendings-card__button"
             @mouseover="isButtonHovered = true"
             @mouseleave="isButtonHovered = false"
             @click="isCardOpen = !isCardOpen"
-            class="spendings-card__button"
         >
             {{ cardButtonText }}
         </button>
@@ -113,10 +113,10 @@ const spendingsCardClasses = computed(() => ({
         </ul>
 
         <SpendingsCardModal
-            @close="closeCardModal"
-            :availableSum="availableSum"
-            :isModalOpen="isModalOpen"
+            :available-sum="availableSum"
+            :is-modal-open="isModalOpen"
             :spending="spending"
+            @close="closeCardModal"
         />
     </div>
 </template>

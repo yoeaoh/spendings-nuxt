@@ -1,10 +1,10 @@
+import { useCategoriesStore } from "./categories.store";
 import { DEFAULT_CATEGORY } from "~/constants/categories.constants";
 import type {
     ISpending,
     ISpendingDto,
     ISubSpending,
 } from "~/interfaces/spending.interface";
-import { useCategoriesStore } from "./categories.store";
 import type { ICategory, ISubCategory } from "~/interfaces/category.interface";
 
 // TODO: Отрефакторить добавление айтемов
@@ -30,7 +30,7 @@ export const useSpendingsStore = defineStore("spendings", () => {
             id: item.id,
             sum: item.sum,
             date: Date.parse(item.date),
-            category: category,
+            category,
             name: item.name,
             subSpendings: [],
         });
@@ -56,8 +56,6 @@ export const useSpendingsStore = defineStore("spendings", () => {
         if (!category) return;
 
         categories.addNewSubCategoryOrChangeIfExists(category, subSpending);
-
-        return;
     }
 
     const total = computed(() =>

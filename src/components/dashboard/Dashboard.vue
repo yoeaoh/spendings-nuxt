@@ -13,10 +13,10 @@ const totalValue = computed(() => incomes.total - spendings.total);
 <template>
     <div class="dashboard">
         <div class="dashboard__column dashboard-column">
-            <TotalCard :totalValue="totalValue" />
+            <TotalCard :total-value="totalValue" />
         </div>
 
-        <div class="dashboard__divider dashboard-divider"></div>
+        <div class="dashboard__divider dashboard-divider" />
 
         <div class="dashboard__column dashboard-column">
             <SpendingsForm />
@@ -24,12 +24,12 @@ const totalValue = computed(() => incomes.total - spendings.total);
             <SpendingsList class="dashboard-column__list" />
 
             <TotalCard
-                :totalValue="spendings.total"
+                :total-value="spendings.total"
                 class="dashboard-column__total"
             />
         </div>
 
-        <div class="dashboard__divider dashboard-divider"></div>
+        <div class="dashboard__divider dashboard-divider" />
 
         <div class="dashboard__column dashboard-column">
             <CategoriesForm />
@@ -40,7 +40,7 @@ const totalValue = computed(() => incomes.total - spendings.total);
             />
         </div>
 
-        <div class="dashboard__divider dashboard-divider"></div>
+        <div class="dashboard__divider dashboard-divider" />
 
         <div class="dashboard__column dashboard-column">
             <IncomesForm />
@@ -51,7 +51,7 @@ const totalValue = computed(() => incomes.total - spendings.total);
             />
 
             <TotalCard
-                :totalValue="incomes.total"
+                :total-value="incomes.total"
                 class="dashboard-column__total"
             />
         </div>

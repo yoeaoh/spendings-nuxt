@@ -23,7 +23,7 @@ onUnmounted(() => {
 </script>
 
 <template>
-    <Teleport to="body" v-if="isOpen">
+    <Teleport v-if="isOpen" to="body">
         <Transition name="modal">
             <div class="modal" @click.self="emit('close')">
                 <div class="modal__container">

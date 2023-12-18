@@ -1,14 +1,20 @@
-import { resolvePath } from '@nuxt/kit';
+import { defineNuxtConfig } from "nuxt/config";
+import { resolvePath } from "@nuxt/kit";
 
 export default async () =>
     defineNuxtConfig({
         devtools: { enabled: false },
-        css: ['~/assets/scss/global.scss'],
+        css: ["~/assets/scss/global.scss"],
         alias: {
-            '~/': await resolvePath('./src/'),
+            "~/": await resolvePath("./src/"),
         },
-        srcDir: 'src/',
-        modules: ['@pinia/nuxt', 'nuxt-icon', '@nuxtjs/google-fonts'],
+        srcDir: "src/",
+        modules: [
+            "@pinia/nuxt",
+            "nuxt-icon",
+            "@nuxtjs/google-fonts",
+            "@nuxtjs/eslint-module",
+        ],
         googleFonts: {
             prefetch: true,
             preconnect: false,
@@ -20,7 +26,7 @@ export default async () =>
                 Raleway: [300, 400, 500, 600, 700, 800],
                 Inter: [300, 400, 500, 600, 700, 800],
                 Whisper: [400],
-                'Bebas Neue': [400],
+                "Bebas Neue": [400],
             },
         },
     });
