@@ -50,8 +50,8 @@ const filteredSpendings = computed(() => {
     <div class="spendings-list">
         <div v-if="spendings.items.length" class="spendings-list__container">
             <SpendingsFilter
-                :selectedFilter="selectedFilter"
-                @changeFilterValue="changeFilterValue"
+                :selected-filter="selectedFilter"
+                @change-filter-value="changeFilterValue"
             />
 
             <SpendingsCard

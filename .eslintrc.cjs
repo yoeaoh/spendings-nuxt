@@ -7,7 +7,9 @@ module.exports = {
     rules: {
         "prettier/prettier": "error",
         "vue/component-name-in-template-casing": ["error", "PascalCase"],
-        "vue/multi-word-component-names": false,
+        "vue/multi-word-component-names": 0,
+        "@typescript-eslint/no-unused-vars": 0,
+        "import/namespace": 0,
     },
     globals: {
         $nuxt: true,
@@ -17,12 +19,11 @@ module.exports = {
         parser: "@typescript-eslint/parser",
     },
     extends: [
-        "@nuxtjs/eslint-config-typescript",
-        "plugin:vue/recommended",
+        "plugin:prettier/recommended",
         "plugin:vue/vue3-essential",
         "plugin:vue/vue3-strongly-recommended",
         "plugin:vue/vue3-recommended",
-        "plugin:prettier/recommended",
+        "@nuxtjs/eslint-config-typescript",
         "prettier",
     ],
 };

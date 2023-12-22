@@ -12,20 +12,20 @@ const closeOnEscape = function (e: KeyboardEvent) {
 };
 
 onMounted(() => {
-    console.log("modal open");
+    // console.log("modal open");
     document.addEventListener("keydown", closeOnEscape);
 });
 
 onUnmounted(() => {
-    console.log("modal closed");
+    // console.log("modal closed");
     document.removeEventListener("keydown", closeOnEscape);
 });
 </script>
 
 <template>
-    <Teleport v-if="isOpen" to="body">
+    <Teleport to="body">
         <Transition name="modal">
-            <div class="modal" @click.self="emit('close')">
+            <div v-if="isOpen" class="modal" @click.self="emit('close')">
                 <div class="modal__container">
                     <div class="modal__header">
                         <button class="modal__close">

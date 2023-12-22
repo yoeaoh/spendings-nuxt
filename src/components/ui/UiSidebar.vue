@@ -135,19 +135,19 @@ const sidebarButtonToggleClasses = computed(() => ({
         <div class="sidebar__end">
             <div :class="sidebarTogglesClasses" class="sidebar__toggles">
                 <button
-                    @click="toggleSidebar"
                     type="button"
                     :class="sidebarButtonToggleClasses"
                     class="sidebar__button-toggle sidebar__button-toggle-sidebar"
+                    @click="toggleSidebar"
                 >
                     <Icon name="ph:sidebar-simple-bold" />
                 </button>
 
                 <button
-                    @click="toggleTheme"
                     type="button"
                     :class="sidebarButtonToggleClasses"
                     class="sidebar__button-toggle sidebar__button-toggle-theme"
+                    @click="toggleTheme"
                 >
                     <Icon :name="themeIcon" />
                 </button>
@@ -182,6 +182,7 @@ const sidebarButtonToggleClasses = computed(() => ({
         );
         // background-size: 200%;
         -webkit-background-clip: text;
+        background-clip: text;
         -webkit-text-fill-color: transparent;
     }
 
@@ -216,9 +217,6 @@ const sidebarButtonToggleClasses = computed(() => ({
         &--compact {
             width: 100%;
         }
-    }
-
-    &__button-toggle-sidebar {
     }
 
     &__button-toggle-theme {

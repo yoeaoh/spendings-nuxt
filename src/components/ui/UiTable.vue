@@ -27,10 +27,10 @@ const props = defineProps<{
 
         <div class="ui-table__body">
             <!-- Поменять ключи ? -->
-            <div v-for="row in rows" class="ui-table__row">
+            <div v-for="row in rows" :key="row.id" class="ui-table__row">
                 <div
                     v-for="column in columns"
-                    :key="row.id"
+                    :key="column"
                     class="ui-table__cell"
                 >
                     {{ row[column] }}

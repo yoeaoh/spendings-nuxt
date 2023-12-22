@@ -38,10 +38,10 @@ const categoriesCardClasses = computed(() => ({
 
         <button
             v-if="hasSubCategories"
+            class="categories-card__button"
             @mouseover="isButtonHovered = true"
             @mouseleave="isButtonHovered = false"
             @click="isCardOpen = !isCardOpen"
-            class="categories-card__button"
         >
             {{ cardButtonText }}
         </button>
