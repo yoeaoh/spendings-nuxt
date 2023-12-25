@@ -13,7 +13,11 @@ defineProps<{
             <slot></slot>
         </div>
 
-        <button class="ui-form__button" type="submit">Добавить</button>
+        <ShadcnUiButton variant="secondary" type="submit">
+            Добавить
+        </ShadcnUiButton>
+
+        <ShadcnUiButton type="submit"> Добавитьs </ShadcnUiButton>
     </form>
 </template>
 

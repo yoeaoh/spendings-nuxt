@@ -3,10 +3,14 @@ import { resolvePath } from "@nuxt/kit";
 
 export default async () =>
     defineNuxtConfig({
+        eslint: {
+            lintOnStart: false,
+        },
         devtools: { enabled: false },
         css: ["~/assets/scss/global.scss"],
         alias: {
             "~/": await resolvePath("./src/"),
+            "~/components/": await resolvePath("./src/components/"),
         },
         srcDir: "src/",
         modules: [
@@ -14,6 +18,8 @@ export default async () =>
             "nuxt-icon",
             "@nuxtjs/google-fonts",
             "@nuxtjs/eslint-module",
+            "@nuxtjs/tailwindcss",
+            "shadcn-nuxt",
         ],
         googleFonts: {
             prefetch: true,
@@ -28,5 +34,9 @@ export default async () =>
                 Whisper: [400],
                 "Bebas Neue": [400],
             },
+        },
+        shadcn: {
+            prefix: "",
+            componentDir: "src/components/shadcn",
         },
     });

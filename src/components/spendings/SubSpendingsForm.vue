@@ -78,6 +78,7 @@ function addSubSpending() {
     <UiForm :action="addSubSpending" title="Добавить позицию:">
         <UiFormItem title="Остаток по чеку">
             <div>{{ availableSum }} BYN</div>
+            hehee
         </UiFormItem>
 
         <UiFormItem title="Название" :error="errors.name">
