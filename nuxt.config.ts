@@ -3,9 +3,6 @@ import { resolvePath } from "@nuxt/kit";
 
 export default async () =>
     defineNuxtConfig({
-        eslint: {
-            lintOnStart: false,
-        },
         devtools: { enabled: false },
         css: ["~/assets/scss/global.scss"],
         alias: {
@@ -36,7 +33,6 @@ export default async () =>
             },
         },
         shadcn: {
-            prefix: "",
-            componentDir: "src/components/shadcn",
+            componentDir: "src/components/ui",
         },
     });

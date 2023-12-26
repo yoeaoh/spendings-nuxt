@@ -21,6 +21,8 @@ const totalValue = computed(() => incomes.total - spendings.total);
         <div class="dashboard__column dashboard-column">
             <SpendingsForm />
 
+            <SpendingsShadcnSpendingsForm />
+
             <SpendingsList class="dashboard-column__list" />
 
             <TotalCard

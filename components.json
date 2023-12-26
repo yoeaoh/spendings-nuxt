@@ -9,7 +9,7 @@
   },
   "framework": "nuxt",
   "aliases": {
-    "components": "@/components/shadcn",
+    "components": "@/components",
     "utils": "@/lib/utils"
   }
 }
