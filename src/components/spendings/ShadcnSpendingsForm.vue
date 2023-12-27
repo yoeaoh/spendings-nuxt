@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { h } from "vue";
 import { useForm } from "vee-validate";
 import { toTypedSchema } from "@vee-validate/zod";
 import * as z from "zod";
@@ -7,12 +6,21 @@ import { vAutoAnimate } from "@formkit/auto-animate/vue";
 
 import { format } from "date-fns";
 import { cn } from "~/lib/utils";
-import { toast } from "@/components/ui/toast";
+
+import { type ISpendingDto } from "~/interfaces/spending.interface";
+import { DEFAULT_CATEGORY_ID } from "~/constants/categories.constants";
+import { useSpendingsStore } from "~/store/spendings.store";
+import { useCategoriesStore } from "~/store/categories.store";
+
+const spendings = useSpendingsStore();
+const categories = useCategoriesStore();
 
 const formSchema = toTypedSchema(
     z.object({
         sum: z.number().positive().max(10000),
-        description: z.string().min(0).max(100).optional(),
+        date: z.date(),
+        categoryId: z.string().default(DEFAULT_CATEGORY_ID),
+        name: z.string().min(0).max(100).optional(),
     }),
 );
 
@@ -21,14 +29,7 @@ const { handleSubmit } = useForm({
 });
 
 const onSubmit = handleSubmit((values: any) => {
-    toast({
-        title: "You submitted the following values:",
-        description: h(
-            "pre",
-            { class: "mt-2 w-[340px] rounded-md bg-slate-950 p-4" },
-            h("code", { class: "text-white" }, JSON.stringify(values, null, 2)),
-        ),
-    });
+    console.log(values);
 });
 </script>
 
@@ -45,7 +46,9 @@ const onSubmit = handleSubmit((values: any) => {
                         <FormControl>
                             <Input
                                 type="number"
+                                step=".01"
                                 placeholder="Сумма расхода"
+                                required
                                 v-bind="componentField"
                             />
                         </FormControl>
@@ -54,7 +57,7 @@ const onSubmit = handleSubmit((values: any) => {
                     </FormItem>
                 </FormField>
 
-                <FormField v-slot="{ componentField, value }" name="dob">
+                <FormField v-slot="{ componentField, value }" name="date">
                     <FormItem class="flex flex-col">
                         <FormLabel>Дата</FormLabel>
 
@@ -96,7 +99,37 @@ const onSubmit = handleSubmit((values: any) => {
                     </FormItem>
                 </FormField>
 
-                <FormField v-slot="{ componentField }" name="description">
+                <FormField v-slot="{ componentField }" name="categoryId">
+                    <FormItem>
+                        <FormLabel>Категория</FormLabel>
+
+                        <Select v-bind="componentField">
+                            <FormControl>
+                                <SelectTrigger>
+                                    <SelectValue
+                                        placeholder="Select a verified email to display"
+                                    />
+                                </SelectTrigger>
+                            </FormControl>
+
+                            <SelectContent>
+                                <SelectGroup>
+                                    <SelectItem
+                                        v-for="category in categories.items"
+                                        :key="category.id"
+                                        :value="category.id"
+                                    >
+                                        {{ category.name }}
+                                    </SelectItem>
+                                </SelectGroup>
+                            </SelectContent>
+                        </Select>
+
+                        <FormMessage />
+                    </FormItem>
+                </FormField>
+
+                <FormField v-slot="{ componentField }" name="name">
                     <FormItem v-auto-animate>
                         <FormLabel>Описание</FormLabel>
 
