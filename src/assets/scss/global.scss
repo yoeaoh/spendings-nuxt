@@ -12,6 +12,7 @@ html {
 
 body {
   background-color: hsl(232, 79%, 7%);
+//   background-color: hsl(222, 47%, 11%);
 }
 
 ul {
@@ -23,13 +24,6 @@ a:visited,
 a:active {
   text-decoration: none;
   color: hsl(100, 100%, 100%);
-}
-
-a:hover,
-a:focus {
-  // text-decoration-line: underline;
-  // text-underline-offset: 6px;
-  // text-decoration-thickness: 2px;
 }
 
 button {

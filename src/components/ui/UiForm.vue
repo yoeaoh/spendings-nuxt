@@ -13,7 +13,7 @@ defineProps<{
             <slot></slot>
         </div>
 
-        <Button type="submit">Добавить</Button>
+        <button type="submit" class="ui-form__button">Добавить</button>
     </form>
 </template>
 
