@@ -14,6 +14,7 @@ export default async () =>
             "nuxt-icon",
             "@nuxtjs/google-fonts",
             "@nuxtjs/eslint-module",
+            "@nuxt/ui",
         ],
         googleFonts: {
             prefetch: true,
