@@ -10,13 +10,9 @@ const props = defineProps<{
 const spendings = useSpendingsStore();
 
 const name: Ref<string> = ref("");
-const sum: Ref<number | null> = ref(null);
+const sum: Ref<number | undefined> = ref(undefined);
 
-const nameInput: Ref<HTMLInputElement | null> = ref(null);
-
-onMounted(() => {
-    nameInput.value?.focus();
-});
+const nameInput = ref();
 
 const errors: Ref<{ name: string; sum: string }> = ref({
     name: "",
@@ -24,7 +20,7 @@ const errors: Ref<{ name: string; sum: string }> = ref({
 });
 
 function checkSum() {
-    if (sum.value === null || sum.value <= 0) {
+    if (sum.value === undefined || sum.value <= 0) {
         errors.value.sum = "Введите сумму";
         return false;
     }
@@ -68,9 +64,9 @@ function addSubSpending() {
 
     if (errors) return;
 
-    sum.value = null;
+    sum.value = undefined;
     name.value = "";
-    nameInput.value?.focus();
+    nameInput.value?.input?.focus();
 }
 </script>
 
@@ -81,9 +77,10 @@ function addSubSpending() {
         </UiFormItem>
 
         <UiFormItem title="Название" :error="errors.name">
-            <input
+            <UInput
                 ref="nameInput"
                 v-model="name"
+                autofocus
                 type="text"
                 required
                 placeholder="Название продукта"
@@ -91,7 +88,7 @@ function addSubSpending() {
         </UiFormItem>
 
         <UiFormItem title="Сумма" :error="errors.sum">
-            <input
+            <UInput
                 v-model="sum"
                 type="number"
                 step=".01"

@@ -1,16 +1,22 @@
 <script lang="ts" setup>
-import { type ISpendingDto } from "~/interfaces/spending.interface";
+import { type ISpending } from "~/interfaces/spending.interface";
 import { formatDate } from "~/helpers/date.helper";
-import { DEFAULT_CATEGORY_ID } from "~/constants/categories.constants";
+import { DEFAULT_CATEGORY } from "~/constants/categories.constants";
 import { useSpendingsStore } from "~/store/spendings.store";
 import { useCategoriesStore } from "~/store/categories.store";
+import type { ICategory } from "~/interfaces/category.interface";
 
-const spendings = useSpendingsStore();
-const categories = useCategoriesStore();
+const spendingsStore = useSpendingsStore();
+const categoriesStore = useCategoriesStore();
 
-const sum: Ref<number | null> = ref(null);
+const { items: spendings } = storeToRefs(spendingsStore);
+const { addNewItem } = spendingsStore;
+
+const { items: categories } = storeToRefs(categoriesStore);
+
+const sum: Ref<number | undefined> = ref(undefined);
 const date: Ref<string> = ref(formatDate());
-const categoryId: Ref<string> = ref(DEFAULT_CATEGORY_ID);
+const category: Ref<ICategory> = ref(DEFAULT_CATEGORY);
 const name: Ref<string> = ref("");
 
 const errors: Ref<{ sum: string; date: string }> = ref({
@@ -19,7 +25,7 @@ const errors: Ref<{ sum: string; date: string }> = ref({
 });
 
 function checkSum() {
-    if (sum.value === null || sum.value <= 0) {
+    if (sum.value === undefined || sum.value <= 0) {
         errors.value.sum = "Введите сумму";
         return false;
     }
@@ -44,17 +50,17 @@ function addSpending() {
 
     if (!isSumValid || !isDateValid) return;
 
-    const newSpending: ISpendingDto = {
+    const newSpending: ISpending = {
         id: Date.now().toString(),
         sum: sum.value as number,
         date: date.value,
-        categoryId: categoryId.value,
+        category: category.value,
         name: name.value,
     };
 
-    spendings.addNewItem(newSpending);
+    addNewItem(newSpending);
 
-    sum.value = null;
+    sum.value = undefined;
     name.value = "";
 }
 </script>
@@ -62,7 +68,7 @@ function addSpending() {
 <template>
     <UiForm :action="addSpending" title="Добавить расход:">
         <UiFormItem title="Сумма" :error="errors.sum">
-            <input
+            <UInput
                 v-model="sum"
                 type="number"
                 step=".01"
@@ -74,24 +80,22 @@ function addSpending() {
         </UiFormItem>
 
         <UiFormItem title="Дата" :error="errors.date">
-            <input v-model="date" type="date" required />
+            <UInput v-model="date" type="date" required />
         </UiFormItem>
 
         <UiFormItem title="Категория">
-            <select v-model="categoryId">
-                <option selected disabled>Выберите категорию:</option>
-                <option
-                    v-for="category in categories.items"
-                    :key="category.id"
-                    :value="category.id"
-                >
-                    {{ category.name }}
-                </option>
-            </select>
+            <USelectMenu
+                v-model:model-value="category"
+                searchable
+                placeholder="Выберите категорию:"
+                :options="categories"
+                option-attribute="name"
+                :search-attributes="['name']"
+            />
         </UiFormItem>
 
         <UiFormItem title="Описание">
-            <input
+            <UInput
                 v-model="name"
                 type="text"
                 placeholder="Дополнительная информация"

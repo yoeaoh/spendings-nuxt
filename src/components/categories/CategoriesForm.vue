@@ -47,7 +47,7 @@ function addCategory() {
 <template>
     <UiForm :action="addCategory" title="Добавить категорию:">
         <UiFormItem title="Название" :error="errors.name">
-            <input
+            <UInput
                 v-model="name"
                 placeholder="Название категории"
                 type="text"

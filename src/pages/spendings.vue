@@ -30,7 +30,7 @@ const computedSpendings: ComputedRef<
     if (isFlattenToggle.value === true) {
         const flatSpendings = spendings.items
             .map((i: ISpending) => {
-                if (i.subSpendings.length > 0) {
+                if (i.subSpendings?.length) {
                     return i.subSpendings;
                 }
 

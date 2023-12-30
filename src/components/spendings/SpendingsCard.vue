@@ -14,12 +14,13 @@ const isCardOpen = ref<Boolean>(false);
 const isButtonHovered = ref<Boolean>(false);
 
 const availableSum = computed(() => {
-    const subSpendingsSum = props.spending.subSpendings.reduce(
-        (sum: number, currSpending: ISubSpending) => {
-            return sum + currSpending.sum;
-        },
-        0,
-    );
+    const subSpendingsSum =
+        props.spending.subSpendings?.reduce(
+            (sum: number, currSpending: ISubSpending) => {
+                return sum + currSpending.sum;
+            },
+            0,
+        ) || 0;
 
     const availableSum = props.spending.sum - subSpendingsSum;
 
@@ -32,7 +33,7 @@ const cardButtonText = computed(() =>
 
 const formattedDate = computed(() => formatDate(new Date(props.spending.date)));
 
-const hasSubSpendings = computed(() => props.spending.subSpendings.length);
+const hasSubSpendings = computed(() => props.spending.subSpendings?.length);
 
 function openCardModal() {
     isModalOpen.value = true;

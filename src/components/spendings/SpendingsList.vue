@@ -36,11 +36,13 @@ const filteredSpendings = computed(() => {
             );
         case FilterVariants.ASC_DATE.key:
             return spendings.items.toSorted(
-                (a: ISpending, b: ISpending) => a.date - b.date,
+                (a: ISpending, b: ISpending) =>
+                    Number.parseInt(a.date) - Number.parseInt(b.date),
             );
         case FilterVariants.DESC_DATE.key:
             return spendings.items.toSorted(
-                (a: ISpending, b: ISpending) => b.date - a.date,
+                (a: ISpending, b: ISpending) =>
+                    Number.parseInt(b.date) - Number.parseInt(a.date),
             );
     }
 });

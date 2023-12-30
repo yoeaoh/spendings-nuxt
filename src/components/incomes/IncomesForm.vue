@@ -5,7 +5,7 @@ import { useIncomesStore } from "~/store/incomes.store";
 const incomes = useIncomesStore();
 
 const name: Ref<string> = ref("");
-const sum: Ref<number | null> = ref(null);
+const sum: Ref<number | undefined> = ref(undefined);
 const date: Ref<string> = ref(formatDate());
 
 const errors: Ref<{ sum: string; date: string }> = ref({
@@ -14,7 +14,7 @@ const errors: Ref<{ sum: string; date: string }> = ref({
 });
 
 function checkSum() {
-    if (sum.value === null || sum.value <= 0) {
+    if (sum.value === undefined || sum.value <= 0) {
         errors.value.sum = "Введите сумму";
         return false;
     }
@@ -49,14 +49,14 @@ function addIncome() {
     incomes.addNewItem(newIncome);
 
     name.value = "";
-    sum.value = null;
+    sum.value = undefined;
 }
 </script>
 
 <template>
     <UiForm :action="addIncome" title="Добавить доход:">
         <UiFormItem title="Сумма" :error="errors.sum">
-            <input
+            <UInput
                 v-model="sum"
                 type="number"
                 placeholder="Сумма дохода"
@@ -65,11 +65,11 @@ function addIncome() {
         </UiFormItem>
 
         <UiFormItem title="Название">
-            <input v-model="name" type="text" placeholder="Название" />
+            <UInput v-model="name" type="text" placeholder="Название" />
         </UiFormItem>
 
         <UiFormItem title="Дата" :error="errors.date">
-            <input v-model="date" type="date" required />
+            <UInput v-model="date" type="date" required />
         </UiFormItem>
     </UiForm>
 </template>

@@ -3,12 +3,8 @@ import { useGlobalStore } from "~/store/global.store";
 
 // TODO: Добавить стор для тёмной темы
 const globalStore = useGlobalStore();
-const { theme, isSidebarOpen } = storeToRefs(globalStore);
-const { toggleTheme, toggleSidebar } = globalStore;
-
-const themeIcon = computed(() =>
-    theme.value === "light" ? "ph:sun-bold" : "ph:moon-bold",
-);
+const { isSidebarOpen } = storeToRefs(globalStore);
+const { toggleSidebar } = globalStore;
 
 const sidebarLogoText = computed(() =>
     isSidebarOpen.value ? "/ Spend" : "/S",
@@ -143,14 +139,7 @@ const sidebarButtonToggleClasses = computed(() => ({
                     <Icon name="ph:sidebar-simple-bold" />
                 </button>
 
-                <button
-                    type="button"
-                    :class="sidebarButtonToggleClasses"
-                    class="sidebar__button-toggle sidebar__button-toggle-theme"
-                    @click="toggleTheme"
-                >
-                    <Icon :name="themeIcon" />
-                </button>
+                <UiColorModeButton class="ml-auto" />
             </div>
         </div>
     </div>

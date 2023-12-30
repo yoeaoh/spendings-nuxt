@@ -3,6 +3,9 @@ import { resolvePath } from "@nuxt/kit";
 
 export default async () =>
     defineNuxtConfig({
+        colorMode: {
+            preference: "dark",
+        },
         devtools: { enabled: false },
         css: ["~/assets/scss/global.scss"],
         alias: {
@@ -28,6 +31,12 @@ export default async () =>
                 Inter: [300, 400, 500, 600, 700, 800],
                 Whisper: [400],
                 "Bebas Neue": [400],
+            },
+        },
+        appConfig: {
+            ui: {
+                primary: "violet",
+                gray: "slate",
             },
         },
     });
